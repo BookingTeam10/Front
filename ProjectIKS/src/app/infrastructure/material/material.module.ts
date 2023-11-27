@@ -6,8 +6,12 @@ import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {MatFormFieldModule, MatLabel} from "@angular/material/form-field";
+import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatInputModule} from "@angular/material/input";
-import { FlexLayoutModule } from '@angular/flex-layout';
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 
 
@@ -22,6 +26,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    ReactiveFormsModule
   ],
   exports: [
     MatToolbarModule,
@@ -31,7 +38,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
-    MatLabel
+    MatLabel,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class MaterialModule { }

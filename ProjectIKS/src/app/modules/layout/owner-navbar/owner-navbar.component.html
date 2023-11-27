@@ -1,1 +1,11 @@
-<p>owner-navbar works!</p>
+<mat-toolbar>
+  <span [routerLink]="['/guests']" >Booking</span>
+  <div>
+    <button [routerLink]="['']"  style="float: right" mat-raised-button >Profile</button>
+    <button [routerLink]="['']"  style="float: right" mat-raised-button >Reservations</button>
+    <button [routerLink]="['']"  style="float: right" mat-raised-button >Notifications</button>
+    <button [routerLink]="['home']" style="float: right" mat-raised-button >Logout</button>
+
+  </div>
+</mat-toolbar>
+
