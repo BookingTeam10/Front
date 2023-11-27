@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "WineApp": {
+    "ProjectIKS": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/wine-app",
+            "outputPath": "dist/ProjectIKS",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -61,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "WineApp:build:production"
+              "browserTarget": "ProjectIKS:build:production"
             },
             "development": {
-              "browserTarget": "WineApp:build:development"
+              "browserTarget": "ProjectIKS:build:development"
             }
           },
           "defaultConfiguration": "development"
