@@ -15,14 +15,6 @@ export class AccommodationDetailsComponent implements OnInit{
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      // const id = +params['accommodationId']
-      // // if (id === 'home') {
-      // //   // Redirect to MainComponent
-      // //   this.router.navigate(['/main']);
-      // // }
-      // // this.accommodationService.getAccommodations(id).subscribe({
-      // //   next: (data: Accommodation) => { this.accommodation = data }
-      // // })
       // this.accommodation = {id : 1, description : "Apartment1",minPeople:3,maxPeople:5};
       console.log("proveraaa",this.route.snapshot.params['accommodationId']);
         let id_string: string = this.route.snapshot.params['accommodationId'];

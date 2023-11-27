@@ -1,7 +1,8 @@
 <mat-toolbar>
-  <span [routerLink]="['home']" >Booking</span>
+  <span (click)="toHome()" >Booking</span>
   <div>
-    <button [routerLink]="['login']" style="float: right" mat-raised-button >Login</button>
-    <button [routerLink]="['signup']"  style="float: right" mat-raised-button >Signup</button>
+    <button (click)="toLogin()" style="float: right" mat-raised-button >Login</button>
+    <button (click)="toSignup()"  style="float: right" mat-raised-button >Signup</button>
   </div>
 </mat-toolbar>
+
