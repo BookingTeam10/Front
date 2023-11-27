@@ -1,5 +1,5 @@
 
-<mat-toolbar style = "display: flex; justify-content: center; margin-bottom: 30px; height: 100px">
+<mat-toolbar style = "display: flex; justify-content: center; margin-bottom: 30px; height: 150px">
   <form class="cities-form">
     <input  id="city-input" type="text"
             placeholder="City"
@@ -26,6 +26,8 @@
 
   <mat-date-range-picker #picker></mat-date-range-picker>
   <mat-form-field>
-    <input matInput type="number" formControlName="phoneNumber" placeholder="Enter a number" min="0">
+    <input matInput type="number" formControlName="phoneNumber" placeholder="Add number guests" min="0">
   </mat-form-field>
+  <button mat-raised-button color="primary" >Select</button>
 </mat-toolbar>
+
