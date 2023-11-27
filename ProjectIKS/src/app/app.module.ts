@@ -6,9 +6,9 @@ import { AppComponent } from './app.component';
 import {UnregisteredUserModule} from "./modules/unregistered-user/unregistered-user.module";
 import {LayoutModule} from "./modules/layout/layout.module";
 import {AuthModule} from "./modules/auth/auth.module";
-import {MatCardModule} from "@angular/material/card";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {AccommodationsModule} from "./modules/accommodations/accommodations.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {GuestModule} from "./modules/guest/guest.module";
 
 
 @NgModule({
@@ -21,9 +21,9 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     UnregisteredUserModule,
     LayoutModule,
     AuthModule,
-    MatCardModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    AccommodationsModule,
+    GuestModule
   ],
   providers: [],
   bootstrap: [AppComponent]

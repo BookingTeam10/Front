@@ -1,0 +1,32 @@
+/* General styles for your existing classes and elements */
+.details-accommodation-container {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  background: #ADD8E6;
+}
+
+.details-accommodation-details {
+  width: 80%;
+  height: 250px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  background: #FFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px;
+  margin-top:30px;
+
+}
+
+mat-progress-bar{
+  margin-top: 30px;
+  width: 80%;
+}
+
+/* Add styles for other elements as needed */

@@ -1,7 +1,7 @@
-<mat-toolbar>
-  <span [routerLink]="['home']" >Booking</span>
-  <div>
-    <button [routerLink]="['login']" style="float: right" mat-raised-button >Login</button>
-    <button [routerLink]="['signup']"  style="float: right" mat-raised-button >Signup</button>
-  </div>
-</mat-toolbar>
+<div>
+  <app-owner-navbar *ngIf="role === 'owner'"></app-owner-navbar>
+  <app-guest-navbar *ngIf="role === 'guest'"></app-guest-navbar>
+  <app-administrator-navbar *ngIf="role=== 'administrator'"></app-administrator-navbar>
+  <app-unregistered-user-navbar *ngIf="role === 'user'" ></app-unregistered-user-navbar>
+</div>
+
