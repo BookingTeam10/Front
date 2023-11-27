@@ -10,7 +10,7 @@ import {map, Observable, startWith} from "rxjs";
 export class SearchComponent {
 
   myControl = new FormControl('');
-  options: string[] = ['Ankara','Arad','Belgrade','Bucharest','Budapest','Cologne','Dresden',"Duisburg",'Durres'];
+  options: string[] = ['Belgrade','Novi Sad','Rome','Prague','Budapest','Sabac','Barcelona',"Madrid",'Istanbul'];
   filteredOptions: Observable<string[]>;
 
   ngOnInit() {
