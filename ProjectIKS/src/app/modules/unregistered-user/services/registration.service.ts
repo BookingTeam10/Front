@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {enviroment} from "../../../enviroment/enviroment";
+import {environment} from "../../../environment/environment";
 import {Registration} from "../../../models/registration";
 
 @Injectable({
@@ -18,7 +18,7 @@ export class RegistrationService {
 
   registration(signUpData: Registration):Observable<Registration> {
     console.log("USLO JE OVDE REG")
-    return this.http.post<Registration>(enviroment.apiHost+'/unregistredUsers/register',
+    return this.http.post<Registration>(environment.apiHost+'/unregistredUsers/register',
       {
         email: signUpData.email,
         password: signUpData.password,

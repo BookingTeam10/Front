@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {LoginService} from "../../auth/login/service/login.service";
@@ -6,16 +5,12 @@ import {MatRadioChange} from "@angular/material/radio";
 import {RegistrationService} from "../services/registration.service";
 import {Registration} from "../../../models/registration";
 
-=======
-import { Component } from '@angular/core';
->>>>>>> feature/3.5-view-accommodations
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-<<<<<<< HEAD
 export class SignupComponent implements OnInit{
 
   allTextPattern = "[a-zA-Z][a-zA-Z]*";
@@ -60,8 +55,5 @@ export class SignupComponent implements OnInit{
   }
   ngOnInit(): void {
   }
-=======
-export class SignupComponent {
->>>>>>> feature/3.5-view-accommodations
 
 }

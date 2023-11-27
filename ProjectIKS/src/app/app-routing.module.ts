@@ -14,7 +14,7 @@ import {GuestHomeComponent} from "./modules/guest/guest-home/guest-home.componen
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: UnregisteredUserHomeComponent },
-  {path : 'signup',component:SignupComponent},
+  {path : 'register',component:SignupComponent},
   {path : 'login',component:LoginComponent},
   {component:AccommodationDetailsComponent, path:"home/:accommodationId"},
   {path : 'guests',component:GuestHomeComponent},
