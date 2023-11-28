@@ -10,13 +10,13 @@ import { GuestHomeComponent } from './guest-home/guest-home.component';
 
 @NgModule({
   declarations: [
-
     GuestHomeComponent
   ],
-  imports: [
-    CommonModule,
-    LayoutModule
-  ],
+    imports: [
+        CommonModule,
+        LayoutModule
+    ],
+
   exports: [
     GuestHomeComponent
   ]

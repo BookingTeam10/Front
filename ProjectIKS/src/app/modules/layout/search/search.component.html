@@ -1,0 +1,33 @@
+
+<mat-toolbar style = "display: flex; justify-content: center; margin-bottom: 30px; height: 150px">
+  <form class="cities-form">
+    <input  id="city-input" type="text"
+            placeholder="City"
+            matInput
+            [formControl]="myControl"
+            [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+  </form>
+
+  <mat-form-field>
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate placeholder="Start date">
+      <input matEndDate placeholder="End date">
+    </mat-date-range-input>
+    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+
+  <mat-date-range-picker #picker></mat-date-range-picker>
+  <mat-form-field>
+    <input matInput type="number" formControlName="phoneNumber" placeholder="Add number guests" min="0">
+  </mat-form-field>
+  <button mat-raised-button color="primary" >Select</button>
+</mat-toolbar>
+

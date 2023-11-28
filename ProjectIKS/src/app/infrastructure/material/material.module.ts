@@ -41,6 +41,5 @@ import {MatNativeDateModule} from "@angular/material/core";
     MatLabel,
     MatDatepickerModule,
     MatNativeDateModule
-  ]
-})
+]})
 export class MaterialModule { }

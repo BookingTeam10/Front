@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
   UnregisteredUserHomeComponent
@@ -13,7 +13,7 @@ import {GuestHomeComponent} from "./modules/guest/guest-home/guest-home.componen
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
-  { path: 'home', component: UnregisteredUserHomeComponent },
+  {component: UnregisteredUserHomeComponent, path:"home"},
   {path : 'register',component:SignupComponent},
   {path : 'login',component:LoginComponent},
   {component:AccommodationDetailsComponent, path:"home/:accommodationId"},

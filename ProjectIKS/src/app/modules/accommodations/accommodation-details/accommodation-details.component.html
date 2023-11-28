@@ -1,5 +1,25 @@
-<div id="accommodation-details">
-  <b>{{accommodation.id}}</b>
-  <p>{{accommodation.description}}</p>
-  <p>{{accommodation.maxPeople}}</p>
+<app-unregistered-user-navbar></app-unregistered-user-navbar>
+<div class="details-accommodation-container">
+  <div class="details-accommodation-details">
+    <p>Describe: {{accommodation.description}}</p>
+    <p>Type:</p>
+    <p>Minimum people: {{accommodation.minPeople}}</p>
+    <p>Maximum people: {{accommodation.maxPeople}}</p>
+    <p>Owner: </p>
+  </div>
+
+  <p style="font-size: 20px;font-family: 'Adobe Fangsong Std R'">Location</p>
+  <div class="details-accommodation-details" style="height: 150px;margin-bottom: 30px">
+    <p>City:</p>
+    <p>Address: </p>
+    <p>Street</p>
+  </div>
+  <p style="font-size: 20px;font-family: 'Adobe Fangsong Std R'">Rating Accommodation</p>
+
+  <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+  <div class="details-accommodation-details" style="height: 150px;margin-bottom: 30px; background-color: aquamarine">
+    <p>Guest:</p>
+    <p>Comment: </p>
+    <p>Rate: </p>
+  </div>
 </div>

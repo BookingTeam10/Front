@@ -7,6 +7,7 @@ import { UnregisteredUserNavbarComponent } from './unregistered-user-navbar/unre
 import { GuestNavbarComponent } from './guest-navbar/guest-navbar.component';
 import { AdministratorNavbarComponent } from './administrator-navbar/administrator-navbar.component';
 import { OwnerNavbarComponent } from './owner-navbar/owner-navbar.component';
+import { SearchComponent } from './search/search.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatOptionModule} from "@angular/material/core";
@@ -20,7 +21,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     UnregisteredUserNavbarComponent,
     GuestNavbarComponent,
     AdministratorNavbarComponent,
-    OwnerNavbarComponent
+    OwnerNavbarComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule,
@@ -35,6 +37,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   exports: [
     NavbarComponent,
     GuestNavbarComponent,
+    SearchComponent,
     UnregisteredUserNavbarComponent
   ],
 })
