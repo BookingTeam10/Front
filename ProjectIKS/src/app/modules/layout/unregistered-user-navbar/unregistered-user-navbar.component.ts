@@ -16,6 +16,11 @@ export class UnregisteredUserNavbarComponent {
   toSignup() {
     this.router.navigate(['/register']);
   }
+
+  toEditAccount(){
+    this.router.navigate(['/edit-owner-profile'])
+  }
+
   toHome() {
     this.router.navigate(['/home']);
   }
