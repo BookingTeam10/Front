@@ -1,5 +1,7 @@
 mat-toolbar {
   background-color: #ffffff;
+  margin-right: 50px;
+  height: 150px;
 }
 
 div {
@@ -11,10 +13,8 @@ button {
   margin-right: 50px;
 }
 form{
-  margin-right: 50px;
 }
 mat-form-field{
   margin-right: 50px;
 
 }
-

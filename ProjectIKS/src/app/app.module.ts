@@ -8,6 +8,9 @@ import {AuthModule} from "./modules/auth/auth.module";
 import {AccommodationsModule} from "./modules/accommodations/accommodations.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {GuestModule} from "./modules/guest/guest.module";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {ReactiveFormsModule} from "@angular/forms";
+
 
 
 
@@ -23,7 +26,9 @@ import {GuestModule} from "./modules/guest/guest.module";
     AuthModule,
     BrowserAnimationsModule,
     AccommodationsModule,
-    GuestModule
+    GuestModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,6 +5,7 @@ import { EditProfileOwnerComponent } from './owner-account-management/edit-profi
 
 
 @NgModule({
+
   declarations: [
     EditProfileOwnerComponent
   ],
