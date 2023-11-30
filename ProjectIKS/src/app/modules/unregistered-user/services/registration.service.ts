@@ -17,8 +17,7 @@ export class RegistrationService {
   constructor(private http: HttpClient) { }
 
   registration(signUpData: Registration):Observable<Registration> {
-    console.log("USLO JE OVDE REG")
-    return this.http.post<Registration>(environment.apiHost+'/unregistredUsers/register',
+    return this.http.post<Registration>(environment.apiHost+'/register',
       {
         email: signUpData.email,
         password: signUpData.password,

@@ -8,10 +8,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./edit-profile-owner.component.css']
 })
 export class EditProfileOwnerComponent {
-  email: string = '';
-  password: string = '';
-  name: string = '';
-  surname: string = '';
-  address: string = '';
-  phone: string = '';
+  emailVal: string = 'aleksa@gmail.com';
+  passwordVal: string = 'aleksa';
+  nameVal: string = 'Aleksa';
+  surnameVal: string = 'Janjiċ';
+  addressVal: string = 'Bulevar Kralja Petra 15';
+  phoneVal: string = '064512390';
+  createdNot: boolean = true;
+  cancelledNot: boolean = false;
+  rateNot: boolean = true;
+  rateAccNot: boolean = false;
 }

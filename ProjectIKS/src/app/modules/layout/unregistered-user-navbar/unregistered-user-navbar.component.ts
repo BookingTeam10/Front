@@ -11,17 +11,16 @@ export class UnregisteredUserNavbarComponent {
   constructor(private router: Router) {
   }
   toLogin() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/users/login']);
   }
   toSignup() {
     this.router.navigate(['/register']);
   }
+  toHome() {
+    this.router.navigate(['/accommodations']);
+  }
 
   toEditAccount(){
     this.router.navigate(['/edit-owner-profile'])
-  }
-
-  toHome() {
-    this.router.navigate(['/home']);
   }
 }

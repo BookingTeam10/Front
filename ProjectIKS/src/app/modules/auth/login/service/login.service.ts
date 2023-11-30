@@ -13,7 +13,6 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   login(loginData:Login): Observable<Login> {
-    console.log("USLO JE OVDE WEB")
     console.log(loginData.email,loginData.password)
     return this.http.post<Login>(environment.apiHost+'/users/login', loginData);
   }

@@ -13,23 +13,22 @@
   justify-content: center;
 }
 
-/* edit-profile-owner.component.css */
 
 .container {
 
-  width: 400px; /* Adjust the width as needed */
+  width: 400px;
   margin: 20px auto auto;
 
-  text-align: center; /* Center the form horizontally */
+  text-align: center;
 }
 
 .form-group {
-  margin-bottom: 40px; /* Adjust the spacing between input fields */
+  margin-bottom: 40px;
 }
 
 .form-group2 {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   margin-bottom: 10px;
   font-size: 1.2em;
 }
@@ -37,15 +36,15 @@
 input[type="checkbox"] {
   margin-right: 5px;
   flex-shrink: 0;
-  width: 20px; /* Set the desired width */
+  width: 20px;
 }
 
 input {
-  width: 100%; /* Make the input fields wider */
-  padding: 10px; /* Add padding for better appearance */
-  border: 2px solid #ccc; /* Add a border for better visibility */
-  border-radius: 20px; /* Make the input fields round */
-  box-sizing: border-box; /* Include padding and border in the input's total width */
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  box-sizing: border-box;
 }
 
 .button-group {
@@ -71,10 +70,10 @@ button:hover {
 
 .delete-button {
   background-color: white;
-  color: #cc0000; /* Red color for delete button */
+  color: #cc0000;
 }
 
 .save-button {
   background-color: white;
-  color: #006600; /* Green color for save button */
+  color: #006600;
 }
