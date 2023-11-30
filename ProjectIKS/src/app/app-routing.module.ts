@@ -10,14 +10,18 @@ import {
   AccommodationDetailsComponent
 } from "./modules/accommodations/accommodation-details/accommodation-details.component";
 import {GuestHomeComponent} from "./modules/guest/guest-home/guest-home.component";
+import {
+  EditProfileOwnerComponent
+} from "./modules/owner/owner-account-management/edit-profile-owner/edit-profile-owner.component";
 
 const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {component: UnregisteredUserHomeComponent, path:"home"},
+  {path: '', redirectTo: 'accommodations', pathMatch: 'full'},
+  {component: UnregisteredUserHomeComponent, path:"accommodations"},
   {path : 'register',component:SignupComponent},
-  {path : 'login',component:LoginComponent},
-  {component:AccommodationDetailsComponent, path:"home/:accommodationId"},
+  {path : 'users/login',component:LoginComponent},
+  {component:AccommodationDetailsComponent, path:"accommodations/:accommodationId"},
   {path : 'guests',component:GuestHomeComponent},
+  {path : 'edit-owner-profile', component: EditProfileOwnerComponent}
 ];
 
 @NgModule({

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import {FormControl} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {map, Observable, startWith} from "rxjs";
-
+import {Registration} from "../../../models/registration";
+import {Search} from "../../../models/search";
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -25,4 +26,13 @@ export class SearchComponent {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
+  citiesForm=new FormGroup({
+    formControl: new FormControl('', [Validators.required])
+  })
+
+  selectClicked() {
+    const searchData:Search={
+      email:this.citiesForm.value.formControl || ""
+    }
+  }
 }

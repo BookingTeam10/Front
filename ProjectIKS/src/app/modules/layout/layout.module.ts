@@ -34,11 +34,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     ReactiveFormsModule,
     MatDatepickerModule,
   ],
-    exports: [
-        NavbarComponent,
-        GuestNavbarComponent,
-        SearchComponent,
-        UnregisteredUserNavbarComponent
-    ],
+  exports: [
+    NavbarComponent,
+    GuestNavbarComponent,
+    SearchComponent,
+    UnregisteredUserNavbarComponent
+  ],
 })
 export class LayoutModule { }

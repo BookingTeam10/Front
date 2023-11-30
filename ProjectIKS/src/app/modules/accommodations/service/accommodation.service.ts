@@ -12,6 +12,7 @@ export class AccommodationService {
   constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<Accommodation[]> {
+    console.log(environment.apiHost + '/accommodations');
     return this.httpClient.get<Accommodation[]>(environment.apiHost + '/accommodations')
   }
 

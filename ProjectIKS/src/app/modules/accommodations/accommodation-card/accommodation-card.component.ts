@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Accommodation} from "../../../models/accommodation";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-accommodation-card',
@@ -7,6 +8,8 @@ import {Accommodation} from "../../../models/accommodation";
   styleUrls: ['./accommodation-card.component.css']
 })
 export class AccommodationCardComponent {
+  constructor(private router: Router) {
+  }
   @Input()
   accommodation: Accommodation;
 
@@ -15,5 +18,9 @@ export class AccommodationCardComponent {
 
   onAccommodationClicked(): void {
     this.clicked.emit(this.accommodation);
+  }
+
+  toDetails(id: number) {
+      this.router.navigate(['/accommodations', id]);
   }
 }

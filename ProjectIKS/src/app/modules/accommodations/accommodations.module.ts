@@ -39,6 +39,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
   exports:[
     AccommodationCardComponent,
     AccommodationCardsComponent,
+    HttpClientModule
   ]
 })
 export class AccommodationsModule { }
