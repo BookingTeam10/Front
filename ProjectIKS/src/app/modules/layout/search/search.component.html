@@ -12,15 +12,15 @@
     </mat-autocomplete>
 
     <mat-form-field>
-      <input matInput type="number" placeholder="Add number guests" min="0">
+      <input matInput type="number" id="number-guests" [formControl]="numberOfGuests" placeholder="Add number guests" min="0">
     </mat-form-field>
   </form>
 
   <mat-form-field>
     <mat-label>Enter a date range</mat-label>
     <mat-date-range-input [rangePicker]="picker">
-      <input matStartDate placeholder="Start date">
-      <input matEndDate placeholder="End date">
+      <input matStartDate [(ngModel)] = "startDate" placeholder="Start date">
+      <input matEndDate [(ngModel)] = "endDate" placeholder="End date">
     </mat-date-range-input>
     <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>

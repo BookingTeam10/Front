@@ -13,6 +13,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {LayoutModule} from "../layout/layout.module";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {SharedModule} from "../shared/shared.module";
 
 
 
@@ -22,20 +23,21 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     AccommodationCardComponent,
     AccommodationDetailsComponent
   ],
-  imports: [
-    CommonModule,
-    MatCardModule,
-    RouterLink,
-    HttpClientModule,
-    FlexLayoutModule,
-    MatAutocompleteModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatDatepickerModule,
-    LayoutModule,
-    MatProgressBarModule,
-    RouterLink
-  ],
+    imports: [
+        CommonModule,
+        MatCardModule,
+        RouterLink,
+        HttpClientModule,
+        FlexLayoutModule,
+        MatAutocompleteModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        LayoutModule,
+        MatProgressBarModule,
+        RouterLink,
+        SharedModule
+    ],
   exports:[
     AccommodationCardComponent,
     AccommodationCardsComponent,

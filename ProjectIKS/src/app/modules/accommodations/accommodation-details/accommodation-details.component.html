@@ -2,17 +2,17 @@
 <div class="details-accommodation-container">
   <div class="details-accommodation-details">
     <p>Describe: {{accommodation.description}}</p>
-    <p>Type: Apartment</p>
+    <p>Type: {{accommodation.type}}</p>
     <p>Minimum people: {{accommodation.minPeople}}</p>
     <p>Maximum people: {{accommodation.maxPeople}}</p>
-    <p>Owner: Luka Popovic</p>
+    <p>Owner: {{accommodation.owner}}</p>
   </div>
 
   <p style="font-size: 20px;font-family: 'Adobe Fangsong Std R'">Location</p>
   <div class="details-accommodation-details" style="height: 150px;margin-bottom: 30px">
-    <p>City: Novi Sad</p>
-    <p>Street: Gunuliceva </p>
-    <p>Number: 21</p>
+    <p>City: {{accommodation.location.city}}</p>
+    <p>Street: {{accommodation.location.street}} </p>
+    <p>Number: {{accommodation.location.number}}</p>
   </div>
   <div class="details-accommodation-details" style="height: 200px; margin-bottom: 30px">
     <img src="assets/images/city.png" alt="Slika smeštaja" style="width:60%; display: block; margin: auto; height: 180px; padding: 10px; border-radius: 20px;">
@@ -23,6 +23,9 @@
   <div class="details-accommodation-details" style="height: 150px;margin-bottom: 30px; background-color: aquamarine">
     <p>Guest: Matija Popovic</p>
     <p>Comment: Ok</p>
-    <p>Rate: 4</p>
+    <p>Rate: {{accommodation.rating}}</p>
   </div>
+  <button class="reservation_button" mat-raised-button color="primary" (click)="reserveAccommodation(accommodation)">Reservation accommodation</button>
 </div>
+
+

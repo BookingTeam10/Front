@@ -27,3 +27,13 @@ mat-progress-bar{
   margin-top: 30px;
   width: 80%;
 }
+
+.reservation_button{
+  margin-top: 30px;
+  margin-bottom: 50px;
+  width: 60%;
+  height: 50px;
+  background-color: rgba(75, 79, 77, 0.81);
+  border-color: #006600;
+  color: #eeeeee;
+}
