@@ -7,12 +7,18 @@ import {RouterLink} from "@angular/router";
 import { AccommodationDetailsComponent } from './accommodation-details/accommodation-details.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FlexLayoutModule} from "@angular/flex-layout";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {LayoutModule} from "../layout/layout.module";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import { AccommodationCreateComponent } from './accommodation-create/accommodation-create.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatRadioModule} from "@angular/material/radio";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
+import {MatTableModule} from "@angular/material/table";
 
 
 
@@ -20,7 +26,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
   declarations: [
     AccommodationCardsComponent,
     AccommodationCardComponent,
-    AccommodationDetailsComponent
+    AccommodationDetailsComponent,
+    AccommodationCreateComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +41,13 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     MatDatepickerModule,
     LayoutModule,
     MatProgressBarModule,
-    RouterLink
+    RouterLink,
+    MatButtonModule,
+    MatRadioModule,
+    MatToolbarModule,
+    MatIconModule,
+    FormsModule,
+    MatTableModule
   ],
   exports:[
     AccommodationCardComponent,

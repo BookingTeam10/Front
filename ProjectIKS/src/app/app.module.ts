@@ -10,6 +10,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {GuestModule} from "./modules/guest/guest.module";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
+import {MatTable, MatTableModule} from "@angular/material/table";
 
 
 
@@ -28,7 +29,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     AccommodationsModule,
     GuestModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
