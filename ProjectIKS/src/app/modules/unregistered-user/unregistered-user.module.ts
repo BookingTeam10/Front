@@ -19,19 +19,19 @@ import {LayoutModule} from "../layout/layout.module";
     SignupComponent,
     UnregisteredUserHomeComponent,
   ],
-    imports: [
-        CommonModule,
-        FlexModule,
-        MatButtonModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatToolbarModule,
-        MatRadioModule,
-        ReactiveFormsModule,
-        AccommodationsModule,
-        LayoutModule
-    ],
+  imports: [
+    CommonModule,
+    FlexModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatToolbarModule,
+    MatRadioModule,
+    ReactiveFormsModule,
+    LayoutModule,
+    AccommodationsModule
+  ],
   exports: [
     UnregisteredUserHomeComponent,
     SignupComponent
