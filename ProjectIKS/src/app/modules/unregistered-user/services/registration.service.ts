@@ -17,14 +17,8 @@ export class RegistrationService {
   constructor(private http: HttpClient) { }
 
   registration(signUpData: Registration):Observable<Registration> {
-    return this.http.post<Registration>(environment.apiHost+'/register',
-      {
-        email: signUpData.email,
-        password: signUpData.password,
-        name: signUpData.name,
-        surname: signUpData.surname,
-        address: signUpData.address,
-        phone: signUpData.phone
-      }, {"headers": this.headers})
+    console.log("UDJE OVDE Front");
+    console.log(signUpData);
+    return this.http.post<Registration>(environment.apiHost+'/register', signUpData, {"headers": this.headers})
   }
 }
