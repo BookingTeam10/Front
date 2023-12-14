@@ -9,14 +9,13 @@ import {AccommodationsModule} from "./modules/accommodations/accommodations.modu
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {GuestModule} from "./modules/guest/guest.module";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {ReactiveFormsModule} from "@angular/forms";
-
-
+import {MatButtonModule} from "@angular/material/button";
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,7 +27,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     AccommodationsModule,
     GuestModule,
     HttpClientModule,
-    ReactiveFormsModule
+    MatDialogModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

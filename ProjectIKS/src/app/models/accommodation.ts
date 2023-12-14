@@ -4,4 +4,14 @@ export interface Accommodation{
     description : string,
     minPeople : number,
     maxPeople : number
+    status: AccommodationStatus,
+    ownerId: number
+}
+
+
+export enum AccommodationStatus {
+    CREATED,
+    EDITED,
+    REJECTED,
+    APPROVED
 }

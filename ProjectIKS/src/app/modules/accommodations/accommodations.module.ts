@@ -13,6 +13,9 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {LayoutModule} from "../layout/layout.module";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import { EditAccommodationComponent } from './accommodation-edit/accommodation-edit.component';
+import {MatRadioModule} from "@angular/material/radio";
+import {MatTableModule} from "@angular/material/table";
 
 
 
@@ -20,7 +23,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
   declarations: [
     AccommodationCardsComponent,
     AccommodationCardComponent,
-    AccommodationDetailsComponent
+    AccommodationDetailsComponent,
+    EditAccommodationComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +38,9 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     MatDatepickerModule,
     LayoutModule,
     MatProgressBarModule,
-    RouterLink
+    RouterLink,
+    MatRadioModule,
+    MatTableModule
   ],
   exports:[
     AccommodationCardComponent,

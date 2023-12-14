@@ -7,56 +7,56 @@
       <div class="container">
         <form>
           <div class="form-group">
-            <input type="email" placeholder="Email" name="email" [value]="emailVal" required>
+            <input type="email" placeholder="Email" name="email" id="email" required>
           </div>
 
           <div class="form-group">
-            <input type="password" placeholder="Password" name="password" [value]="passwordVal" required>
+            <input type="password" placeholder="Password" name="password" id="password" required>
           </div>
 
           <div class="form-group">
-            <input type="password" placeholder="Repeat Password" name="password2" [value]="passwordVal" required>
+            <input type="password" placeholder="Repeat Password" name="password2" id="password2" required>
           </div>
 
           <div class="form-group">
-            <input type="text" placeholder="Name" name="name" [value]="nameVal" required>
+            <input type="text" placeholder="Name" name="name" id="name" required>
           </div>
 
           <div class="form-group">
-            <input type="text" placeholder="Surname" name="surname" [value]="surnameVal" required>
+            <input type="text" placeholder="Surname" name="surname" id="surname" required>
           </div>
 
-          <div class="form-group">
-            <input type="text" placeholder="Address" name="address" [value]="addressVal" required>
-          </div>
+<!--          <div class="form-group">-->
+<!--            <input type="text" placeholder="Address" name="address" [value]="addressVal" required>-->
+<!--          </div>-->
 
-          <div class="form-group">
-            <input type="tel" placeholder="Phone" name="phone" [value]="phoneVal" required>
-          </div>
+<!--          <div class="form-group">-->
+<!--            <input type="tel" placeholder="Phone" name="phone" [value]="phoneVal" required>-->
+<!--          </div>-->
 
-          <div class="form-group2">
-            <input type="checkbox" id="createdNotification" name="createdNotification" [checked]="createdNot" >
-            <label for="createdNotification">Created Notification</label>
-          </div>
+<!--          <div class="form-group2">-->
+<!--            <input type="checkbox" id="createdNotification" name="createdNotification" [checked]="createdNot" >-->
+<!--            <label for="createdNotification">Created Notification</label>-->
+<!--          </div>-->
 
-          <div class="form-group2">
-            <input type="checkbox" id="cancelledNotification" name="cancelledNotification" [checked]="cancelledNot" >
-            <label for="cancelledNotification">Cancelled Notification</label>
-          </div>
+<!--          <div class="form-group2">-->
+<!--            <input type="checkbox" id="cancelledNotification" name="cancelledNotification" [checked]="cancelledNot" >-->
+<!--            <label for="cancelledNotification">Cancelled Notification</label>-->
+<!--          </div>-->
 
-          <div class="form-group2">
-            <input type="checkbox" id="notificationRateMe" name="notificationRateMe" [checked]="rateNot" >
-            <label for="notificationRateMe">Notification Rate Me</label>
-          </div>
+<!--          <div class="form-group2">-->
+<!--            <input type="checkbox" id="notificationRateMe" name="notificationRateMe" [checked]="rateNot" >-->
+<!--            <label for="notificationRateMe">Notification Rate Me</label>-->
+<!--          </div>-->
 
-          <div class="form-group2">
-            <input type="checkbox" id="notificationRateAccommodation" name="notificationRateAccommodation" [checked]="rateAccNot" >
-            <label for="notificationRateAccommodation">Notification Rate Accommodation</label>
-          </div>
+<!--          <div class="form-group2">-->
+<!--            <input type="checkbox" id="notificationRateAccommodation" name="notificationRateAccommodation" [checked]="rateAccNot" >-->
+<!--            <label for="notificationRateAccommodation">Notification Rate Accommodation</label>-->
+<!--          </div>-->
 
           <div class="button-group">
-            <button type="button" class="delete-button">Delete</button>
-            <button type="submit" class="save-button">Save</button>
+            <button mat-raised-button class="delete-button" color="warn" (click)="openDeleteDialog()" >Delete</button>
+            <button type="submit" class="save-button" (click)="onSubmit()" >Save</button>
           </div>
         </form>
       </div>
