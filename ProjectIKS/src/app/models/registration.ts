@@ -1,10 +1,15 @@
 export interface Registration {
-  email?: string | null,
-  password?: string | null,
-  confirmPassword?: string | null,
-  name?: string | null,
-  surname?: string | null,
-  address?: string | null,
-  phone?: string | null,
-  userType?: string | null
+  email: string,
+  password: string,
+  firstName: string,
+  lastName: string,
+  phoneNumber: string
+  address: string,
+  userType: TypeUser,
+  activationCode:string
+}
+
+export enum TypeUser {
+  Owner = 'Owner',
+  Guest = 'Guest'
 }

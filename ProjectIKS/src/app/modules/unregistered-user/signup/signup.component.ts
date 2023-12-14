@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {LoginService} from "../../auth/login/service/login.service";
 import {MatRadioChange} from "@angular/material/radio";
 import {RegistrationService} from "../services/registration.service";
-import {Registration} from "../../../models/registration";
-
+import {Registration, TypeUser} from "../../../models/registration";
+import {SharedDataService} from "./activation/shared-data.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup',
@@ -28,24 +29,23 @@ export class SignupComponent implements OnInit{
     address: new FormControl('', [Validators.required]),
     phone: new FormControl('', [Validators.pattern(this.phoneNumberPattern), Validators.minLength(6), Validators.maxLength(20), Validators.required]),
     userType: new FormControl('', [Validators.required])
-  });
+  }, {validators: [match('password', 'confirmPassword')]});
   registerClicked() {
     console.log("Registration");
     console.log(this.signUp.value)
     const signUpData:Registration={
       email:this.signUp.value.email || "",
       password:this.signUp.value.password || "",
-      confirmPassword:this.signUp.value.confirmPassword || "",
-      name:this.signUp.value.name || "",
-      surname:this.signUp.value.surname || "",
+      firstName:this.signUp.value.name || "",
+      lastName:this.signUp.value.surname || "",
+      phoneNumber:this.signUp.value.phone || "",
       address:this.signUp.value.address || "",
-      phone:this.signUp.value.phone || "",
-      userType:this.signUp.value.userType
+      userType:TypeUser.Guest,
+      activationCode:""
     }
-
     this.service.registration(signUpData).subscribe({
-      next: (_) =>{
-        console.log("Uspesan zahtev")
+      next: (response) =>{
+        console.log(response.activationCode)
       }
     });
   }
@@ -57,3 +57,22 @@ export class SignupComponent implements OnInit{
   }
 
 }
+
+export function match(controlName: string, checkControlName: string): ValidatorFn {
+  return (controls: AbstractControl) => {
+    const control = controls.get(controlName);
+    const checkControl = controls.get(checkControlName);
+
+    if (checkControl?.errors && !checkControl.errors['matching']) {
+      return null;
+    }
+
+    if (control?.value !== checkControl?.value) {
+      controls.get(checkControlName)?.setErrors({matching: true});
+      return {matching: true};
+    } else {
+      return null;
+    }
+  };
+}
+

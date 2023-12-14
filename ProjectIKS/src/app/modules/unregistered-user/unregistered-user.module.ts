@@ -12,12 +12,14 @@ import {MatRadioModule} from "@angular/material/radio";
 import {ReactiveFormsModule} from "@angular/forms";
 import {AccommodationsModule} from "../accommodations/accommodations.module";
 import {LayoutModule} from "../layout/layout.module";
+import { ActivationComponent } from './signup/activation/activation.component';
 
 
 @NgModule({
   declarations: [
     SignupComponent,
     UnregisteredUserHomeComponent,
+    ActivationComponent,
   ],
     imports: [
         CommonModule,
