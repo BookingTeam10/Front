@@ -13,7 +13,8 @@ export interface Accommodation{
   location:Location,
   reservations : Reservation[],
   amenities:Amenity[],
-  name:string
+  name:string,
+  status: AccommodationStatus
 }
 enum TypeAccommodation {
   Apartment="Apartment",
@@ -35,4 +36,11 @@ export interface TakenDate{
 
 export interface Amenity{
   name : string,
+}
+
+export enum AccommodationStatus {
+  CREATED,
+  EDITED,
+  REJECTED,
+  APPROVED
 }

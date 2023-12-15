@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Accommodation, Amenity} from "../../../models/accommodation";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
+import { AccommodationStatus} from "../../../models/accommodation";
 import {environment} from "../../../environment/environment";
 import {AddAccommodation} from "../../../models/addAccommodation";
 import {Reservation} from "../../../models/reservation";
@@ -103,6 +104,27 @@ export class AccommodationService {
   }
 
   getAmenityByAccommodation(id: number): Observable<Amenity[]> {
-    return this.httpClient.get<Amenity[]>(environment.apiHost + '/accommodations/' + id +'/amenity')
+    return this.httpClient.get<Amenity[]>(environment.apiHost + '/accommodations/' + id + '/amenity')
+  }
+
+  getApprovalAccommodations(): Accommodation[] {
+    // this.getAll();
+    //
+    // for (let i = 0; i < this.accommodationList.length; i++) {
+    //   if (this.accommodationList[i].status === AccommodationStatus.CREATED || this.accommodationList[i].status === AccommodationStatus.EDITED) {
+    //     accommodations.push(this.accommodationList[i]);
+    //   }
+    // }
+
+
+    // return [
+    //   {id : 1, description : "Apartment1",minPeople:3,maxPeople:5, status: AccommodationStatus.CREATED, owner: undefined},
+    //   {id : 2, description : "Apartment2",minPeople:3,maxPeople:5, status: AccommodationStatus.CREATED, ownerId: 1},
+    //   {id : 3, description : "Room1",minPeople:3,maxPeople:5 , status: AccommodationStatus.EDITED, ownerId: 1},
+    //   {id : 4, description : "Room2",minPeople:3,maxPeople:5, status: AccommodationStatus.APPROVED, ownerId: 1}
+    // ];
+
+    return [];
+
   }
 }

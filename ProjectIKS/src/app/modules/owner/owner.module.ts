@@ -8,6 +8,8 @@ import {
   UnregisteredUserHomeComponent
 } from "../unregistered-user/unregistered-user-home/unregistered-user-home.component";
 import {SignupComponent} from "../unregistered-user/signup/signup.component";
+import {MatButtonModule} from "@angular/material/button";
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 
@@ -20,7 +22,9 @@ import {SignupComponent} from "../unregistered-user/signup/signup.component";
     imports: [
         CommonModule,
         AccommodationsModule,
-        LayoutModule
+        LayoutModule,
+        MatButtonModule,
+        MatDialogModule
     ],
   exports: [
     EditProfileOwnerComponent,

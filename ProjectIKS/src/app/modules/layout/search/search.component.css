@@ -15,8 +15,8 @@ button {
 form{
 }
 mat-form-field{
-  margin-left: 50px;
-  color: #cccccc;
+  margin-right: 50px;
+
 }
 
 .example-section {
@@ -31,5 +31,3 @@ ul {
   list-style-type: none;
   margin-top: 4px;
 }
-
-

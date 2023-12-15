@@ -22,6 +22,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatTableModule} from "@angular/material/table";
 import {MatRadioModule} from "@angular/material/radio";
+import { EditAccommodationComponent } from './accommodation-edit/accommodation-edit.component';
 
 
 
@@ -31,7 +32,9 @@ import {MatRadioModule} from "@angular/material/radio";
     AccommodationCardComponent,
     AccommodationDetailsComponent,
     AccommodationCreateComponent,
-    AccomodationEditComponent
+    AccomodationEditComponent,
+    EditAccommodationComponent
+
   ],
   imports: [
     CommonModule,

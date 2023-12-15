@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import {UnregisteredUserModule} from "./modules/unregistered-user/unregistered-user.module";
 import {LayoutModule} from "./modules/layout/layout.module";
 import {AuthModule} from "./modules/auth/auth.module";
-import {AccommodationsModule} from "./modules/accommodations/accommodations.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {GuestModule} from "./modules/guest/guest.module";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
@@ -15,13 +14,13 @@ import {OwnerModule} from "./modules/owner/owner.module";
 import {SharedModule} from "./modules/shared/shared.module";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {ReviewsModule} from "./modules/review/reviews.module";
-
-
+import {MatButtonModule} from "@angular/material/button";
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +29,6 @@ import {ReviewsModule} from "./modules/review/reviews.module";
     LayoutModule,
     AuthModule,
     BrowserAnimationsModule,
-    AccommodationsModule,
     GuestModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -38,7 +36,9 @@ import {ReviewsModule} from "./modules/review/reviews.module";
     OwnerModule,
     SharedModule,
     MatDatepickerModule,
-    ReviewsModule
+    ReviewsModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
