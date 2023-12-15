@@ -1,0 +1,10 @@
+.map-frame {
+  border: 2px solid black;
+  margin: 50px;
+  max-width: 100%;
+}
+
+#map {
+  height: 600px;  /* Primer visine, prilagodite prema potrebi */
+  width: 100%;
+}

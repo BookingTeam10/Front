@@ -2,13 +2,14 @@
   <mat-card-content >
     <div fxLayout="row" (click)="toDetails(accommodation.id)" >
       <div fxFlex="30%">
-        <img src="assets/images/city.png" alt="Slika smeštaja" style="width: 100%; height: auto; padding: 10px; border-radius: 20px;">
+        <img *ngIf="accommodation.photos.length > 0" [src]="accommodation.photos[0]" id="slika_apartmana" alt="Slika smeštaja" style="width: 100%; height: auto; padding: 10px; border-radius: 20px;">
       </div>
 
       <div fxFlex="70%" fxLayout="column" fxLayoutGap="10px">
         <b class = "b-description" style="color:#4b4f4d">
           Apartman
         </b>
+        <p class="p-description">{{accommodation.name}}</p>
         <p class="p-description">{{accommodation.description}}</p>
       </div>
     </div>

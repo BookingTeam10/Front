@@ -13,13 +13,15 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {LayoutModule} from "../layout/layout.module";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
-import { AccommodationCreateComponent } from './accommodation-create/accommodation-create.component';
+import {SharedModule} from "../shared/shared.module";
+import {ReviewsModule} from "../review/reviews.module";
+import {AccommodationCreateComponent} from "./accommodation-create/accommodation-create.component";
+import {AccomodationEditComponent} from "./accomodation-edit/accomodation-edit.component";
 import {MatButtonModule} from "@angular/material/button";
-import {MatRadioModule} from "@angular/material/radio";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatTableModule} from "@angular/material/table";
-import { AccomodationEditComponent } from './accomodation-edit/accomodation-edit.component';
+import {MatRadioModule} from "@angular/material/radio";
 
 
 
@@ -44,18 +46,21 @@ import { AccomodationEditComponent } from './accomodation-edit/accomodation-edit
     LayoutModule,
     MatProgressBarModule,
     RouterLink,
+    SharedModule,
+    MatDatepickerModule,
+    ReviewsModule,
+    FormsModule,
     MatButtonModule,
-    MatRadioModule,
     MatToolbarModule,
     MatIconModule,
     FormsModule,
     MatTableModule,
+    MatRadioModule,
   ],
   exports:[
     AccommodationCardComponent,
     AccommodationCardsComponent,
-    AccomodationEditComponent,
-    HttpClientModule,
+    HttpClientModule
   ]
 })
 export class AccommodationsModule { }

@@ -27,3 +27,36 @@ mat-progress-bar{
   margin-top: 30px;
   width: 80%;
 }
+
+.reservation_button{
+  margin-top: 30px;
+  margin-bottom: 50px;
+  width: 60%;
+  height: 50px;
+  background-color: rgba(75, 79, 77, 0.81);
+  border-color: #006600;
+  color: #eeeeee;
+}
+
+.photo-gallery {
+  display: flex;
+  overflow-x: auto; /* Allows horizontal scrolling if there are many images */
+  background-color: #f0f0f0; /* Example background color */
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.photo {
+  flex: 0 0 auto; /* Prevents images from shrinking */
+  width: auto; /* Adjust width as needed, or use a fixed width */
+  height: 200px; /* Example fixed height, adjust as needed */
+  margin-right: 10px; /* Space between images */
+  border-radius: 10px;
+  object-fit: cover; /* Adjusts the image size to cover the area */
+}
+
+/* Optional: Remove margin from the last photo */
+.photo:last-child {
+  margin-right: 0;
+}
+

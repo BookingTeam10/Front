@@ -30,14 +30,15 @@ export class LoginComponent {
 
     this.service.login(loginData).subscribe({
       next: (response: AuthResponse) => {
-        localStorage.setItem('user', response.jwt);
-        this.service.setUser()
-        this.router.navigate(['owner/accommodations'])
+        localStorage.setItem('User', response.jwt);
+        this.service.setUser();
+        console.log(response.jwt);
+        this.router.navigate(['guests/accommodations'])
       }
     });
   }
 
   registerClicked() {
-    console.log("REG")
+    this.router.navigate(['register'])
   }
 }

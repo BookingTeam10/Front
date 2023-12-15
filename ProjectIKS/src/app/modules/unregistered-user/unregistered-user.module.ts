@@ -21,19 +21,19 @@ import { ActivationComponent } from './signup/activation/activation.component';
     UnregisteredUserHomeComponent,
     ActivationComponent,
   ],
-    imports: [
-        CommonModule,
-        FlexModule,
-        MatButtonModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatToolbarModule,
-        MatRadioModule,
-        ReactiveFormsModule,
-        AccommodationsModule,
-        LayoutModule
-    ],
+  imports: [
+    CommonModule,
+    FlexModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatToolbarModule,
+    MatRadioModule,
+    ReactiveFormsModule,
+    LayoutModule,
+    AccommodationsModule
+  ],
   exports: [
     UnregisteredUserHomeComponent,
     SignupComponent

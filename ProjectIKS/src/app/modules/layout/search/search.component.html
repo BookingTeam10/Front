@@ -1,31 +1,62 @@
-<mat-toolbar style = "display: flex; justify-content: center; margin-bottom: 30px; height: 150px;margin-right: 50px">
-  <form  [formGroup]="citiesForm" class="cities-form">
-    <input style="margin-right:50px;height: 40px" id="city-input" type="text"
+<mat-toolbar style="display: flex; justify-content: center; margin-bottom: 30px; height: 150px; margin-right: 50px">
+  <form [formGroup]="citiesForm" class="cities-form">
+    <input style="margin-right: 50px; height: 40px" id="city-input" type="text"
            placeholder="City"
            matInput
            [formControl]="myControl"
-           [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete">
+           [matAutocomplete]="cityAuto">
+    <mat-autocomplete #cityAuto="matAutocomplete">
       <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
         {{ option }}
       </mat-option>
     </mat-autocomplete>
-
     <mat-form-field>
-      <input matInput type="number" placeholder="Add number guests" min="0">
+      <input matInput type="number" id="number-guests" [formControl]="numberOfGuests" placeholder="Add number guests" min="0">
     </mat-form-field>
+
+    <input style="margin-right: 50px; height: 40px" type="text"
+           placeholder="Type accommodation"
+           matInput
+           [formControl]="typeAccommodationCheckbox"
+           [matAutocomplete]="accommodationAuto">
+    <mat-autocomplete #accommodationAuto="matAutocomplete">
+      <mat-option *ngFor="let optionType of filteredType | async" [value]="optionType">
+        {{ optionType }}
+      </mat-option>
+    </mat-autocomplete>
   </form>
 
   <mat-form-field>
     <mat-label>Enter a date range</mat-label>
     <mat-date-range-input [rangePicker]="picker">
-      <input matStartDate placeholder="Start date">
-      <input matEndDate placeholder="End date">
+      <input matStartDate [(ngModel)] = "startDate" placeholder="Start date">
+      <input matEndDate [(ngModel)] = "endDate" placeholder="End date">
     </mat-date-range-input>
     <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-date-range-picker #picker></mat-date-range-picker>
   </mat-form-field>
+
   <mat-date-range-picker #picker></mat-date-range-picker>
   <button mat-raised-button color="primary" (click)="selectClicked()" style="height:50px; margin-bottom: 20px" >Select</button>
 </mat-toolbar>
+<div style="margin: 0 auto;  text-align: center;">
+  <section class="example-section" style="display: inline-block; vertical-align: top;">
+    <mat-checkbox class="example-margin" [(ngModel)]="wifi">WIFI</mat-checkbox>
+    <mat-checkbox class="example-margin" [(ngModel)]="parking">Parking</mat-checkbox>
+    <mat-checkbox class="example-margin" [(ngModel)]="airConditioning">Air-conditioning</mat-checkbox>
+    <mat-checkbox class="example-margin" [(ngModel)]="kitchen">Kitchen</mat-checkbox>
+  </section>
+  <form style="display: inline-block; vertical-align: top;">
+    <mat-form-field style="width: 200px; margin-left: 50px;" class="price-form-field" appearance="outline">
+      <mat-label >Min price</mat-label>
+      <input matInput [(ngModel)]="minimumPr" name="minimumPr">
+    </mat-form-field>
+    <mat-form-field style="width: 200px;" class="price-form-field" appearance="outline">
+      <mat-label>Max price</mat-label>
+      <input matInput [(ngModel)]="maximumPr" name="maximumPr">
+    </mat-form-field>
+  </form>
+</div>
+
+

@@ -20,18 +20,23 @@ import {AccomodationEditComponent} from "./modules/accommodations/accomodation-e
 import {OwnerHomeComponent} from "./modules/owner/owner-home/owner-home.component";
 import {ActivationComponent} from "./modules/unregistered-user/signup/activation/activation.component";
 
+import {GuestReviewsComponent} from "./modules/guest/guest-reviews/guest-reviews.component";
+
 const routes: Routes = [
   {path: '', redirectTo: 'accommodations', pathMatch: 'full'},
   {component: UnregisteredUserHomeComponent, path:"accommodations"},
   {path : 'register',component:SignupComponent},
   {path : 'users/login',component:LoginComponent},
   {component:AccommodationDetailsComponent, path:"accommodations/:accommodationId"},
+  {component:AccommodationDetailsComponent, path:"guests/accommodations/:accommodationId"},
   {path : 'guests',component:GuestHomeComponent},
   {path : 'edit-owner-profile', component: EditProfileOwnerComponent},
   {path : 'add-accommodation', component: AccommodationCreateComponent},
   {path : 'edit-accommodation', component: AccomodationEditComponent},
   {path : 'owner/accommodations',component:OwnerHomeComponent},
-  { path: 'activate', component: ActivationComponent }
+  { path: 'activate', component: ActivationComponent },
+  {path : 'guests/requests', component: GuestReviewsComponent},
+  {path : 'guests/accommodations', component: GuestHomeComponent}
 ];
 
 

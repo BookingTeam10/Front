@@ -12,6 +12,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatOptionModule} from "@angular/material/core";
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 
 
@@ -33,6 +34,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatOptionModule,
     ReactiveFormsModule,
     MatDatepickerModule,
+    MatCheckboxModule,
   ],
     exports: [
         NavbarComponent,

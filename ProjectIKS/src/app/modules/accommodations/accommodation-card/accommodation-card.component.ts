@@ -8,10 +8,11 @@ import {Router} from "@angular/router";
   styleUrls: ['./accommodation-card.component.css']
 })
 export class AccommodationCardComponent {
-  constructor(private router: Router) {
-  }
+
   @Input()
   accommodation: Accommodation;
+  constructor(private router: Router) {
+  }
 
   @Output()
   clicked: EventEmitter<Accommodation> = new EventEmitter<Accommodation>();
@@ -23,4 +24,5 @@ export class AccommodationCardComponent {
   toDetails(id: number) {
       this.router.navigate(['/accommodations', id]);
   }
+
 }

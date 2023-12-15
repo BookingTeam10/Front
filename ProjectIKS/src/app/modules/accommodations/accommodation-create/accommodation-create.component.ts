@@ -6,7 +6,7 @@ import {Registration} from "../../../models/registration";
 import {AddAccommodation} from "../../../models/addAccommodation";
 import {RegistrationService} from "../../unregistered-user/services/registration.service";
 import {AccommodationService} from "../service/accommodation.service";
-import {Accommodation, Amenity, TakenDate, TypeAccommodation} from "../../../models/accommodation";
+import {Accommodation, Amenity, TakenDate} from "../../../models/accommodation";
 
 
 @Component({
@@ -69,36 +69,36 @@ export class AccommodationCreateComponent implements OnInit{
     }
 
     const token = localStorage.getItem('user');
-    const accommodationData: Accommodation = {
-      id: 0,
-      accepted: false,
-      automaticActivation: false,
-      description: this.accommodation.value.describe || "",
-      minPeople: this.accommodation.value.minPeople || 0,
-      maxPeople: this.accommodation.value.maxPeople || 0,
-      photo: "",
-      typeAccomodation:TypeAccommodation.Apartment,
-      rating: this.accommodation.value.rating || 0,
-      cancelDeadline: this.accommodation.value.limit || 0,
-      prices:[],
-      takenDates:[],
-      amenities: amenitiesList,
-      location:null,
-    owner:{
-      name: "Luka",
-      surname: "Popovic",
-      phone: "0655197633",
-      address: "Adresa1",
-    },
-      reservations:[]
-    };
-
-    this.service.add(accommodationData).subscribe({
-      next: (_) =>{
-        console.log("Uspesan zahtev");
-        console.log(localStorage.getItem('user'));
-      }
-    });
+    // const accommodationData: Accommodation = {
+    //   id: 0,
+    //   accepted: false,
+    //   automaticActivation: false,
+    //   description: this.accommodation.value.describe || "",
+    //   minPeople: this.accommodation.value.minPeople || 0,
+    //   maxPeople: this.accommodation.value.maxPeople || 0,
+    //   photo: "",
+    //   typeAccomodation:TypeAccommodation.Apartment,
+    //   rating: this.accommodation.value.rating || 0,
+    //   cancelDeadline: this.accommodation.value.limit || 0,
+    //   prices:[],
+    //   takenDates:[],
+    //   amenities: amenitiesList,
+    //   location:null,
+    //   owner:{
+    //     name: "Luka",
+    //     surname: "Popovic",
+    //     phone: "0655197633",
+    //     address: "Adresa1",
+    //   },
+    //   reservations:[]
+    // };
+    //
+    // this.service.add(accommodationData).subscribe({
+    //   next: (_) =>{
+    //     console.log("Uspesan zahtev");
+    //     console.log(localStorage.getItem('user'));
+    //   }
+    // });
   }
 
   myDataArray = [
