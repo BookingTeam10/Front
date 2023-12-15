@@ -23,6 +23,7 @@ import {ActivationComponent} from "./modules/unregistered-user/signup/activation
 import {GuestReviewsComponent} from "./modules/guest/guest-reviews/guest-reviews.component";
 import {AccommodationApprovalComponent} from "./modules/administrator/accommodation-approval/accommodation-approval.component";
 import {EditAccommodationComponent} from "./modules/accommodations/accommodation-edit/accommodation-edit.component";
+import {AdministratorHomeComponent} from "./modules/administrator/administrator-home/administrator-home.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'accommodations', pathMatch: 'full'},
@@ -35,13 +36,14 @@ const routes: Routes = [
   {path : 'edit-owner-profile', component: EditProfileOwnerComponent},
   {path : 'add-accommodation', component: AccommodationCreateComponent},
   {path : 'edit-accommodation', component: AccomodationEditComponent},
-  {path : 'owner/accommodations',component:OwnerHomeComponent},
+  {path : 'owners/accommodations',component:OwnerHomeComponent},
   { path: 'activate', component: ActivationComponent },
   {path : 'guests/requests', component: GuestReviewsComponent},
   {path : 'guests/accommodations', component: GuestHomeComponent},
   {path : 'edit-owner-profile/:ownerId', component: EditProfileOwnerComponent},
   {path: 'accommodation-approve', component: AccommodationApprovalComponent},
   {path: 'edit-accommodation/:accommodationId', component: EditAccommodationComponent},
+  {path : 'admin/accommodations', component: AdministratorHomeComponent},
 ];
 
 

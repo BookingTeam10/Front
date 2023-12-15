@@ -71,7 +71,7 @@ export class AccommodationService {
   //
   //   return this.httpClient.get<Accommodation[]>(environment.apiHost + "/accommodations/accommodationsSearch", {params: params});
   // }
-  getSearchedAccommodations(location?: String, start?: Date, end?: Date, numPeople?: number, minPrice?:number,maxPrice?:number,ammenities?: string[]) : Observable<Accommodation[]> {
+  getSearchedAccommodations(location?: string, start?: Date, end?: Date, numPeople?: number, minPrice?:string,maxPrice?:string,ammenities?: string[]) : Observable<Accommodation[]> {
 
     let params = new HttpParams();
     if (location != undefined)
@@ -83,19 +83,19 @@ export class AccommodationService {
     {
       params = params.append("numPeople", numPeople );
     }
-    // if (minPrice != undefined)
-    // {
-    //   params = params.append("minPrice", minPrice );
-    // }
-    // if (maxPrice != undefined)
-    // {
-    //   params = params.append("maxPrice", maxPrice );
-    // }
-    // if (ammenities != undefined)
-    // {
-    //   // @ts-ignore
-    //   params = params.append("ammenities", ammenities  );
-    // }
+    if (minPrice != undefined)
+    {
+      params = params.append("minPrice", minPrice );
+    }
+    if (maxPrice != undefined)
+    {
+      params = params.append("maxPrice", maxPrice );
+    }
+    if (ammenities != undefined)
+    {
+      // @ts-ignore
+      params = params.append("ammenities", ammenities  );
+    }
 
     return this.httpClient.get<Accommodation[]>(environment.apiHost + "/accommodations/accommodationsSearch", {params: params});
   }

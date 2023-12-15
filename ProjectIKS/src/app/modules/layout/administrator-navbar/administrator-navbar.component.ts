@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-administrator-navbar',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./administrator-navbar.component.css']
 })
 export class AdministratorNavbarComponent {
-
+  constructor(private router: Router) {
+  }
+  Logout() {
+    this.router.navigate(['/accommodations']);
+  }
 }

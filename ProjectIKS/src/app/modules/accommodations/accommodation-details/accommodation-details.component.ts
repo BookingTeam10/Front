@@ -17,11 +17,13 @@ import {
 import {ReservationService} from "../../reservation/reservation.service";
 import {concat, map, Observable, of, switchMap} from "rxjs";
 import {ReviewsService} from "../../review/reviews.service";
+import {LoginService} from "../../auth/login/service/login.service";
 
 @Component({
   selector: 'app-accommodation-details',
   templateUrl: './accommodation-details.component.html',
   styleUrls: ['./accommodation-details.component.css']
+
 })
 @Injectable({
   providedIn: 'root'
@@ -49,7 +51,7 @@ export class AccommodationDetailsComponent implements OnInit{
     turnOnNotification: false,
     reported: false
   };
-  constructor(private route: ActivatedRoute, private router: Router, private accommodationService: AccommodationService,private mapService:MapService,private reservationService:ReservationService,private reviewService:ReviewsService) {}
+  constructor(private route: ActivatedRoute, private router: Router, private accommodationService: AccommodationService,private mapService:MapService,private reservationService:ReservationService,private reviewService:ReviewsService,public loginService:LoginService) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {

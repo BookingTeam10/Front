@@ -41,7 +41,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
         GuestNavbarComponent,
         SearchComponent,
         UnregisteredUserNavbarComponent,
-        OwnerNavbarComponent
+        OwnerNavbarComponent,
+        AdministratorNavbarComponent
     ],
 })
 export class LayoutModule { }

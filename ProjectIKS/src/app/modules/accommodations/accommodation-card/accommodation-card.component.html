@@ -7,10 +7,12 @@
 
       <div fxFlex="70%" fxLayout="column" fxLayoutGap="10px">
         <b class = "b-description" style="color:#4b4f4d">
-          Apartman
+          {{accommodation.name}}
         </b>
-        <p class="p-description">{{accommodation.name}}</p>
-        <p class="p-description">{{accommodation.description}}</p>
+        <p class="p-description">Details: {{accommodation.description}}</p>
+        <p class="p-description">Average rating: {{accommodation.rating}}</p>
+        <p class="p-description">Price : 3000</p>
+
       </div>
     </div>
   </mat-card-content>
