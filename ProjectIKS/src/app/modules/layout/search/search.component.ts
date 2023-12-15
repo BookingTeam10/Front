@@ -70,22 +70,14 @@ export class SearchComponent implements OnInit{
       city: city || "",
       numberOfGuests: numberOfGuests || 0,
     };
-    console.log(type)
-    console.log(searchData);
      this.selectedOptionsDisplay = this.getSelectedOptions();
-     console.log("SELEKTOVANO");
-     console.log(this.selectedOptionsDisplay);
-     console.log(this.minimumPr);
-    console.log(this.maximumPr);
+    console.log(typeof this.maximumPr);
     //dodati ovde type i selectedOptions i min i max price
     // @ts-ignore
-    //this.service.getSearchedAccommodations(city,this.startDate,this.endDate,numberOfGuests).subscribe({
     this.service.getSearchedAccommodations(city,this.startDate,this.endDate,numberOfGuests,this.minimumPr,this.maximumPr,this.selectedOptionsDisplay).subscribe({
       next: (data: Accommodation[]) => {
         console.log(data);
         this.service.updateAccommodations(data);
-
-        //this.accommodationCardsComponent.accommodations=data;
       },
       error: (_) => {console.log("Greska!")}
     })

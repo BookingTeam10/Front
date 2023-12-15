@@ -1,7 +1,7 @@
 <div>
-  <app-owner-navbar *ngIf="role === 'owner'"></app-owner-navbar>
-  <app-guest-navbar *ngIf="role === 'guest'"></app-guest-navbar>
-  <app-administrator-navbar *ngIf="role=== 'administrator'"></app-administrator-navbar>
-  <app-unregistered-user-navbar ></app-unregistered-user-navbar>
+  <app-owner-navbar *ngIf="role === 'Owner'"></app-owner-navbar>
+  <app-guest-navbar *ngIf="role === 'Guest'"></app-guest-navbar>
+  <app-administrator-navbar *ngIf="role=== 'Administrator'"></app-administrator-navbar>
+  <app-unregistered-user-navbar *ngIf="role=== 'User'" ></app-unregistered-user-navbar>
 </div>
 
