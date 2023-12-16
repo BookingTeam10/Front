@@ -47,4 +47,8 @@ export class LoginService {
   setUser(): void {
     this.user$.next(this.getRole());
   }
+  public hasRole(requiredRole: string): boolean {
+    const userRoles = this.getRole(); // Dohvatite role iz JWT tokena
+    return userRoles.includes(requiredRole);
+  }
 }

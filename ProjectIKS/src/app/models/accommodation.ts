@@ -2,27 +2,34 @@ import {Owner} from "./users/owner";
 import {Reservation, Review} from "./reservation";
 
 export interface Accommodation{
-  id: number,
+  id: number;
+  name: string;
+  accepted:boolean,     //dodati ID ako ne radi
+  automaticActivation:boolean,
   description : string,
   minPeople : number,
   maxPeople : number,
   photos : string[],
-  rating : number,
   type : TypeAccommodation,
-  owner : Owner,
-  location:Location,
-  reservations : Reservation[],
+  rating:number,
+  cancelDeadline:number,
+  prices:Price[],
+  takenDates:TakenDate[],
   amenities:Amenity[],
-  name:string,
-  status: AccommodationStatus
+  location:Location,
+  owner : Owner,
+  reservations : Reservation[],
+  weekendPrice:number,
+  holidayPrice:number,
+  summerPrice:number,
+  isNight:boolean
 }
-enum TypeAccommodation {
+export enum TypeAccommodation {
   Apartment="Apartment",
   Room = "Room"
 }
 
 export interface Location{
-  id: number,
   country : string,
   city : string,
   street : string,
@@ -36,6 +43,11 @@ export interface TakenDate{
 
 export interface Amenity{
   name : string,
+}
+
+export interface Price{
+  price : number,
+  beginDate : Date
 }
 
 export enum AccommodationStatus {

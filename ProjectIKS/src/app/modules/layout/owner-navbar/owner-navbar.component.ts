@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-owner-navbar',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./owner-navbar.component.css']
 })
 export class OwnerNavbarComponent {
+  constructor(private router: Router) {
+  }
+  Logout() {
+    this.router.navigate(['/accommodations']);
+  }
 
 }

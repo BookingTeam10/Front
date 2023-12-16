@@ -28,7 +28,7 @@ import {NgForOf} from "@angular/common";
         <tr *ngFor="let accommodation of accommodations">
             <td (click)="accommodationDetails(accommodation.id)">{{accommodation.id}}</td>
             <td>{{accommodation.owner.name}}</td>
-            <td>{{accommodation.status}}</td>
+<!--            <td>{{accommodation.status}}</td>-->
             <td>
               <button (click)="approveAccommodation(accommodation.id)">Approve</button>
               <button (click)="rejectAccommodation(accommodation.id)">Reject</button>

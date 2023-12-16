@@ -1,4 +1,4 @@
-<!--<app-unregistered-user-navbar></app-unregistered-user-navbar>-->
+<app-navbar></app-navbar>
 <div class="details-accommodation-container">
   <div class="details-accommodation-details">
     <p>Describe: {{accommodation.description}}</p>
@@ -21,9 +21,8 @@
   <div *ngIf="accommodation.photos.length > 0" class="photo-gallery">
     <img *ngFor="let photo of accommodation.photos" [src]="photo" alt="Slika smeštaja" style="width: 100%; height: auto; padding: 10px; border-radius: 20px;">
   </div>
-  <p style="font-size: 20px;font-family: 'Adobe Fangsong Std R'">Rating Accommodation</p>
 
-  <mat-form-field>
+  <mat-form-field *ngIf="loginService.hasRole('Guest')" style="margin-top: 20px">
     <mat-label>Enter a date range</mat-label>
     <mat-date-range-input [rangePicker]="picker">
       <input matStartDate [(ngModel)] = "startDate" placeholder="Start date">
@@ -34,17 +33,11 @@
     <mat-date-range-picker #picker></mat-date-range-picker>
   </mat-form-field>
 
-
-  <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-
-  <button class="reservation_button" mat-raised-button color="primary" (click)="reserveAccommodation(accommodation)">Reservation accommodation</button>
+  <button *ngIf="loginService.hasRole('Guest')" class="reservation_button" mat-raised-button color="primary" (click)="reserveAccommodation(accommodation)">Reservation accommodation</button>
 </div>
 <div>
   <app-review-cards></app-review-cards>
 </div>
-<!--<div>-->
-<!--  <p *ngFor="let review of reviews$ | async">Review: {{ review.id }},{{ review.comment }} </p>-->
-<!--</div>-->
 <div>
   <app-map></app-map>
 </div>

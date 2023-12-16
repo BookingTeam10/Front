@@ -25,13 +25,11 @@ export class ReservationService {
   getReservation(id: number): Observable<Reservation> {
     return this.httpClient.get<Reservation>(environment.apiHost + '/reservations/' + id)
   }
-  createReservation(reservation?: Reservation): Observable<Object> {
+  createReservation(reservation: Reservation): Observable<Reservation> {
     console.log("udje u funkciju")
-    return this.httpClient.post<Reservation>(environment.apiHost + '/reservations', reservation, {
-      headers: this.headers
-    });
+    console.log(reservation);
+    return this.httpClient.post<Reservation>(environment.apiHost + '/guests/reservations', reservation)
   }
-
   deleteReservation(id: number): Observable<Reservation> {
     return this.httpClient.delete<Reservation>(environment.apiHost + '/guests/request/' + id)
   }

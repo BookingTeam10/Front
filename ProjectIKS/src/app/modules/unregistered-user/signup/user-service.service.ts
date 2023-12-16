@@ -3,6 +3,9 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Accommodation} from "../../../models/accommodation";
 import {environment} from "../../../environment/environment";
+import {AuthResponse} from "../../../models/auth-response";
+import {Message} from "../../../models/message";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +16,7 @@ export class UserServiceService {
     'Content-Type': 'application/json',
     skip: 'true',
   });
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,private router: Router) { }
 
   // activate(code: string): Observable<string> {
   //   console.log(code);
@@ -24,12 +27,12 @@ export class UserServiceService {
   // }
 
   activate(code: string): Observable<string> {
+    this.router.navigate(['/users/login']);
     return this.httpClient.post<string>(
       `${environment.apiHost}/activate/${code}`,
       {
-             headers: this.headers, responseType: 'text'
-           }
-      //null // Ako nema tela zahteva, ovde možete poslati null ili prazan objekat
+        headers: this.headers, responseType: 'text'
+      }
     );
   }
 }

@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {MatRadioChange} from "@angular/material/radio";
-import { MatTableDataSource } from '@angular/material/table';
+import {MatTableDataSource} from '@angular/material/table';
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Registration} from "../../../models/registration";
-import {AddAccommodation} from "../../../models/addAccommodation";
-import {RegistrationService} from "../../unregistered-user/services/registration.service";
 import {AccommodationService} from "../service/accommodation.service";
-import {Accommodation, Amenity, TakenDate} from "../../../models/accommodation";
+import {Accommodation, TypeAccommodation} from "../../../models/accommodation";
+import {JwtHelperService} from "@auth0/angular-jwt";
+import {Owner} from "../../../models/users/owner";
 
 
 @Component({
@@ -17,13 +16,15 @@ import {Accommodation, Amenity, TakenDate} from "../../../models/accommodation";
 export class AccommodationCreateComponent implements OnInit{
 
   dateRangeForm: FormGroup;
-  constructor(private service:AccommodationService) {
+  constructor(private service:AccommodationService, public jwtHelper: JwtHelperService) {
     this.dateRangeForm = new FormGroup({
       startDate: new FormControl('', Validators.required),
       endDate: new FormControl('', Validators.required),
       price: new FormControl(0, [Validators.required])
     });
   }
+
+  imageUrls: string[] = [];
 
   accommodation = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -41,64 +42,61 @@ export class AccommodationCreateComponent implements OnInit{
     TypeAcc: new FormControl('', [Validators.required]),
     dataSource: new FormArray([]),
     imageUrls: new FormArray([]),
-    owner: new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      surname: new FormControl('', [Validators.required]),
-      phone: new FormControl('', [Validators.required]),
-      address: new FormControl('', [Validators.required])
-    }),
-    location : new FormGroup({
-      country: new FormControl('', [Validators.required]),
-      city: new FormControl('', [Validators.required]),
-      street: new FormControl('', [Validators.required]),
-      number: new FormControl(0, [Validators.required])
-    })
+    country: new FormControl('', [Validators.required]),
+    city: new FormControl('', [Validators.required]),
+    street: new FormControl('', [Validators.required]),
+    number: new FormControl(0, [Validators.required])
+    // location : new FormGroup({
+    //   country: new FormControl('', [Validators.required]),
+    //   city: new FormControl('', [Validators.required]),
+    //   street: new FormControl('', [Validators.required]),
+    //   number: new FormControl(0, [Validators.required])
+    // })
   });
+  private user: Owner;
 
   accommodationClicked() {
-    let firstImageUrl = '';
-    if (this.accommodation.value.imageUrls && this.accommodation.value.imageUrls.length > 0) {
-      firstImageUrl = this.accommodation.value.imageUrls[0];
-    }
-    let ammineities='';
-    let splitArray = ammineities.split(',');
-    let amenitiesList: Amenity[] = [];
-    for (let i = 0; i < splitArray.length; i++) {
-      let amenity: Amenity = { name: splitArray[i] };
-      amenitiesList.push(amenity);
-    }
 
-    const token = localStorage.getItem('user');
-    // const accommodationData: Accommodation = {
-    //   id: 0,
-    //   accepted: false,
-    //   automaticActivation: false,
-    //   description: this.accommodation.value.describe || "",
-    //   minPeople: this.accommodation.value.minPeople || 0,
-    //   maxPeople: this.accommodation.value.maxPeople || 0,
-    //   photo: "",
-    //   typeAccomodation:TypeAccommodation.Apartment,
-    //   rating: this.accommodation.value.rating || 0,
-    //   cancelDeadline: this.accommodation.value.limit || 0,
-    //   prices:[],
-    //   takenDates:[],
-    //   amenities: amenitiesList,
-    //   location:null,
-    //   owner:{
-    //     name: "Luka",
-    //     surname: "Popovic",
-    //     phone: "0655197633",
-    //     address: "Adresa1",
-    //   },
-    //   reservations:[]
-    // };
-    //
-    // this.service.add(accommodationData).subscribe({
-    //   next: (_) =>{
-    //     console.log("Uspesan zahtev");
-    //     console.log(localStorage.getItem('user'));
-    //   }
-    // });
+    const token = localStorage.getItem('User');   //ovo dekodirati
+    if (token) {
+      const decodedToken = this.jwtHelper.decodeToken(token);
+      const user = decodedToken.user;
+      this.user=user;
+    }
+    const accommodationData: Accommodation = {
+      id:0,
+      name:this.accommodation.value.name || "",
+      accepted: false,
+      automaticActivation: false,
+      description: this.accommodation.value.describe || "",
+      minPeople: this.accommodation.value.minPeople || 0,
+      maxPeople: this.accommodation.value.maxPeople || 0,
+      photos:this.imageUrls,
+      type:TypeAccommodation.Apartment,
+      rating: this.accommodation.value.rating || 0,
+      cancelDeadline: this.accommodation.value.limit || 0,
+      prices:[],
+      takenDates:[],
+      amenities: [],
+      location:{
+        country : this.accommodation.value.country || "",
+        city : this.accommodation.value.city || "",
+        street : this.accommodation.value.street || "",
+        number : this.accommodation.value.number || 0
+      },
+      owner:this.user,
+      reservations:[],
+      weekendPrice:this.accommodation.value.weekendPrice || 0,
+      holidayPrice:this.accommodation.value.holidayPrice|| 0,
+      summerPrice:this.accommodation.value.summerPrice || 0,
+      isNight:true
+    };
+
+    this.service.add(accommodationData).subscribe({
+      next: (_) =>{
+        console.log("Uspesan zahtev");
+      }
+    });
   }
 
   myDataArray = [
@@ -118,8 +116,6 @@ export class AccommodationCreateComponent implements OnInit{
   onTypeAccChange($event: MatRadioChange) {
     //this.accommodation.patchValue({ TypeAcc:event.value });
   }
-
-  imageUrls: string[] = [];
 
   onFilesSelected(event: any) {
     const files: File[] = event.target.files;
