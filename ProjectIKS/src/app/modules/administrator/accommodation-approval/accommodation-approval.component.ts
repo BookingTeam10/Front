@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AccommodationService} from "../../accommodations/service/accommodation.service";
-import {Accommodation} from "../../../models/accommodation";
+import {Accommodation, AccommodationStatus} from "../../../models/accommodation";
 import {OwnerService} from "../../owner/service/owner.service";
 import {Owner} from "../../../models/users/owner";
 import {Router} from "@angular/router";
@@ -8,7 +8,6 @@ import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-accommodation-approval',
-  // templateUrl: './accommodation-approval.component.html',
   styleUrls: ['./accommodation-approval.component.css'],
   standalone: true,
   imports: [
@@ -28,7 +27,7 @@ import {NgForOf} from "@angular/common";
         <tr *ngFor="let accommodation of accommodations">
             <td (click)="accommodationDetails(accommodation.id)">{{accommodation.id}}</td>
             <td>{{accommodation.owner.name}}</td>
-            <td>{{accommodation.status}}</td>
+            <td>{{accommodation.accommodationStatus}}</td>
             <td>
               <button (click)="approveAccommodation(accommodation.id)">Approve</button>
               <button (click)="rejectAccommodation(accommodation.id)">Reject</button>
@@ -41,7 +40,7 @@ import {NgForOf} from "@angular/common";
 
 })
 export class AccommodationApprovalComponent implements OnInit {
-  accommodations: Accommodation[];
+  accommodations: Accommodation[] = [];
 
   constructor(
     private accommodationService: AccommodationService,
@@ -54,31 +53,33 @@ export class AccommodationApprovalComponent implements OnInit {
   }
 
   loadAccommodations() {
-    this.accommodations = this.accommodationService.getApprovalAccommodations();
+    this.accommodationService.getApprovalAccommodations().subscribe((data) =>{
+      for (let i = 0; i < data.length; i++) {
+          if(data[i].accommodationStatus == AccommodationStatus.CREATED || data[i].accommodationStatus == AccommodationStatus.EDITED){
+            this.accommodations.push(data[i]);
+
+          }
+
+      }
+    });
   }
 
 
   approveAccommodation(id: number) {
-    console.log("approve");
+    this.accommodationService.approveAccommodation(id).subscribe(() => {
+      this.accommodations = this.accommodations.filter(a => a.id !== id);
+    });
   }
 
   rejectAccommodation(id: number) {
-    console.log("reject");
+
+    this.accommodationService.rejectAccommodation(id).subscribe(() => {
+      this.accommodations = this.accommodations.filter(a => a.id !== id);
+    });
   }
 
-  generateOwnerName(ownerId: number): string {
-      this.ownerService.getOwner(ownerId).subscribe(
-        (owner: Owner) =>{
-            console.log(owner.name);
-            return owner.name;
-        }
-      );
-
-      return '';
-  }
 
   accommodationDetails(id: number) {
-    console.log(id);
-    this.router.navigate(['accommodations/:id']);
+    this.router.navigate(['accommodations/' + id]);
   }
 }

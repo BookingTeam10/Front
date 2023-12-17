@@ -1,127 +1,150 @@
 <div class="edit-profile-owner">
   <div class="headline">
-    <h1>Edit Accomodation</h1>
+    <h1>Edit Accommodation</h1>
   </div>
   <div class="container">
-    <form [formGroup]="accommodationForm" (ngSubmit)="accommodationClicked()">
+    <form>
       <div class="container">
-        <form>
+        <form *ngIf="editBasic" >
           <div class="form-group">
-            <input type="text" placeholder="name" name="name" required>
+            <input type="text" placeholder="name" name="name" id="name" required>
           </div>
 
           <div class="form-group">
-            <input type="text" placeholder="min people" name="minPeople" required>
+            <input type="text" placeholder="min people" name="minPeople" id="minPeople" required>
           </div>
 
           <div class="form-group">
-            <input type="text" placeholder="max people" name="maxPeople" required>
+            <input type="text" placeholder="max people" name="maxPeople" id="maxPeople" required>
           </div>
 
           <div class="form-group">
-            <input type="text" placeholder="ammineity with ," name="ammineity" required>
+            <input type="text" placeholder="amenity with ," name="amenity" id="amenity" required>
           </div>
 
           <div class="form-group">
-            <input type="text" placeholder="weekend price" name="weekendPrice" required>
+            <input type="text" placeholder="street" name="street" id="street" required>
           </div>
 
           <div class="form-group">
-            <input type="text" placeholder="holiday price" name="holidayPrice" required>
+            <input type="text" placeholder="city" name="city" id="city" required>
           </div>
 
           <div class="form-group">
-            <input type="text" placeholder="summer/winter price" name="summerPrice" required>
+            <input type="text" placeholder="country" name="country" id="country" required>
           </div>
 
           <div class="form-group">
-            <input type="text" placeholder="country" name="country" required>
+            <textarea placeholder="Description" name="description" id="description" required ></textarea>
+
           </div>
 
-          <div class="form-group">
-            <input type="text" placeholder="city" name="city" required>
-          </div>
+          <div class="radio-group">
+            <label>
+              <input type="radio" id="automaticConfirmation" name="confirmation"/>
+              Automatic Confirmation
+            </label>
 
-          <div class="form-group">
-            <input type="text" placeholder="street" name="street" required>
-          </div>
-
-          <div class="form-group">
-            <input type="text" placeholder="number" name="number" required>
-          </div>
-
-          <div class="form-group">
-            <input type="text" placeholder="limit for cancel reservation" name="limit" required>
-          </div>
-
-          <mat-radio-group class="radio-group" (change)="onUserTypeChange($event)">
-            <mat-radio-button value="night" class="white-text">Per Night</mat-radio-button>
-            <mat-radio-button value="person" class="white-text">Per Person</mat-radio-button>
-          </mat-radio-group>
-
-          <mat-radio-group class="radio-group" (change)="onConfirmationTypeChange($event)">
-            <mat-radio-button value="yes" class="white-text">Automatic Confirmation</mat-radio-button>
-            <mat-radio-button value="no" class="white-text">No Automatic</mat-radio-button>
-          </mat-radio-group>
-
-          <mat-radio-group class="radio-group" (change)="onTypeAccChange($event)">
-            <mat-radio-button value="apartman" class="white-text">Apartman</mat-radio-button>
-            <mat-radio-button value="room" class="white-text">Room</mat-radio-button>
-          </mat-radio-group>
-
-          <mat-form-field id="table">
-            <mat-label>Enter a date range</mat-label>
-            <mat-date-range-input [rangePicker]="picker">
-              <input matStartDate placeholder="Start date">
-              <input matEndDate placeholder="End date">
-            </mat-date-range-input>
-            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-          </mat-form-field>
-
-          <div class="form-group">
-            <input placeholder="basic price" name="price" required>
-          </div>
-
-          <table mat-table [dataSource]="dataSource">
-            <!-- Column definitions -->
-            <ng-container matColumnDef="firstDate">
-              <th mat-header-cell *matHeaderCellDef>firstDate</th>
-              <td mat-cell *matCellDef="let element">{{ element.firstDate }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="endDate">
-              <th mat-header-cell *matHeaderCellDef>Age</th>
-              <td mat-cell *matCellDef="let element">{{ element.endDate }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="price">
-              <th mat-header-cell *matHeaderCellDef>Price</th>
-              <td mat-cell *matCellDef="let element">{{ element.price }}</td>
-            </ng-container>
-
-            <!-- Table rows -->
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let element; columns: displayedColumns;"></tr>
-          </table>
-
-          <div class="button-group">
-            <button type="button" class="save-button" (click)="addNewRow()">Add date</button>
+            <label>
+              <input type="radio" id="automaticConfirmation2" name="confirmation"/>
+              No Automatic
+            </label>
           </div>
 
           <input type="file" multiple (change)="onFilesSelected($event)">
-          <div class="image-container" *ngFor="let image of imageUrls">
-            <img [src]="image" alt="Izabrana slika">
+          <div *ngFor="let image of imageUrls; let i = index">
+            <Button (click)="removeImage(i)">Ukloni</Button>
+            <img [src]="image" alt="Izabrana slika" class="max-size-image">
           </div>
 
           <div class="button-group">
-            <button type="submit" id="last" class="save-button">Add Accommodation</button>
+            <button mat-raised-button class="delete-button" (click)="openCancelDialog()" >Cancel</button>
+            <button mat-raised-button class="save-button" (click)="changePrices($event)" > Change Prices</button>
+            <button mat-raised-button class="save-button"  (click)="saveChanges()" >Save</button>
           </div>
         </form>
+
+        <form *ngIf="!editBasic">
+          <div class="container">
+            <form>
+
+              <div class="form-group">
+                <input type="text" placeholder="Weekend Price" id="weekendPrice" name="weekendPrice" required>
+              </div>
+
+              <div class="form-group">
+                <input type="text" placeholder="Holiday Price" id="holidayPrice" name="holidayPrice" required>
+              </div>
+
+              <div class="form-group">
+                <input type="text" placeholder="Summer/Winter Price" id="summerPrice" name="summerPrice" required>
+              </div>
+
+              <div class="form-group">
+                <input type="text" placeholder="Limit for Cancel Reservation" id="cancelLimit" name="limit" required>
+              </div>
+
+              <div class="radio-group">
+                <label>
+                  <input type="radio" name="priceType" value="night"> Per Night
+                </label>
+                <label>
+                  <input type="radio" name="priceType" value="person"> Per Person
+                </label>
+              </div>
+
+
+              <mat-form-field>
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                  <input matStartDate placeholder="Start date">
+                  <input matEndDate placeholder="End date">
+                </mat-date-range-input>
+                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
+
+              <div class="form-group">
+                <input placeholder="basic price" name="price" required>
+              </div>
+
+              <table mat-table [dataSource]="dataSource">
+                <!-- Column definitions -->
+                <ng-container matColumnDef="firstDate">
+                  <th mat-header-cell *matHeaderCellDef>firstDate</th>
+                  <td mat-cell *matCellDef="let element">{{ element.firstDate }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="endDate">
+                  <th mat-header-cell *matHeaderCellDef>Age</th>
+                  <td mat-cell *matCellDef="let element">{{ element.endDate }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="price">
+                  <th mat-header-cell *matHeaderCellDef>Price</th>
+                  <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+                </ng-container>
+
+                <!-- Table rows -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let element; columns: displayedColumns;"></tr>
+              </table>
+
+              <div class="button-group">
+                <button type="submit" class="save-button" (click)="addNewRow()">Add date</button>
+              </div>
+
+              <div class="button-group">
+                <button  class="save-button" (click)="closeChangePrice($event)" >Cancel</button>
+                <button class="save-button">Save</button>
+              </div>
+            </form>
+          </div>
+        </form>
+
+
       </div>
-
-
     </form>
   </div>
 </div>

@@ -15,7 +15,7 @@ export interface EditAccommodation {
   number?: string | null,
   limit?: string | null,
   userType?: string | null,
-  ConfirmationType?: string | null,
+  ConfirmationType?: boolean | null,
   TypeAcc?: string | null,
   FirstDate?: string | null,
   EndDate?: string | null

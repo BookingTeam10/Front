@@ -16,7 +16,6 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {SharedModule} from "../shared/shared.module";
 import {ReviewsModule} from "../review/reviews.module";
 import {AccommodationCreateComponent} from "./accommodation-create/accommodation-create.component";
-import {AccomodationEditComponent} from "./accomodation-edit/accomodation-edit.component";
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
@@ -32,7 +31,6 @@ import { EditAccommodationComponent } from './accommodation-edit/accommodation-e
     AccommodationCardComponent,
     AccommodationDetailsComponent,
     AccommodationCreateComponent,
-    AccomodationEditComponent,
     EditAccommodationComponent
 
   ],

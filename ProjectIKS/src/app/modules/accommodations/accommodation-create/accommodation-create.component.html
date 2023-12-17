@@ -117,8 +117,9 @@
           </div>
 
           <input type="file" multiple (change)="onFilesSelected($event)">
-          <div *ngFor="let image of imageUrls">
-            <img [src]="image" alt="Izabrana slika">
+          <div *ngFor="let image of imageUrls; let i = index">
+            <Button (click)="removeImage(i)">Ukloni</Button>
+            <img [src]="image" alt="Izabrana slika" class="max-size-image">
           </div>
 
           <div class="button-group">
