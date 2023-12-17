@@ -28,7 +28,6 @@ export class OwnerService {
 
   update(owner: Owner): Observable<Owner>{
 
-      console.log(owner);
       return this.httpClient.put<Owner>(environment.apiHost + '/owners/' + owner.id, owner);
   }
 }

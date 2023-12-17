@@ -7,7 +7,7 @@ import {LayoutModule} from "./modules/layout/layout.module";
 import {AuthModule} from "./modules/auth/auth.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {GuestModule} from "./modules/guest/guest.module";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatTable, MatTableModule} from "@angular/material/table";
 import {OwnerModule} from "./modules/owner/owner.module";
@@ -16,6 +16,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {ReviewsModule} from "./modules/review/reviews.module";
 import {MatButtonModule} from "@angular/material/button";
 import {MatDialogModule} from "@angular/material/dialog";
+import {Interceptor} from "./modules/auth/login/interceptor";
 
 
 @NgModule({
@@ -40,7 +41,13 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatDialogModule,
     MatButtonModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

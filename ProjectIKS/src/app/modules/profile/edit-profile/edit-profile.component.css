@@ -1,4 +1,4 @@
-.edit-profile-owner{
+.edit-profile{
   background: #ADD8E6;
   height: 100%;
   width: 100%;
@@ -49,8 +49,9 @@ input {
 
 .button-group {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: auto 10px 10px 10px;
+  flex-direction: column;
 }
 
 button {
@@ -76,4 +77,29 @@ button:hover {
 .save-button {
   background-color: white;
   color: #006600;
+}
+
+#turnNotification{
+  padding-bottom: 15px;
+}
+
+.button-row {
+
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px; /* Adjust the margin as needed */
+}
+
+.button-row button{
+  min-width: 150px;
+}
+
+
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.dialog-container {
+  height: 100%;
 }

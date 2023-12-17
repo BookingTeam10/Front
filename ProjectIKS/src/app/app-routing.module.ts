@@ -11,8 +11,8 @@ import {
 } from "./modules/accommodations/accommodation-details/accommodation-details.component";
 import {GuestHomeComponent} from "./modules/guest/guest-home/guest-home.component";
 import {
-  EditProfileOwnerComponent
-} from "./modules/owner/owner-account-management/edit-profile-owner/edit-profile-owner.component";
+  EditProfileComponent
+} from "./modules/profile/edit-profile/edit-profile.component";
 import {
   AccommodationCreateComponent
 } from "./modules/accommodations/accommodation-create/accommodation-create.component";
@@ -33,14 +33,14 @@ const routes: Routes = [
   {component:AccommodationDetailsComponent, path:"accommodations/:accommodationId"},
   {component:AccommodationDetailsComponent, path:"guests/accommodations/:accommodationId"},
   {path : 'guests',component:GuestHomeComponent},
-  {path : 'edit-owner-profile', component: EditProfileOwnerComponent},
+  {path : 'edit-owner-profile', component: EditProfileComponent},
   {path : 'add-accommodation', component: AccommodationCreateComponent},
   {path : 'edit-accommodation', component: AccomodationEditComponent},
   {path : 'owners/accommodations',component:OwnerHomeComponent},
   { path: 'activate', component: ActivationComponent },
   {path : 'guests/requests', component: GuestReviewsComponent},
   {path : 'guests/accommodations', component: GuestHomeComponent},
-  {path : 'edit-owner-profile/:ownerId', component: EditProfileOwnerComponent},
+  {path : 'edit-profile', component: EditProfileComponent},
   {path: 'accommodation-approve', component: AccommodationApprovalComponent},
   {path: 'edit-accommodation/:accommodationId', component: EditAccommodationComponent},
   {path : 'admin/accommodations', component: AdministratorHomeComponent},
