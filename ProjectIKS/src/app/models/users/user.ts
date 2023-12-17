@@ -4,3 +4,12 @@ export interface User {
   phone: string;
   address: string;
 }
+
+
+export interface Admin{
+    id: number;
+    email: string;
+    password: string;
+    name: string;
+    surname:string;
+}

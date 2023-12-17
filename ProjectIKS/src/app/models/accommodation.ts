@@ -6,7 +6,7 @@ export interface Accommodation{
   description : string,
   minPeople : number,
   maxPeople : number,
-  photos : string[],
+  photoes : string[],
   rating : number,
   type : TypeAccommodation,
   owner : Owner,
@@ -14,8 +14,10 @@ export interface Accommodation{
   reservations : Reservation[],
   amenities:Amenity[],
   name:string,
-  status: AccommodationStatus
+  accommodationStatus: AccommodationStatus,
+  automaticConfirmation: boolean
 }
+
 enum TypeAccommodation {
   Apartment="Apartment",
   Room = "Room"
@@ -39,8 +41,8 @@ export interface Amenity{
 }
 
 export enum AccommodationStatus {
-  CREATED,
-  EDITED,
-  REJECTED,
-  APPROVED
+  CREATED= 'CREATED',
+  EDITED = 'EDITED',
+  REJECTED = 'REJECTED',
+  APPROVED = 'APPROVED'
 }

@@ -25,4 +25,7 @@ export class AccommodationCardComponent {
       this.router.navigate(['/accommodations', id]);
   }
 
+  openEditDialogue(id: number) {
+      this.router.navigate(['/edit-accommodation', id]);
+  }
 }

@@ -34,12 +34,22 @@ export class LoginService {
     if (this.isLoggedIn()) {
       const accessToken: any = localStorage.getItem('User');
       const helper = new JwtHelperService();
-      console.log(helper.decodeToken(accessToken).role[0].authority);
+      // console.log(helper.decodeToken(accessToken).role[0].authority);
       return helper.decodeToken(accessToken).role[0].authority;
     }
     return 'User';
   }
 
+  getUsername(): string{
+
+    if (this.isLoggedIn()) {
+      const accessToken: any = localStorage.getItem('User');
+      const helper = new JwtHelperService();
+      return helper.decodeToken(accessToken).sub;
+    }
+
+    return "";
+  }
   isLoggedIn(): boolean {
     return localStorage.getItem('User') != null;
   }

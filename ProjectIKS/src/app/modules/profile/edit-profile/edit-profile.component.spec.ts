@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditProfileOwnerComponent } from './edit-profile-owner.component';
+import { EditProfileComponent} from './edit-profile.component';
 
 describe('EditProfileOwnerComponent', () => {
-  let component: EditProfileOwnerComponent;
-  let fixture: ComponentFixture<EditProfileOwnerComponent>;
+  let component: EditProfileComponent;
+  let fixture: ComponentFixture<EditProfileComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [EditProfileOwnerComponent]
+      declarations: [EditProfileComponent]
     });
-    fixture = TestBed.createComponent(EditProfileOwnerComponent);
+    fixture = TestBed.createComponent(EditProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

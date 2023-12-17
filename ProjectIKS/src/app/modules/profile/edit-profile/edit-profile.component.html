@@ -1,0 +1,88 @@
+<div class="edit-profile">
+  <div class="headline">
+    <h1>Edit profile</h1>
+  </div>
+  <div class="container">
+    <form>
+      <div class="container">
+        <form *ngIf="!showPasswordChangeForm" #passwordChangeForm>
+          <div class="form-group">
+            <input type="email" placeholder="Email" name="email" id="email" required>
+          </div>
+
+          <div class="form-group">
+            <input type="text" placeholder="Name" name="name" id="name" required>
+          </div>
+
+          <div class="form-group">
+            <input type="text" placeholder="Surname" name="surname" id="surname" required>
+          </div>
+
+          <div class="form-group" *ngIf="loginService.getRole() != 'ROLE_Admin'">
+            <input  type="text" id="address" placeholder="Address" name="address"  required>
+          </div>
+
+          <div class="form-group" *ngIf="loginService.getRole() != 'ROLE_Admin'">
+            <input type="tel" id="phone" placeholder="Phone" name="phone"  required>
+          </div>
+
+          <div class="form-group2" *ngIf="loginService.getRole() == 'ROLE_Owner'">
+            <input type="checkbox" id="createdNotification" name="createdNotification"  >
+            <label for="createdNotification">Created Notification</label>
+          </div>
+
+          <div class="form-group2" *ngIf="loginService.getRole() == 'ROLE_Owner'">
+            <input type="checkbox" id="cancelledNotification" name="cancelledNotification"  >
+            <label for="cancelledNotification">Cancelled Notification</label>
+          </div>
+
+          <div class="form-group2" *ngIf="loginService.getRole() == 'ROLE_Owner'">
+            <input type="checkbox" id="notificationRateMe" name="notificationRateMe"  >
+            <label for="notificationRateMe">Rated me Notification</label>
+          </div>
+
+          <div class="form-group2" *ngIf="loginService.getRole() == 'ROLE_Owner'">
+            <input type="checkbox" id="notificationRateAccommodation" name="notificationRateAccommodation"  >
+            <label for="notificationRateAccommodation">Rate Accommodation notification</label>
+          </div>
+          <div class="form-group2" id="turnNotification" *ngIf="loginService.getRole() == 'ROLE_Guest'">
+            <input type="checkbox" id="turnNotificationOn" name="turnNotification"  >
+            <label for="turnNotification">Turn on Notification</label>
+          </div>
+
+          <div class="button-group">
+            <div class="button-row">
+              <button mat-raised-button class="delete-button" (click)="openChangePasswordDialog($event)">Change password</button>
+              <button mat-raised-button class="delete-button" (click)="openCancelDialog()">Cancel</button>
+            </div>
+
+            <div class="button-row">
+              <button mat-raised-button class="delete-button" color="warn" (click)="openDeleteDialog()">Delete</button>
+              <button mat-raised-button class="save-button" (click)="onSubmit()">Save</button>
+            </div>
+          </div>
+
+        </form>
+
+        <form *ngIf="showPasswordChangeForm">
+          <div class="dialog-container">
+            <div class="form-group">
+              <input type="password" placeholder="Password" name="password" id="password" required>
+            </div>
+
+            <div class="form-group">
+              <input type="password" placeholder="Repeat Password" name="password2" id="password2" required>
+            </div>
+          </div>
+
+          <button mat-raised-button class="delete-button" (click)="closePasswordDialog($event)">Cancel</button>
+          <button mat-raised-button class="delete-button" (click)="changePassword($event)">Change password</button>
+
+        </form>
+
+
+      </div>
+    </form>
+  </div>
+
+</div>

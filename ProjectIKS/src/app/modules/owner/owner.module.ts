@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EditProfileOwnerComponent } from './owner-account-management/edit-profile-owner/edit-profile-owner.component';
+import { EditProfileComponent } from '../profile/edit-profile/edit-profile.component';
 import { OwnerHomeComponent } from './owner-home/owner-home.component';
 import {AccommodationsModule} from "../accommodations/accommodations.module";
 import {LayoutModule} from "../layout/layout.module";
@@ -16,7 +16,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 @NgModule({
 
   declarations: [
-    EditProfileOwnerComponent,
+    EditProfileComponent,
     OwnerHomeComponent
   ],
     imports: [
@@ -27,7 +27,7 @@ import {MatDialogModule} from "@angular/material/dialog";
         MatDialogModule
     ],
   exports: [
-    EditProfileOwnerComponent,
+    EditProfileComponent,
     OwnerHomeComponent
   ]
 })

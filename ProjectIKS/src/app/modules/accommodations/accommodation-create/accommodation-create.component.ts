@@ -145,4 +145,8 @@ export class AccommodationCreateComponent implements OnInit{
   }
   ngOnInit(): void {
   }
+
+  removeImage(index: number) {
+    this.imageUrls.splice(index, 1);
+  }
 }

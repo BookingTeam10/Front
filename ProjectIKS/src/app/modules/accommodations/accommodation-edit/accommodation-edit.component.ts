@@ -1,11 +1,11 @@
-import {Component, OnInit} from "@angular/core";
-import {MatRadioChange} from "@angular/material/radio";
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { MatRadioChange } from "@angular/material/radio";
+import { AccommodationService } from "../service/accommodation.service";
+import {Accommodation, Amenity} from "../../../models/accommodation";
+import { EditAccommodation } from "../../../models/EditAccommodation";
 import {MatTableDataSource} from "@angular/material/table";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
-import {AccommodationService} from "../service/accommodation.service";
-import {Accommodation} from "../../../models/accommodation";
-import {EditAccommodation} from "../../../models/EditAccommodation";
 
 @Component({
   selector: 'app-accommodation-edit',
@@ -13,136 +13,224 @@ import {EditAccommodation} from "../../../models/EditAccommodation";
   styleUrls: ['./accommodation-edit.component.css']
 })
 
-
-export class EditAccommodationComponent implements OnInit{
-
-  constructor(private route: ActivatedRoute, private router: Router, private accommodationService: AccommodationService) {}
+export class EditAccommodationComponent implements OnInit, AfterViewInit {
+  dateRangeForm: FormGroup;
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private accommodationService: AccommodationService,
+    private cd: ChangeDetectorRef
+  ) {
+    this.dateRangeForm = new FormGroup({
+      startDate: new FormControl('', Validators.required),
+      endDate: new FormControl('', Validators.required),
+      price: new FormControl(0, [Validators.required])
+    });
+  }
 
   accommodation: Accommodation;
 
+  accommodationData: EditAccommodation = {
+    name: '',
+    minPeople: '',
+    maxPeople: '',
+    country: '',
+    city: '',
+    street: '',
+    ConfirmationType: false,
+  };
 
+  getAccommodationData(): void {
+    const name = this.getValueById('name');
+    const minPeople = this.getValueById('minPeople');
+    const maxPeople = this.getValueById('maxPeople');
+    const country = this.getValueById('country');
+    const city = this.getValueById('city');
+    const street = this.getValueById('street');
+    const confirmationType = document.getElementById("automaticConfirmation") as HTMLInputElement | null;
 
-  accommodationForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    minPeople: new FormControl('', [Validators.required]),
-    maxPeople: new FormControl('', [Validators.required]),
-    amenity: new FormControl('', [Validators.required]),
-    price: new FormControl('', [Validators.required]),
-    weekendPrice: new FormControl('', [Validators.required]),
-    holidayPrice: new FormControl('', [Validators.required]),
-    summerPrice: new FormControl('', [Validators.required]),
-    country: new FormControl('', [Validators.required]),
-    city: new FormControl('', [Validators.required]),
-    street: new FormControl('', [Validators.required]),
-    number: new FormControl('', [Validators.required]),
-    limit: new FormControl('', [Validators.required]),
-    userType: new FormControl('', [Validators.required]),
-    confirmationType: new FormControl('', [Validators.required]),
-    typeAcc: new FormControl('', [Validators.required]),
-    firstDate: new FormControl('', [Validators.required]),
-    endDate: new FormControl('', [Validators.required])
-  });
-
-  accommodationClicked() {
-    console.log(this.accommodationForm.value)
-    const accommodationData:EditAccommodation={
-      name:this.accommodationForm.value.name || "",
-      minPeople:this.accommodationForm.value.minPeople || "",
-      maxPeople:this.accommodationForm.value.maxPeople || "",
-      amenity:this.accommodationForm.value.amenity || "",
-      price:this.accommodationForm.value.price || "",
-      weekendPrice:this.accommodationForm.value.weekendPrice || "",
-      holidayPrice:this.accommodationForm.value.holidayPrice || "",
-      summerPrice:this.accommodationForm.value.summerPrice || "",
-      country:this.accommodationForm.value.country || "",
-      city:this.accommodationForm.value.city || "",
-      street:this.accommodationForm.value.street || "",
-      number:this.accommodationForm.value.number || "",
-      limit:this.accommodationForm.value.limit || "",
-      userType:this.accommodationForm.value.userType,
-      ConfirmationType:this.accommodationForm.value.confirmationType,
-      TypeAcc:this.accommodationForm.value.typeAcc,
-      FirstDate:this.accommodationForm.value.firstDate,
-      EndDate:this.accommodationForm.value.endDate,
+    if (!name || !minPeople || !maxPeople || !country || !city || !street || !confirmationType) {
+      this.wrongInput();
+      return;
     }
-    //
-    // this.service.registration(signUpData).subscribe({
-    //   next: (_) =>{
-    //     console.log("Uspesan zahtev")
-    //   }
-    // });
+
+    this.accommodationData = {
+      name: name,
+      minPeople: minPeople,
+      maxPeople: maxPeople,
+      country: country,
+      city: city,
+      street: street,
+      ConfirmationType: confirmationType.checked,
+    };
   }
 
-  myDataArray = [
-  ];
+  private getValueById(id: string): string | null {
+    const element = document.getElementById(id) as HTMLInputElement | null;
+    const value = element?.value.trim();
+    if (element === null || value === "" || element === undefined || value === undefined) {
+      return null;
+    }
+    return value;
+  }
 
-  displayedColumns: string[] = ['firstDate', 'endDate', 'price'];
+  imageUrls: string[] = [];
+  selectedOption: string = 'night';
+  myDataArray = [];
   dataSource = new MatTableDataSource<any>(this.myDataArray);
+  displayedColumns: string[] = ['firstDate', 'endDate', 'price'];
+  editBasic: boolean = true;
 
-  onUserTypeChange(event: MatRadioChange) {
-    this.accommodationForm.patchValue({ userType: event.value });
+
+  ngOnInit(): void {
+    function loadAmenities(amenities: Amenity[]) {
+      let ret = "";
+      for (let i = 0; i < amenities.length -1; i++) {
+          ret += amenities[i] +  ", ";
+      }
+
+      ret += amenities[amenities.length-1];
+      return ret;
+    }
+
+    this.setValues();
   }
 
-  onConfirmationTypeChange($event: MatRadioChange) {
-    // this.accommodation.patchValue({ ConfirmationType: event.value });
+
+  setValues(){
+    this.route.params.subscribe((params) => {
+      const id = +params['id'];
+      this.accommodationService.getAccommodation(id).subscribe({
+        next: (data: Accommodation) => {
+          this.accommodation = data;
+
+          this.setValueById('name', "");
+          this.setValueById('minPeople', data.minPeople.toString());
+          this.setValueById('maxPeople', data.maxPeople.toString());
+          this.setValueById('country', data.location.country);
+          // this.setValueById('amenity', loadAmenities(data.amenities))
+          this.setValueById('city', data.location.city);
+          this.setValueById('street', data.location.street);
+          this.setValueById('description', data.description);
+
+          const automaticConfirmationRadio = document.getElementById('automaticConfirmation') as HTMLInputElement;
+          const automaticConfirmation2Radio = document.getElementById('automaticConfirmation2') as HTMLInputElement;
+
+
+          if (data.automaticConfirmation) {
+            automaticConfirmationRadio.checked = true;
+          } else {
+            automaticConfirmation2Radio.checked = true;
+          }
+
+          if (data && data.photoes) {
+            this.imageUrls = [...data.photoes];
+          }
+
+          this.cd.detectChanges();
+        },
+      });
+    });
+  }
+  private setValueById(id: string, value: string): void {
+    const element = document.getElementById(id) as HTMLInputElement | null;
+    if (element) {
+      element.value = value;
+    }
   }
 
-  onTypeAccChange($event: MatRadioChange) {
+
+
+  openCancelDialog() {
+    const isConfirmed = window.confirm('Are you sure you want to cancel changes to this item?');
+
+    if (isConfirmed) {
+      this.exitPage();
+    }
+  }
+
+  private exitPage() {
+      this.router.navigate(['/owners/accommodations']);
+  }
+
+  saveChanges() {
+    this.getAccommodationData();
 
   }
 
-  imageUrls: string[] = []; // Niz za čuvanje putanja slika
+  wrongInput(errorMessage: string = "Wrong entries. Please check your input values."): void {
+    alert(errorMessage);
+  }
 
   onFilesSelected(event: any) {
-    const files: File[] = event.target.files; // Dobijanje izabranih slika
-
-    for (let i = 0; i < files.length; i++) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.imageUrls.push(e.target.result); // Dodavanje putanje slike u niz
-      };
-      reader.readAsDataURL(files[i]); // Čitanje slike kao URL
+    const files = event.target.files;
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.imageUrls.push(e.target.result);
+        };
+        reader.readAsDataURL(files[i]);
+      }
     }
+  }
+
+  removeImage(index: number) {
+    this.imageUrls.splice(index, 1);
+  }
+
+  changePrices(event: Event) {
+    event.preventDefault();
+    this.editBasic = false;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() =>{
+       this.setPriceValues();
+    })
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() =>{
+      this.setValues();
+    })
+  }
+
+
+  closeChangePrice(event: MouseEvent) {
+    event.preventDefault();
+    this.editBasic = true;
+    this.ngAfterViewInit();
   }
 
   addNewRow() {
-    const newRow = { firstDate: 'Novi datum', endDate: 'Novi kraj', price: 0 }; // Prilagodite ovo vašim podacima
+    const newRow = {
+      firstDate:this.dateRangeForm.value.startDate,
+      EndDate:this.dateRangeForm.value.endDate,
+      price:this.dateRangeForm.value.price
+    };
     const data = this.dataSource.data;
     data.push(newRow);
     this.dataSource.data = data;
   }
-  ngOnInit(): void {
+  onUserTypeChange($event: MatRadioChange) {
+    console.log('Izabrana vrednost:', this.selectedOption);
+  }
+
+  private setPriceValues() {
     this.route.params.subscribe((params) => {
-        const id = +params['accommodationId']
-        this.accommodationService.getAccommodation(id).subscribe({
-          next: (data: Accommodation) => {
-            this.accommodation = data
+      const id = +params['id'];
+      this.accommodationService.getAccommodation(id).subscribe({
+        next: (data: Accommodation) => {
+          this.accommodation = data;
 
-            // kakvi su ovo fieldovi
-            this.accommodationForm.setValue({
-              name: '',
-              minPeople: this.accommodation.minPeople.toString(),
-              maxPeople: this.accommodation.maxPeople.toString(),
-              amenity: '',
-              city: "",
-              confirmationType: '',
-              country: "",
-              endDate: '',
-              firstDate: '',
-              holidayPrice: '',
-              limit: '',
-              number: '',
-              price: '',
-              street: "",
-              summerPrice: '',
-              typeAcc: "",
-              userType: '',
-              weekendPrice: ''
-            })
+          this.setValueById('weekendPrice', '');
+          this.setValueById('holidayPrice', '');
+          this.setValueById('summerPrice', '');
+          this.setValueById('cancelLimit', '');
 
-          }
-        })
-      }
-    )
+
+          this.cd.detectChanges();
+        },
+      });
+    });
   }
 }

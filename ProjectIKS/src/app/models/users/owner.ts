@@ -4,4 +4,10 @@ export interface Owner {
   surname: string;
   email: string;
   password: string;
+  address: string;
+  phone: string;
+  createdNotification: boolean;
+  rateMeNotification: boolean;
+  cancelledNotification: boolean;
+  rateAccommodationNotification: boolean;
 }

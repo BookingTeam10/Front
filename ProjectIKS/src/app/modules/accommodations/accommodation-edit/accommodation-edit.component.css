@@ -1,7 +1,13 @@
 .edit-profile-owner{
   background: #ADD8E6;
-  height: fit-content;
+  height: 200%;
   width: 100%;
+}
+
+.max-size-image {
+  max-width: 150px;
+  max-height: 150px;
+
 }
 
 .headline{
@@ -13,6 +19,11 @@
   justify-content: center;
 }
 
+.radio-group{
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 30px;
+}
 
 .container {
 
@@ -39,7 +50,7 @@ input[type="checkbox"] {
   width: 20px;
 }
 
-input {
+input, textarea {
   width: 100%;
   padding: 10px;
   border: 2px solid #ccc;
@@ -49,7 +60,7 @@ input {
 
 .button-group {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   margin: 40px;
 }
 .image-container {
