@@ -19,3 +19,23 @@ mat-card {
   margin-left: 30px;
   margin-right: 30px;
 }
+
+.btn-stilizovano {
+  width: 40%;
+  align-items: center;
+  background-color: #6a7979;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 50px;
+  margin-bottom: 50px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 12px;
+  box-shadow: 0 4px #999;
+}
+

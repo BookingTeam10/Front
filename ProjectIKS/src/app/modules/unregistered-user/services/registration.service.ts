@@ -17,6 +17,8 @@ export class RegistrationService {
   constructor(private http: HttpClient) { }
 
   registration(signUpData: Registration):Observable<Registration> {
+    console.log("ABC");
+    console.log(signUpData.userType);
     return this.http.post<Registration>(environment.apiHost+'/register', signUpData, {"headers": this.headers})
   }
 }

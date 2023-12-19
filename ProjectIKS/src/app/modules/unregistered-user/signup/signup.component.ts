@@ -34,6 +34,7 @@ export class SignupComponent implements OnInit{
     console.log("Registration");
     console.log(this.signUp.value)
     const signUpData:Registration={
+      id:500,
       email:this.signUp.value.email || "",
       password:this.signUp.value.password || "",
       firstName:this.signUp.value.name || "",

@@ -32,7 +32,7 @@ const routes: Routes = [
   {component:AccommodationDetailsComponent, path:"accommodations/:accommodationId"},
   {component:AccommodationDetailsComponent, path:"guests/accommodations/:accommodationId"},
   {path : 'guests/accommodations',component:GuestHomeComponent},
-  {path : 'add-accommodation', component: AccommodationCreateComponent},
+  {path : 'owners/add-accommodation', component: AccommodationCreateComponent},
   {path : 'edit-accommodation/:id', component: EditAccommodationComponent},
   {path : 'owners/accommodations',component:OwnerHomeComponent},
   { path: 'activate', component: ActivationComponent },

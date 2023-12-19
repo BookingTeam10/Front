@@ -12,7 +12,7 @@
         <p class="p-description">Details: {{accommodation.description}}</p>
         <p class="p-description">Average rating: {{accommodation.rating}}</p>
         <p class="p-description">Price : 3000</p>
-        <button *ngIf="loginService.hasRole('Owner')" (click)="openEditDialogue(accommodation.id)" >Edit accommodation</button>
+        <button  class="btn-stilizovano" *ngIf="loginService.hasRole('Owner')" (click)="openEditDialogue(accommodation.id)" >Edit accommodation</button>
       </div>
     </div>
   </mat-card-content>

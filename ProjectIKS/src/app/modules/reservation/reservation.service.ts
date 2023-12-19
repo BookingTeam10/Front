@@ -28,6 +28,7 @@ export class ReservationService {
   createReservation(reservation: Reservation): Observable<Reservation> {
     console.log("udje u funkciju")
     console.log(reservation);
+    console.log(environment.apiHost + '/guests/reservations');
     return this.httpClient.post<Reservation>(environment.apiHost + '/guests/reservations', reservation)
   }
   deleteReservation(id: number): Observable<Reservation> {

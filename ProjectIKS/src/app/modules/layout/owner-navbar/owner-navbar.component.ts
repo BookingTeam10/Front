@@ -13,4 +13,7 @@ export class OwnerNavbarComponent {
     this.router.navigate(['/accommodations']);
   }
 
+  addAccommodation() {
+    this.router.navigate(['/owners/add-accommodation']);
+  }
 }

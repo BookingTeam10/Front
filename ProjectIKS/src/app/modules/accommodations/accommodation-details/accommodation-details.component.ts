@@ -1,21 +1,12 @@
-import {Component, Injectable, OnInit, ViewChild} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {Accommodation, Amenity} from "../../../models/accommodation";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AccommodationService} from "../service/accommodation.service";
-import {Reservation, Review,ReservationStatus } from "../../../models/reservation";
+import {Reservation, ReservationStatus, Review} from "../../../models/reservation";
 import {Guest} from "../../../models/users/guest";
 import {MapService} from "../../shared/map/map.service";
-import * as L from "leaflet";
-import {MapComponent} from "../../shared/map/map.component";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {
-  MatCalendarCellClassFunction,
-  MatCalendarCellCssClasses,
-  MatDatepicker,
-  MatDatepickerModule
-} from '@angular/material/datepicker';
 import {ReservationService} from "../../reservation/reservation.service";
-import {concat, map, Observable, of, switchMap} from "rxjs";
+import {map, Observable} from "rxjs";
 import {ReviewsService} from "../../review/reviews.service";
 import {LoginService} from "../../auth/login/service/login.service";
 
@@ -51,6 +42,7 @@ export class AccommodationDetailsComponent implements OnInit{
     turnOnNotification: false,
     reported: false
   };
+
   constructor(private route: ActivatedRoute, private router: Router, private accommodationService: AccommodationService,private mapService:MapService,private reservationService:ReservationService,private reviewService:ReviewsService,public loginService:LoginService) {}
 
   ngOnInit(): void {
@@ -85,31 +77,22 @@ export class AccommodationDetailsComponent implements OnInit{
   }
 
   reserveAccommodation(accommodation: Accommodation) {
-    this.reservations = this.reservationService.getAll();
-    // this.reservations.subscribe(data => {
-    //   for (let reservation of data) {
-    //     console.log(reservation);
-    //   }
-    // });
-    if (this.startDate == null || this.endDate == null){
-      console.log("Staviti dijalog")
-    }
-    else {
-      this.reservation = {
-        totalPrice: 3000,
-        status: ReservationStatus.WAITING,
-        startDate: this.startDate,
-        endDate: this.endDate,
-        numberOfNights: this.getDaysBetweenDates(this.startDate,this.endDate),
-        accommodation: null,
-        guest: this.guest,
-        reviews: []
-      };
+    this.reservation = {
+      id:100,
+      totalPrice: 3000,
+      status: ReservationStatus.WAITING,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      numberOfNights: this.getDaysBetweenDates(this.startDate,this.endDate),
+      accommodation: null,
+      guest: this.guest,
+      reviews: []
+    };
       this.reservationService.createReservation(this.reservation);
     }
-  }
 
-  getDaysBetweenDates(startDate: Date, endDate: Date ): number{
+
+  getDaysBetweenDates(startDate: Date | null, endDate: Date | null): number{
     if (startDate && endDate) {
       const msPerDay = 24 * 60 * 60 * 1000; // Number of milliseconds per day
       const differenceInMs = endDate.getTime() - startDate.getTime();
