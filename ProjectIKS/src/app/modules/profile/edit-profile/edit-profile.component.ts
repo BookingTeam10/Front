@@ -33,7 +33,8 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onSubmit(): void {
+  onSubmit(event: Event): void {
+    event.preventDefault();
     const isConfirmed = window.confirm('Are you sure you want to apply changes to this item?');
 
     if (isConfirmed) {
@@ -62,15 +63,20 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
     this.setValues(this.loginService.getRole());
   }
 
-  exitPage() {
-    let url = "";
-    if (this.loginService.getRole() == 'ROLE_Admin') {
-      url = "/admin/accommodations";
-    } else if (this.loginService.getRole() == 'ROLE_Guest') {
-      url = "/guests/accommodations";
-    } else {
-      url = "/guests/accommodations";
+  exitPage(leave: boolean) {
+    let url = '/accommodations';
+
+    if(!leave) {
+      if (this.loginService.getRole() == 'ROLE_Admin') {
+        url = "/admin/accommodations";
+      } else if (this.loginService.getRole() == 'ROLE_Guest') {
+        url = "/guests/accommodations";
+      } else if (this.loginService.getRole() == 'ROLE_Owner') {
+        url = "/owners/accommodations";
+      }
     }
+
+    window.close();
     this.router.navigate([url]);
   }
 
@@ -78,7 +84,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
     const isConfirmed = window.confirm('Are you sure you want to cancel changes to this item?');
 
     if (isConfirmed) {
-      this.exitPage();
+      this.exitPage(false);
     }
   }
 
@@ -173,13 +179,12 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
 
   private deleteProfile(): void {
     this.userService.delete(this.admin, this.guest, this.owner);
-    this.exitPage()
+    this.exitPage(true);
   }
 
   private async updateProfile(): Promise<void> {
     const res = this.userService.update(this.admin, this.guest, this.owner, this.oldUsername);
 
-    console.log(res + " reeeess");
 
     res.subscribe(
       (result) => {
@@ -187,7 +192,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
             alert("Username already exists!");
            return;
         }else{
-          this.exitPage();
+          this.exitPage(true);
         }
       }
     )

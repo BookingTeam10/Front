@@ -40,20 +40,11 @@ export class AccommodationService {
   }
 
   add(accommodation: Accommodation): Observable<Accommodation> {
-    console.log(accommodation)
-    const s=""
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post<Accommodation>(
-      environment.apiHost + '/accommodations',
-      JSON.stringify(s),
-      { headers: headers })
-    return this.httpClient.post<Accommodation>(environment.apiHost + '/add/', accommodation)
+
+    return this.httpClient.post<Accommodation>(environment.apiHost + '/accommodations/add', accommodation)
   }
   getAccommodation(id: number): Observable<Accommodation> {
     return this.httpClient.get<Accommodation>(environment.apiHost + '/accommodations/' + id)
-  }
-  addAccommodation(accommodation: AddAccommodation): Observable<Accommodation> {
-    return this.httpClient.post<Accommodation>(environment.apiHost + 'add', accommodation)
   }
 
   // getSearchedAccommodations(location?: String, start?: Date, end?: Date, numPeople?: number) : Observable<Accommodation[]> {
@@ -71,6 +62,7 @@ export class AccommodationService {
   //
   //   return this.httpClient.get<Accommodation[]>(environment.apiHost + "/accommodations/accommodationsSearch", {params: params});
   // }
+
   private accommodations: Accommodation[];
   getSearchedAccommodations(location?: string, start?: Date, end?: Date, numPeople?: number, minPrice?:string,maxPrice?:string,ammenities?: string[]) : Observable<Accommodation[]> {
 
@@ -118,5 +110,10 @@ export class AccommodationService {
 
   rejectAccommodation(id: number) {
     return this.httpClient.post(environment.apiHost + "/accommodations/reject/" + id,{});
+  }
+
+  updateAccommodation(accommodation: Accommodation) {
+      console.log(" USAOOO");
+      return this.httpClient.put(environment.apiHost + "/accommodations/" + accommodation.id, accommodation);
   }
 }

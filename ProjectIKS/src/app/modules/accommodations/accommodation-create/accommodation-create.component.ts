@@ -1,12 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 import {MatRadioChange} from "@angular/material/radio";
-import { MatTableDataSource } from '@angular/material/table';
+import {MatTableDataSource} from '@angular/material/table';
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Registration} from "../../../models/registration";
-import {AddAccommodation} from "../../../models/addAccommodation";
-import {RegistrationService} from "../../unregistered-user/services/registration.service";
 import {AccommodationService} from "../service/accommodation.service";
-import {Accommodation, Amenity, TakenDate} from "../../../models/accommodation";
+import {
+  Accommodation,
+  AccommodationStatus,
+  Amenity,
+  Price,
+  TakenDate,
+  TypeAccommodation
+} from "../../../models/accommodation";
+import {Owner} from "../../../models/users/owner";
+import {UserServiceService} from "../../unregistered-user/signup/user-service.service";
+import {LoginService} from "../../auth/login/service/login.service";
 
 
 @Component({
@@ -17,13 +24,22 @@ import {Accommodation, Amenity, TakenDate} from "../../../models/accommodation";
 export class AccommodationCreateComponent implements OnInit{
 
   dateRangeForm: FormGroup;
-  constructor(private service:AccommodationService) {
+  private owner: Owner;
+  myDataArray = [
+  ];
+
+  takenDates: TakenDate[] = [];
+  displayedColumns: string[] = ['firstDate', 'endDate', 'price'];
+  dataSource = new MatTableDataSource<Price>(this.myDataArray);
+  constructor(private service:AccommodationService,  private userService: UserServiceService, private loginService: LoginService) {
     this.dateRangeForm = new FormGroup({
       startDate: new FormControl('', Validators.required),
       endDate: new FormControl('', Validators.required),
       price: new FormControl(0, [Validators.required])
     });
   }
+
+  imageUrls: string[] = [];
 
   accommodation = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -41,71 +57,82 @@ export class AccommodationCreateComponent implements OnInit{
     TypeAcc: new FormControl('', [Validators.required]),
     dataSource: new FormArray([]),
     imageUrls: new FormArray([]),
-    owner: new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      surname: new FormControl('', [Validators.required]),
-      phone: new FormControl('', [Validators.required]),
-      address: new FormControl('', [Validators.required])
-    }),
-    location : new FormGroup({
-      country: new FormControl('', [Validators.required]),
-      city: new FormControl('', [Validators.required]),
-      street: new FormControl('', [Validators.required]),
-      number: new FormControl(0, [Validators.required])
-    })
+    country: new FormControl('', [Validators.required]),
+    city: new FormControl('', [Validators.required]),
+    street: new FormControl('', [Validators.required]),
+    number: new FormControl(0, [Validators.required])
+    // location : new FormGroup({
+    //   country: new FormControl('', [Validators.required]),
+    //   city: new FormControl('', [Validators.required]),
+    //   street: new FormControl('', [Validators.required]),
+    //   number: new FormControl(0, [Validators.required])
+    // })
   });
+  private user: Owner;
 
   accommodationClicked() {
-    let firstImageUrl = '';
-    if (this.accommodation.value.imageUrls && this.accommodation.value.imageUrls.length > 0) {
-      firstImageUrl = this.accommodation.value.imageUrls[0];
-    }
-    let ammineities='';
-    let splitArray = ammineities.split(',');
-    let amenitiesList: Amenity[] = [];
-    for (let i = 0; i < splitArray.length; i++) {
-      let amenity: Amenity = { name: splitArray[i] };
-      amenitiesList.push(amenity);
+
+    console.log(this.owner);
+
+    const amenities = [];
+
+    const splitted = this.accommodation.value.ammineity?.split(", ");
+
+    const isNightRadio = document.getElementById("isNightRadio") as HTMLInputElement | null;
+    const autoConf = document.getElementById("autoConf") as HTMLInputElement | null;
+    const accType = document.getElementById("accType") as HTMLInputElement | null;
+    if(isNightRadio == null || autoConf == null || accType == null){
+      return;
     }
 
-    const token = localStorage.getItem('user');
-    // const accommodationData: Accommodation = {
-    //   id: 0,
-    //   accepted: false,
-    //   automaticActivation: false,
-    //   description: this.accommodation.value.describe || "",
-    //   minPeople: this.accommodation.value.minPeople || 0,
-    //   maxPeople: this.accommodation.value.maxPeople || 0,
-    //   photo: "",
-    //   typeAccomodation:TypeAccommodation.Apartment,
-    //   rating: this.accommodation.value.rating || 0,
-    //   cancelDeadline: this.accommodation.value.limit || 0,
-    //   prices:[],
-    //   takenDates:[],
-    //   amenities: amenitiesList,
-    //   location:null,
-    //   owner:{
-    //     name: "Luka",
-    //     surname: "Popovic",
-    //     phone: "0655197633",
-    //     address: "Adresa1",
-    //   },
-    //   reservations:[]
-    // };
-    //
-    // this.service.add(accommodationData).subscribe({
-    //   next: (_) =>{
-    //     console.log("Uspesan zahtev");
-    //     console.log(localStorage.getItem('user'));
-    //   }
-    // });
+    for (const splittedKey in splitted) {
+        const amenity: Amenity = {
+          name: splittedKey
+        }
+        amenities.push(amenity);
+    }
+
+    const type =  accType.checked ? TypeAccommodation.Apartment : TypeAccommodation.Room;
+
+    const accommodationData: Accommodation = {
+      id:0,
+      name:this.accommodation.value.name || "",
+      accepted: false,
+      automaticActivation: false,
+      description: this.accommodation.value.describe || "",
+      minPeople: this.accommodation.value.minPeople || 0,
+      maxPeople: this.accommodation.value.maxPeople || 0,
+      photos:this.imageUrls,
+      type : type,
+      rating: this.accommodation.value.rating || 0,
+      cancelDeadline: this.accommodation.value.limit || 0,
+      prices:this.dataSource.data,
+      takenDates:this.takenDates,
+      amenities: amenities,
+      location:{
+        id: 1,
+        country : this.accommodation.value.country || "",
+        city : this.accommodation.value.city || "",
+        street : this.accommodation.value.street || "",
+        number : this.accommodation.value.number || 0
+      },
+      owner: this.owner,
+      reservations:[],
+      weekendPrice:this.accommodation.value.weekendPrice || 0,
+      holidayPrice:this.accommodation.value.holidayPrice|| 0,
+      summerPrice:this.accommodation.value.summerPrice || 0,
+      isNight: isNightRadio.checked,
+      accommodationStatus: AccommodationStatus.CREATED,
+      automaticConfirmation: autoConf.checked
+    };
+
+    this.service.add(accommodationData).subscribe({
+      next: (_) =>{
+        console.log("Uspesan zahtev");
+      }
+    });
   }
 
-  myDataArray = [
-  ];
-
-  displayedColumns: string[] = ['firstDate', 'endDate', 'price'];
-  dataSource = new MatTableDataSource<any>(this.myDataArray);
 
   onUserTypeChange(event: MatRadioChange) {
     this.accommodation.patchValue({ UserType: event.value });
@@ -118,8 +145,6 @@ export class AccommodationCreateComponent implements OnInit{
   onTypeAccChange($event: MatRadioChange) {
     //this.accommodation.patchValue({ TypeAcc:event.value });
   }
-
-  imageUrls: string[] = [];
 
   onFilesSelected(event: any) {
     const files: File[] = event.target.files;
@@ -134,19 +159,39 @@ export class AccommodationCreateComponent implements OnInit{
   }
 
   addNewRow() {
-    const newRow = {
-      firstDate:this.dateRangeForm.value.startDate,
-      EndDate:this.dateRangeForm.value.endDate,
+    const newRow:Price = {
+
+      startDate:this.dateRangeForm.value.startDate,
+      endDate:this.dateRangeForm.value.endDate,
       price:this.dateRangeForm.value.price
     };
+
+    const newTakenDate:TakenDate = {
+      firstDate:this.dateRangeForm.value.startDate,
+      endDate:this.dateRangeForm.value.endDate,
+    }
+
+    this.takenDates.push(newTakenDate);
     const data = this.dataSource.data;
     data.push(newRow);
     this.dataSource.data = data;
   }
   ngOnInit(): void {
+    this.loadUser();
   }
 
   removeImage(index: number) {
     this.imageUrls.splice(index, 1);
   }
+
+  loadUser() {
+
+    this.userService.getOwner(this.loginService.getUsername()).subscribe(
+      (owner: Owner) => {
+        this.owner = owner;
+      }
+    );
+  }
+
+
 }

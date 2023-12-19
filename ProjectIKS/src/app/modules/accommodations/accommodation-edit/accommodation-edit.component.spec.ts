@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AccommodationEditComponent } from './accommodation-edit.component';
+import { EditAccommodationComponent } from './accommodation-edit.component';
 
 describe('AccommodationEditComponent', () => {
-  let component: AccommodationEditComponent;
-  let fixture: ComponentFixture<AccommodationEditComponent>;
+  let component: EditAccommodationComponent;
+  let fixture: ComponentFixture<EditAccommodationComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AccommodationEditComponent]
+      declarations: [EditAccommodationComponent]
     });
-    fixture = TestBed.createComponent(AccommodationEditComponent);
+    fixture = TestBed.createComponent(EditAccommodationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

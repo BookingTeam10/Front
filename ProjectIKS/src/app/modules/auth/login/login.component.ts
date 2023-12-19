@@ -1,10 +1,11 @@
-import {Component, Injectable} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {LoginService} from "./service/login.service";
 import {Login} from "../../../models/login";
 import {AuthResponse} from "../../../models/auth-response";
 import {Router} from "@angular/router";
+import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -12,10 +13,9 @@ import {Router} from "@angular/router";
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
   role: string;
-
   constructor(private service:LoginService,private router: Router) {
   }
 
@@ -23,6 +23,7 @@ export class LoginComponent {
     email: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])
   })
+
 
   loginClicked():void {
     const loginData={
@@ -32,9 +33,14 @@ export class LoginComponent {
 
     this.service.login(loginData).subscribe({
       next: (response: AuthResponse) => {
-        localStorage.setItem('User', response.jwt);
-        this.service.setUser();
-        console.log(response.jwt);
+        if(response.jwt==="NEUSPESNO"){
+          this.router.navigate(['/users/login']);
+          setTimeout(() =>{          alert("Wrong creadentials")})
+        }else{
+          localStorage.setItem('User', response.jwt);
+          this.service.setUser();
+
+        }
       }
     });
 
@@ -53,5 +59,8 @@ export class LoginComponent {
 
   registerClicked() {
     this.router.navigate(['/register'])
+  }
+
+  ngOnInit(): void {
   }
 }

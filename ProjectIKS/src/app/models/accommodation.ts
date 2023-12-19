@@ -2,23 +2,34 @@ import {Owner} from "./users/owner";
 import {Reservation, Review} from "./reservation";
 
 export interface Accommodation{
-  id: number,
+  id: number;
+  name: string;
+  accepted:boolean,
+  automaticActivation:boolean,
   description : string,
   minPeople : number,
   maxPeople : number,
-  photoes : string[],
-  rating : number,
+  photos : string[],
   type : TypeAccommodation,
-  owner : Owner,
-  location:Location,
-  reservations : Reservation[],
+  rating:number,
+  cancelDeadline:number,
+  prices:Price[],
+  takenDates:TakenDate[],
   amenities:Amenity[],
-  name:string,
+  location:Location,
+  owner : Owner,
+  reservations : Reservation[],
+  weekendPrice:number,
+  holidayPrice:number,
+  summerPrice:number,
+  isNight:boolean,
   accommodationStatus: AccommodationStatus,
   automaticConfirmation: boolean
 }
 
-enum TypeAccommodation {
+
+export enum TypeAccommodation {
+
   Apartment="Apartment",
   Room = "Room"
 }
@@ -33,11 +44,17 @@ export interface Location{
 
 export interface TakenDate{
   firstDate : Date,
-  lastDate : Date
+  endDate : Date
 }
 
 export interface Amenity{
   name : string,
+}
+
+export interface Price{
+  startDate: any,
+  endDate: any,
+  price: any
 }
 
 export enum AccommodationStatus {
@@ -46,3 +63,4 @@ export enum AccommodationStatus {
   REJECTED = 'REJECTED',
   APPROVED = 'APPROVED'
 }
+

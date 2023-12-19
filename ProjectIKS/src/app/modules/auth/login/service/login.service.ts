@@ -21,23 +21,45 @@ export class LoginService {
   userState = this.user$.asObservable();
   constructor(private http: HttpClient) {
     this.user$.next(this.getRole());
-   // this.user$.next("User");
+    // this.user$.next("User");
   }
 
-   login(loginData:Login): Observable<AuthResponse> {
+  login(loginData:Login): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(environment.apiHost+'/users/login', loginData,{
       headers: this.headers,
     });
-   }
+  }
 
   getRole(): any {
     if (this.isLoggedIn()) {
       const accessToken: any = localStorage.getItem('User');
       const helper = new JwtHelperService();
-      // console.log(helper.decodeToken(accessToken).role[0].authority);
       return helper.decodeToken(accessToken).role[0].authority;
     }
     return 'User';
+  }
+
+  isLoggedIn(): boolean {
+    return localStorage.getItem('User') != null;
+  }
+
+  setUser(): void {
+    this.user$.next(this.getRole());
+  }
+  public hasRole(requiredRole: string): boolean {
+    const userRoles = this.getRole(); // Dohvatite role iz JWT tokena
+    return userRoles.includes(requiredRole);
+  }
+
+  private loginSuccessSubject = new BehaviorSubject<string>("");
+  loginSuccess$ = this.loginSuccessSubject.asObservable();
+
+  updateLoginSuccess(status: string) {
+    this.loginSuccessSubject.next(status);
+  }
+
+  get currentLoginSuccess(): string {
+    return this.loginSuccessSubject.getValue();
   }
 
   getUsername(): string{
@@ -49,16 +71,5 @@ export class LoginService {
     }
 
     return "";
-  }
-  isLoggedIn(): boolean {
-    return localStorage.getItem('User') != null;
-  }
-
-  setUser(): void {
-    this.user$.next(this.getRole());
-  }
-  public hasRole(requiredRole: string): boolean {
-    const userRoles = this.getRole(); // Dohvatite role iz JWT tokena
-    return userRoles.includes(requiredRole);
   }
 }

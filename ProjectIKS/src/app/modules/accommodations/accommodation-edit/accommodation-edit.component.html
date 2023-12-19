@@ -86,47 +86,56 @@
 
               <div class="radio-group">
                 <label>
-                  <input type="radio" name="priceType" value="night"> Per Night
+                  <input type="radio" id="perNight" name="priceType" value="night"> Per Night
                 </label>
                 <label>
-                  <input type="radio" name="priceType" value="person"> Per Person
+                  <input type="radio" id="perPerson" name="priceType" value="person"> Per Person
                 </label>
               </div>
 
 
-              <mat-form-field>
+              <mat-form-field [formGroup]="dateRangeForm">
                 <mat-label>Enter a date range</mat-label>
                 <mat-date-range-input [rangePicker]="picker">
-                  <input matStartDate placeholder="Start date">
-                  <input matEndDate placeholder="End date">
+                  <input id="startDateInput" matStartDate formControlName="startDate" placeholder="Start date">
+                  <input id="endDateInput" matEndDate formControlName="endDate" placeholder="End date">
                 </mat-date-range-input>
-                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                <mat-hint>MM-DD-YYYY – MM-DD-YYYY</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-date-range-picker #picker></mat-date-range-picker>
               </mat-form-field>
 
-              <div class="form-group">
-                <input placeholder="basic price" name="price" required>
+              <div class="form-group" [formGroup]="dateRangeForm">
+                <input id="priceInput" placeholder="basic price" name="price" formControlName="price" required>
               </div>
 
+
               <table mat-table [dataSource]="dataSource">
-                <!-- Column definitions -->
                 <ng-container matColumnDef="firstDate">
-                  <th mat-header-cell *matHeaderCellDef>firstDate</th>
-                  <td mat-cell *matCellDef="let element">{{ element.firstDate }}</td>
+                  <th mat-header-cell *matHeaderCellDef>First Date</th>
+                  <td mat-cell *matCellDef="let element">{{ formatDate(element.startDate) }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="endDate">
-                  <th mat-header-cell *matHeaderCellDef>Age</th>
-                  <td mat-cell *matCellDef="let element">{{ element.endDate }}</td>
+                  <th mat-header-cell *matHeaderCellDef>End date</th>
+                  <td mat-cell *matCellDef="let element">{{ formatDate(element.endDate) }}</td>
                 </ng-container>
+
 
                 <ng-container matColumnDef="price">
                   <th mat-header-cell *matHeaderCellDef>Price</th>
                   <td mat-cell *matCellDef="let element">{{ element.price }}</td>
                 </ng-container>
 
-                <!-- Table rows -->
+                <ng-container matColumnDef="actions">
+                  <th mat-header-cell *matHeaderCellDef>Action</th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button (click)="deleteRow(element)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let element; columns: displayedColumns;"></tr>
               </table>
@@ -137,7 +146,7 @@
 
               <div class="button-group">
                 <button  class="save-button" (click)="closeChangePrice($event)" >Cancel</button>
-                <button class="save-button">Save</button>
+                <button class="save-button" (click)="savePrices($event)">Save</button>
               </div>
             </form>
           </div>

@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Accommodation} from "../../../models/accommodation";
 import {Router} from "@angular/router";
+import {LoginService} from "../../auth/login/service/login.service";
 
 @Component({
   selector: 'app-accommodation-card',
@@ -11,7 +12,7 @@ export class AccommodationCardComponent {
 
   @Input()
   accommodation: Accommodation;
-  constructor(private router: Router) {
+  constructor(private router: Router, public loginService: LoginService) {
   }
 
   @Output()

@@ -17,7 +17,7 @@ export class SignupComponent implements OnInit{
   allTextPattern = "[a-zA-Z][a-zA-Z]*";
   phoneNumberPattern = "[0-9 +]?[0-9]+[0-9 \\-]+";
 
-  constructor(private service:RegistrationService) {
+  constructor(private service:RegistrationService,private router: Router) {
   }
 
   signUp = new FormGroup({
@@ -46,6 +46,7 @@ export class SignupComponent implements OnInit{
     this.service.registration(signUpData).subscribe({
       next: (response) =>{
         console.log(response.activationCode)
+        this.router.navigate(['/users/login']);
       }
     });
   }

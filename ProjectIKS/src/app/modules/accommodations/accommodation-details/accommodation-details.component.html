@@ -18,8 +18,8 @@
     <p *ngFor="let amenity of amenities | async">{{ amenity.name }}</p>
   </div>
 
-  <div *ngIf="accommodation.photoes.length > 0" class="photo-gallery">
-    <img *ngFor="let photo of accommodation.photoes" [src]="photo" alt="Slika smeštaja" style="width: 100%; height: auto; padding: 10px; border-radius: 20px;">
+  <div *ngIf="accommodation.photos.length > 0" class="photo-gallery">
+    <img *ngFor="let photo of accommodation.photos" [src]="photo" alt="Slika smeštaja" style="width: 100%; height: auto; padding: 10px; border-radius: 20px;">
   </div>
 
   <mat-form-field *ngIf="loginService.hasRole('Guest')" style="margin-top: 20px">

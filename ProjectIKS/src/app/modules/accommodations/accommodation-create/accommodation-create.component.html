@@ -59,17 +59,17 @@
           </div>
 
           <mat-radio-group class="radio-group" (change)="onUserTypeChange($event)">
-            <mat-radio-button value="night" class="white-text">Per Night</mat-radio-button>
+            <mat-radio-button id="isNightRadio" value="night" class="white-text">Per Night</mat-radio-button>
             <mat-radio-button value="person" class="white-text">Per Person</mat-radio-button>
           </mat-radio-group>
 
           <mat-radio-group class="radio-group" (change)="onConfirmationTypeChange($event)">
-            <mat-radio-button value="yes" class="white-text">Automatic Confirmation</mat-radio-button>
+            <mat-radio-button id="autoConf" value="yes" class="white-text">Automatic Confirmation</mat-radio-button>
             <mat-radio-button value="no" class="white-text">No Automatic</mat-radio-button>
           </mat-radio-group>
 
           <mat-radio-group class="radio-group" (change)="onTypeAccChange($event)">
-            <mat-radio-button value="apartman" class="white-text">Apartman</mat-radio-button>
+            <mat-radio-button id="accType" value="apartman" class="white-text">Apartman</mat-radio-button>
             <mat-radio-button value="room" class="white-text">Room</mat-radio-button>
           </mat-radio-group>
           <form [formGroup]="dateRangeForm">

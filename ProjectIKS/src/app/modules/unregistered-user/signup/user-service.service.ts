@@ -2,9 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {catchError, EMPTY, firstValueFrom, map, Observable, of, tap} from "rxjs";
 import {environment} from "../../../environment/environment";
+
 import {Admin} from "../../../models/users/user";
 import {Owner} from "../../../models/users/owner";
 import {Guest} from "../../../models/users/guest";
+import {AuthResponse} from "../../../models/auth-response";
+import {Message} from "../../../models/message";
+import {Router} from "@angular/router";
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +26,8 @@ export class UserServiceService {
   //   'Content-Type': 'application/json',
   //   'Authorization': 'Bearer ' +   // Replace authToken with the actual token
   // });
-  constructor(private httpClient: HttpClient,
-  ) {
-  }
+
+  constructor(private httpClient: HttpClient,private router: Router) { }
 
   // activate(code: string): Observable<string> {
   //   console.log(code);
@@ -34,12 +38,12 @@ export class UserServiceService {
   // }
 
   activate(code: string): Observable<string> {
+    this.router.navigate(['/users/login']);
     return this.httpClient.post<string>(
       `${environment.apiHost}/activate/${code}`,
       {
         headers: this.headers, responseType: 'text'
       }
-      //null // Ako nema tela zahteva, ovde možete poslati null ili prazan objekat
     );
   }
 
@@ -163,7 +167,7 @@ export class UserServiceService {
     const passwordDto = {
       password: pass
     };
-    return this.httpClient.post(environment.apiHost + '/users/change-password/' + id, passwordDto).subscribe((response: any) => {
+    return this.httpClient.put(environment.apiHost + '/users/change-password/' + id, passwordDto).subscribe((response: any) => {
     });
   }
 
