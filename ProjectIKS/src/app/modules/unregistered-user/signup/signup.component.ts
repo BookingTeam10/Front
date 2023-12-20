@@ -16,13 +16,14 @@ export class SignupComponent implements OnInit{
 
   allTextPattern = "[a-zA-Z][a-zA-Z]*";
   phoneNumberPattern = "[0-9 +]?[0-9]+[0-9 \\-]+";
+  selectedUserType: string;
 
   constructor(private service:RegistrationService,private router: Router) {
   }
 
   signUp = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
-    password: new FormControl('', [Validators.minLength(8), Validators.required]),
+    password: new FormControl('', [Validators.minLength(3), Validators.required]),
     confirmPassword: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.pattern(this.allTextPattern), Validators.required]),
     surname: new FormControl('', [Validators.pattern(this.allTextPattern), Validators.required]),
@@ -31,33 +32,35 @@ export class SignupComponent implements OnInit{
     userType: new FormControl('', [Validators.required])
   }, {validators: [match('password', 'confirmPassword')]});
   registerClicked() {
-    console.log("Registration");
-    console.log(this.signUp.value)
+    console.log("KLIKNUTO");
     const signUpData:Registration={
-      id:500,
+      id:500, //doda se cisto neki id, posle se to u bazi promeni
       email:this.signUp.value.email || "",
       password:this.signUp.value.password || "",
+
       firstName:this.signUp.value.name || "",
       lastName:this.signUp.value.surname || "",
       phoneNumber:this.signUp.value.phone || "",
       address:this.signUp.value.address || "",
-      userType:TypeUser.Guest,
+      userType:TypeUser[this.selectedUserType as keyof typeof TypeUser],
       activationCode:""
     }
-    this.service.registration(signUpData).subscribe({
-      next: (response) =>{
-        console.log(response.activationCode)
-        this.router.navigate(['/users/login']);
-      }
-    });
+    if(this.signUp.valid) {
+      this.service.registration(signUpData).subscribe({
+        next: (response) => {
+          console.log(response.activationCode);
+          this.router.navigate(['/users/login']);
+        }
+      });
+    }
   }
 
   onUserTypeChange(event: MatRadioChange) {
+    this.selectedUserType = event.value;
     this.signUp.patchValue({ userType: event.value });
   }
   ngOnInit(): void {
   }
-
 }
 
 export function match(controlName: string, checkControlName: string): ValidatorFn {

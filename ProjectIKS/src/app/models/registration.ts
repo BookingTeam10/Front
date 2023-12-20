@@ -11,6 +11,6 @@ export interface Registration {
 }
 
 export enum TypeUser {
-  Owner = 'Owner',
-  Guest = 'Guest'
+  OWNER="OWNER" ,
+  GUEST="GUEST"
 }

@@ -17,6 +17,7 @@ import {ReviewsModule} from "./modules/review/reviews.module";
 import {MatButtonModule} from "@angular/material/button";
 import {MatDialogModule} from "@angular/material/dialog";
 import {Interceptor} from "./modules/auth/login/interceptor";
+import {AdministratorModule} from "./modules/administrator/administrator.module";
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import {Interceptor} from "./modules/auth/login/interceptor";
     AuthModule,
     BrowserAnimationsModule,
     GuestModule,
+    AdministratorModule,
     HttpClientModule,
     ReactiveFormsModule,
     MatTableModule,

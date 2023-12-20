@@ -9,14 +9,13 @@ import {GuestHomeComponent} from "../guest/guest-home/guest-home.component";
 @NgModule({
   declarations: [
     AdministratorHomeComponent,
-
   ],
-    imports: [
-        CommonModule,
-        LayoutModule
-    ],
+  imports: [
+    CommonModule,
+    LayoutModule,
+  ],
   exports: [
-    AdministratorHomeComponent
+    AdministratorHomeComponent,
   ]
 })
 export class AdministratorModule { }

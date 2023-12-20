@@ -15,6 +15,7 @@ import {UserServiceService} from "../../unregistered-user/signup/user-service.se
 import {LoginService} from "../../auth/login/service/login.service";
 import {EditAccommodation} from "../../../models/EditAccommodation";
 import {ActivatedRoute, Router} from "@angular/router";
+import {formatDate} from "@angular/common";
 
 
 @Component({
@@ -30,7 +31,7 @@ export class AccommodationCreateComponent implements OnInit{
   ];
 
   takenDates: TakenDate[] = [];
-  displayedColumns: string[] = ['firstDate', 'endDate', 'price'];
+  displayedColumns: string[] = ['firstDate', 'endDate', 'price','actions'];
   dataSource = new MatTableDataSource<Price>(this.myDataArray);
   constructor(private service:AccommodationService,private route: ActivatedRoute,private router: Router,  private userService: UserServiceService, private loginService: LoginService,private cd: ChangeDetectorRef) {
     this.dateRangeForm = new FormGroup({
@@ -62,10 +63,14 @@ export class AccommodationCreateComponent implements OnInit{
     const country = this.getValueById('country');
     const city = this.getValueById('city');
     const street = this.getValueById('street');
+    const weekendPrice = this.getValueById('weekendPrice');
+    const holidayPrice = this.getValueById('holidayPrice');
+    const summerPrice = this.getValueById('summerPrice');
+    const cancelDeadline = this.getValueById('limit');
     const confirmationType = document.getElementById("automaticConfirmation") as HTMLInputElement | null;
 
 
-    if (!name || !minPeople || !maxPeople || !country || !city || !street || !confirmationType) {
+    if (!name || !minPeople || !maxPeople || !country || !city || !street || !confirmationType || !weekendPrice || !holidayPrice  || !summerPrice || !cancelDeadline) {
       this.wrongInput();
       return null;
     }
@@ -81,8 +86,8 @@ export class AccommodationCreateComponent implements OnInit{
       photos: this.imageUrls,
       type:TypeAccommodation.Apartment,
       rating:0,
-      cancelDeadline:5,
-      prices:[],
+      cancelDeadline:parseInt(cancelDeadline),
+      prices:this.dataSource.data,
       takenDates:[],
       amenities:[],
       location: {
@@ -94,11 +99,11 @@ export class AccommodationCreateComponent implements OnInit{
       },
       owner:this.owner,
       reservations:[],
-      weekendPrice:5,
-      holidayPrice:5,
-      summerPrice:5,
+      weekendPrice:parseInt(weekendPrice),
+      holidayPrice:parseInt(holidayPrice),
+      summerPrice:parseInt(summerPrice),
       isNight:true,
-      accommodationStatus: AccommodationStatus.EDITED,
+      accommodationStatus: AccommodationStatus.CREATED,
       automaticConfirmation: confirmationType.checked,
     };
     return accommodation;
@@ -114,139 +119,55 @@ export class AccommodationCreateComponent implements OnInit{
   }
 
   selectedOption: string = 'night';
-
-  // accommodation = new FormGroup({
-  //   name: new FormControl('', [Validators.required]),
-  //   describe:new FormControl('', [Validators.required]),
-  //   minPeople: new FormControl(0, [Validators.required]),
-  //   maxPeople: new FormControl(0, [Validators.required]),
-  //   ammineity: new FormControl('', [Validators.required]),
-  //   rating:new FormControl(0, [Validators.required]),
-  //   weekendPrice: new FormControl(0, [Validators.required]),
-  //   holidayPrice: new FormControl(0, [Validators.required]),
-  //   summerPrice: new FormControl(0, [Validators.required]),
-  //   limit: new FormControl(0, [Validators.required]),
-  //   UserType: new FormControl('', [Validators.required]),
-  //   ConfirmationType: new FormControl('', [Validators.required]),
-  //   TypeAcc: new FormControl('', [Validators.required]),
-  //   dataSource: new FormArray([]),
-  //   imageUrls: new FormArray([]),
-  //   country: new FormControl('', [Validators.required]),
-  //   city: new FormControl('', [Validators.required]),
-  //   street: new FormControl('', [Validators.required]),
-  //   number: new FormControl(0, [Validators.required])
-  // });
-  // private user: Owner;
-  //
-  // accommodationClicked() {
-  //
-  //   console.log(this.owner);
-  //
-  //   const amenities = [];
-  //
-  //   console.log(this.accommodation.value.name);
-  //
-  //   const splitted = this.accommodation.value.ammineity?.split(", ");
-  //
-  //   const isNightRadio = document.getElementById("isNightRadio") as HTMLInputElement | null;
-  //   const autoConf = document.getElementById("autoConf") as HTMLInputElement | null;
-  //   const accType = document.getElementById("accType") as HTMLInputElement | null;
-  //   if(isNightRadio == null || autoConf == null || accType == null){
-  //     return;
-  //   }
-  //
-  //   for (const splittedKey in splitted) {
-  //     const amenity: Amenity = {
-  //       name: splittedKey
-  //     }
-  //     amenities.push(amenity);
-  //   }
-  //
-  //   const type =  accType.checked ? TypeAccommodation.Apartment : TypeAccommodation.Room;
-  //
-  //   const accommodationData: Accommodation = {
-  //     id:0,
-  //     name:this.accommodation.value.name || "",
-  //     accepted: false,
-  //     automaticActivation: false,
-  //     description: this.accommodation.value.describe || "",
-  //     minPeople: this.accommodation.value.minPeople || 0,
-  //     maxPeople: this.accommodation.value.maxPeople || 0,
-  //     photos:this.imageUrls,
-  //     type : type,
-  //     rating: this.accommodation.value.rating || 0,
-  //     cancelDeadline: this.accommodation.value.limit || 0,
-  //     prices:this.dataSource.data,
-  //     takenDates:this.takenDates,
-  //     amenities: amenities,
-  //     location:{
-  //       id: 1,
-  //       country : this.accommodation.value.country || "",
-  //       city : this.accommodation.value.city || "",
-  //       street : this.accommodation.value.street || "",
-  //       number : this.accommodation.value.number || 0
-  //     },
-  //     owner: this.owner,
-  //     reservations:[],
-  //     weekendPrice:this.accommodation.value.weekendPrice || 0,
-  //     holidayPrice:this.accommodation.value.holidayPrice|| 0,
-  //     summerPrice:this.accommodation.value.summerPrice || 0,
-  //     isNight: isNightRadio.checked,
-  //     accommodationStatus: AccommodationStatus.CREATED,
-  //     automaticConfirmation: autoConf.checked
+  // addNewRow() {
+  //   const newRow:Price = {
+  //     startDate:this.dateRangeForm.value.startDate,
+  //     endDate:this.dateRangeForm.value.endDate,
+  //     price:this.dateRangeForm.value.price
   //   };
   //
-  //   console.log("ACC")
-  //   console.log(accommodationData)
-  //   this.service.add(accommodationData).subscribe({
-  //     next: (_) =>{
-  //       console.log("Uspesan zahtev");
-  //     }
-  //   });
-  // }
-  //
-  //
-  // onUserTypeChange(event: MatRadioChange) {
-  //   this.accommodation.patchValue({ UserType: event.value });
-  // }
-  //
-  // onConfirmationTypeChange($event: MatRadioChange) {
-  //   //this.accommodation.patchValue({ ConfirmationType: event.value });
-  // }
-  //
-  // onTypeAccChange($event: MatRadioChange) {
-  //   //this.accommodation.patchValue({ TypeAcc:event.value });
-  // }
-  //
-  // onFilesSelected(event: any) {
-  //   const files: File[] = event.target.files;
-  //
-  //   for (let i = 0; i < files.length; i++) {
-  //     const reader = new FileReader();
-  //     reader.onload = (e: any) => {
-  //       this.imageUrls.push(e.target.result);
-  //     };
-  //     reader.readAsDataURL(files[i]);
+  //   const newTakenDate:TakenDate = {
+  //     firstDate:this.dateRangeForm.value.startDate,
+  //     endDate:this.dateRangeForm.value.endDate,
   //   }
-  // }
   //
+  //   this.takenDates.push(newTakenDate);
+  //   const data = this.dataSource.data;
+  //   data.push(newRow);
+  //   this.dataSource.data = data;
+  // }
   addNewRow() {
-    const newRow:Price = {
-      startDate:this.dateRangeForm.value.startDate,
-      endDate:this.dateRangeForm.value.endDate,
-      price:this.dateRangeForm.value.price
-    };
 
-    const newTakenDate:TakenDate = {
-      firstDate:this.dateRangeForm.value.startDate,
-      endDate:this.dateRangeForm.value.endDate,
-    }
+    if(this.dateRangeForm.valid) {
+      const startDate = new Date(this.dateRangeForm.value.startDate);
+      const endDate = new Date(this.dateRangeForm.value.endDate);
 
-    this.takenDates.push(newTakenDate);
-    const data = this.dataSource.data;
-    data.push(newRow);
-    this.dataSource.data = data;
-  }
+      const formattedStartDate = startDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      });
+
+      const formattedEndDate = endDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      });
+
+      const formattedStartDateYYYYMMDD = startDate.toISOString().split('T')[0];
+      const formattedEndDateYYYYMMDD = endDate.toISOString().split('T')[0];
+      const newRow:Price = {
+        startDate: formattedStartDateYYYYMMDD,
+        endDate: formattedEndDateYYYYMMDD,
+        price: this.dateRangeForm.value.price
+      };
+
+      const data = this.dataSource.data;
+      data.push(newRow);
+      this.dataSource.data = [...data];
+      this.dateRangeForm.reset();
+    }}
+
   ngOnInit(): void {
     this.loadUser();
     //this.setValues();
@@ -342,11 +263,25 @@ export class AccommodationCreateComponent implements OnInit{
     if(a!=null){
       this.service.add(a).subscribe((response: any) =>{});
 
-      // this.router.navigate(['/owners/accommodations'])
-      //   .then(() => {
-      //     window.location.reload();
-      //   });
+      this.router.navigate(['/owners/accommodations'])
+        .then(() => {
+          window.location.reload();
+        });
     }
   }
+  formatDate(dateString: string): string {
 
+    const dateObject = new Date(dateString);
+    return dateObject.toISOString().split('T')[0];
+  }
+
+  deleteRow(element: Price) {
+
+    const data = this.dataSource.data;
+    const index = this.dataSource.data.indexOf(element);
+    if (index >= 0) {
+      data.splice(index, 1);
+    }
+    this.dataSource.data = data;
+  }
 }

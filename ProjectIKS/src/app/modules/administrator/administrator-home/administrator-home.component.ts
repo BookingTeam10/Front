@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./administrator-home.component.css']
 })
 export class AdministratorHomeComponent {
+  constructor() {
+  }
 
 }

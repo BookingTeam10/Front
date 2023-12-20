@@ -22,6 +22,8 @@ export class AccommodationCardsComponent implements OnInit {
     this.service.accommodations$.subscribe({
       next: (data: Accommodation[]) => {
         this.accommodations= data
+        console.log("AAAA");
+        console.log("UCITA");
       },
       error: (_) => {console.log("Greska!")}
     })
