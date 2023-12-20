@@ -10,6 +10,7 @@ import {
 import {SignupComponent} from "../unregistered-user/signup/signup.component";
 import {MatButtonModule} from "@angular/material/button";
 import {MatDialogModule} from "@angular/material/dialog";
+import { OwnerAccommodationsComponent } from './owner-accommodations/owner-accommodations.component';
 
 
 
@@ -17,7 +18,8 @@ import {MatDialogModule} from "@angular/material/dialog";
 
   declarations: [
     EditProfileComponent,
-    OwnerHomeComponent
+    OwnerHomeComponent,
+    OwnerAccommodationsComponent
   ],
     imports: [
         CommonModule,

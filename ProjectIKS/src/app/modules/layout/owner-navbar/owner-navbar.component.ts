@@ -23,4 +23,16 @@ export class OwnerNavbarComponent {
   addAccommodation() {
     this.router.navigate(['/owners/add-accommodation']);
   }
+
+  viewProfile(){
+    this.router.navigate(["/edit-profile"]);
+  }
+
+  myAccommodations(){
+    this.router.navigate(['/owners/my-accommodations']);
+  }
+
+  home(){
+    this.router.navigate(['/owners/accommodations']);
+  }
 }

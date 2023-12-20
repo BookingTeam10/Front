@@ -117,4 +117,8 @@ export class AccommodationService {
   updateAccommodation(accommodation: Accommodation) {
       return this.httpClient.put(environment.apiHost + "/accommodations/" + accommodation.id, accommodation);
   }
+
+  getOwnerAccommodations(id: number): Observable<Accommodation[]> {
+      return this.httpClient.get<Accommodation[]>(environment.apiHost + "/owners/" + id + "/accommodations");
+  }
 }

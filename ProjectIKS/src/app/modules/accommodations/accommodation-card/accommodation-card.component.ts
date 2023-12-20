@@ -29,4 +29,8 @@ export class AccommodationCardComponent {
   openEditDialogue(id: number) {
       this.router.navigate(['/edit-accommodation', id]);
   }
+
+  isOwnersUrl():boolean {
+      return this.router.url === "/owners/my-accommodations";
+  }
 }
