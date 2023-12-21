@@ -2,7 +2,8 @@
   <div fxLayoutAlign="center" fxFlexFill>
     <mat-card fxFlex="50" class="mat-card-margine" >
       <mat-toolbar class="signup-toolbar">Registration</mat-toolbar>
-      <form fxLayoutAlign="stretch" fxLayout="column" class="signup-form" [formGroup]="signUp" (ngSubmit)="registerClicked()">
+<!--      <form fxLayoutAlign="stretch" fxLayout="column" class="signup-form" [formGroup]="signUp" (ngSubmit)="registerClicked()">-->
+      <form fxLayoutAlign="stretch" fxLayout="column" class="signup-form" [formGroup]="signUp" >
         <mat-form-field>
           <input matInput formControlName="email" placeholder="email">
         </mat-form-field>
@@ -26,8 +27,8 @@
         </mat-form-field>
         <div fxLayoutAlign="center" class="radio-buttons">
           <mat-radio-group class="radio-group" (change)="onUserTypeChange($event)">
-            <mat-radio-button value="owner" class="white-text">Owner</mat-radio-button>
-            <mat-radio-button value="guest" class="white-text">Guest</mat-radio-button>
+            <mat-radio-button value="OWNER" class="white-text">Owner</mat-radio-button>
+            <mat-radio-button value="GUEST" class="white-text">Guest</mat-radio-button>
           </mat-radio-group>
         </div>
         <button mat-button type="submit" class="signup-button" (click)="registerClicked()">Register</button>

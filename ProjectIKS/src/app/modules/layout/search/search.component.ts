@@ -71,6 +71,7 @@ export class SearchComponent implements OnInit{
       numberOfGuests: numberOfGuests || 0,
     };
      this.selectedOptionsDisplay = this.getSelectedOptions();
+     console.log(this.selectedOptionsDisplay);
     console.log(typeof this.maximumPr);
     //dodati ovde type i selectedOptions i min i max price
     // @ts-ignore

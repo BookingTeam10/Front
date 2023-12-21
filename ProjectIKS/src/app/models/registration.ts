@@ -1,4 +1,5 @@
 export interface Registration {
+  id:number,
   email: string,
   password: string,
   firstName: string,
@@ -10,6 +11,6 @@ export interface Registration {
 }
 
 export enum TypeUser {
-  Owner = 'Owner',
-  Guest = 'Guest'
+  OWNER="OWNER" ,
+  GUEST="GUEST"
 }

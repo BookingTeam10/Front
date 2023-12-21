@@ -23,6 +23,7 @@ import {GuestReviewsComponent} from "./modules/guest/guest-reviews/guest-reviews
 import {AccommodationApprovalComponent} from "./modules/administrator/accommodation-approval/accommodation-approval.component";
 import {EditAccommodationComponent} from "./modules/accommodations/accommodation-edit/accommodation-edit.component";
 import {AdministratorHomeComponent} from "./modules/administrator/administrator-home/administrator-home.component";
+import {OwnerAccommodationsComponent} from "./modules/owner/owner-accommodations/owner-accommodations.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'accommodations', pathMatch: 'full'},
@@ -32,7 +33,7 @@ const routes: Routes = [
   {component:AccommodationDetailsComponent, path:"accommodations/:accommodationId"},
   {component:AccommodationDetailsComponent, path:"guests/accommodations/:accommodationId"},
   {path : 'guests/accommodations',component:GuestHomeComponent},
-  {path : 'add-accommodation', component: AccommodationCreateComponent},
+  {path : 'owners/add-accommodation', component: AccommodationCreateComponent},
   {path : 'edit-accommodation/:id', component: EditAccommodationComponent},
   {path : 'owners/accommodations',component:OwnerHomeComponent},
   { path: 'activate', component: ActivationComponent },
@@ -41,6 +42,7 @@ const routes: Routes = [
   {path: 'admin/accommodation-approve', component: AccommodationApprovalComponent},
   {path: 'edit-accommodation/:accommodationId', component: EditAccommodationComponent},
   {path : 'admin/accommodations', component: AdministratorHomeComponent},
+  {path: 'owners/my-accommodations', component: OwnerAccommodationsComponent},
 ];
 
 

@@ -72,4 +72,7 @@ export class LoginService {
 
     return "";
   }
+  logout(): Observable<Boolean> {
+    return this.http.get<any>(environment.apiHost + '/users/logout');
+  }
 }

@@ -67,7 +67,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
     let url = '/accommodations';
 
     if(!leave) {
-      if (this.loginService.getRole() == 'ROLE_Admin') {
+      if (this.loginService.getRole() == 'ROLE_Administrator') {
         url = "/admin/accommodations";
       } else if (this.loginService.getRole() == 'ROLE_Guest') {
         url = "/guests/accommodations";
@@ -76,7 +76,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
       }
     }
 
-    window.close();
+    //window.close();
     this.router.navigate([url]);
   }
 
@@ -89,12 +89,13 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    if (this.loginService.getRole() == 'ROLE_Admin') {
+    console.log(this.loginService.getRole())
+    if (this.loginService.getRole() == 'ROLE_Administrator') {
       this.userService.getAdmin(this.loginService.getUsername()).subscribe(
         (admin: Admin) => {
           this.admin = admin;
           this.oldUsername = admin.email;
-          this.setValues('ROLE_Admin');
+          this.setValues('ROLE_Administrator');
         }
       );
     } else if (this.loginService.getRole() == 'ROLE_Guest') {
@@ -130,9 +131,8 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
       emailInput?.value !== '' &&
       nameInput?.value !== '' &&
       surnameInput?.value !== ''
-    ) {
-
-      if (role === 'ROLE_Admin') {
+    ) {;
+      if (role === 'ROLE_Administrator') {
         this.admin.email = emailInput?.value;
         this.admin.name = nameInput?.value;
         this.admin.surname = surnameInput?.value;
@@ -210,7 +210,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
     const rateMeNotifications = document.getElementById('notificationRateMe') as HTMLInputElement | null;
     const rateAccommodation = document.getElementById('notificationRateAccommodation') as HTMLInputElement | null;
 
-    if(role == "ROLE_Admin"){
+    if(role == "ROLE_Administrator"){
       if (emailInput) emailInput.value = this.admin.email;
       if (nameInput) nameInput.value = this.admin.name;
       if (surnameInput) surnameInput.value = this.admin.surname;

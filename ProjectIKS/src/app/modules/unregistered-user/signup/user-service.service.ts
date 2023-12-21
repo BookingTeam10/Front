@@ -66,7 +66,6 @@ export class UserServiceService {
   }
 
    update(admin: Admin | null, guest: Guest | null, owner: Owner | null, oldUsername: string): Observable<boolean> {
-
     if (admin !== null && admin !== undefined) {
       if (admin.email != oldUsername) {
         return this.checkUsername(admin.email).pipe(
@@ -121,7 +120,8 @@ export class UserServiceService {
   }
 
   private updateAdmin(admin: Admin) {
-    return this.httpClient.put<Admin>(environment.apiHost + '/admin/' + admin.id, admin);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.httpClient.put<Admin>(environment.apiHost + '/admin/' + admin.id, admin,{headers: headers});
   }
 
   private updateGuest(guest: Guest) {

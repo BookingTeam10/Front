@@ -1,8 +1,8 @@
 <mat-toolbar>
   <span >Booking</span>
   <div>
-    <button [routerLink]="['/edit-profile']"  style="float: right" mat-raised-button >Profile</button>
-    <button style="float: right" mat-raised-button >Reservations</button>
+    <button (click)="EditProfile()"  style="float: right" mat-raised-button >Profile</button>
+    <button (click)="Aprove()" style="float: right" mat-raised-button >Approve</button>
     <button  style="float: right" mat-raised-button >Notifications</button>
     <button  (click)="Logout()" style="float: right" mat-raised-button >Logout</button>
   </div>

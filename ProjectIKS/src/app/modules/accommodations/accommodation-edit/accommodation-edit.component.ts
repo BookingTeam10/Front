@@ -103,10 +103,10 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
       if(amenities == null){return "";}
       let ret = "";
       for (let i = 0; i < amenities.length -1; i++) {
-        ret += amenities[i] +  ", ";
+        ret += amenities[i].name +  ", ";
       }
 
-      ret += amenities[amenities.length-1];
+      ret += amenities[amenities.length-1].name;
       return ret;
     }
 

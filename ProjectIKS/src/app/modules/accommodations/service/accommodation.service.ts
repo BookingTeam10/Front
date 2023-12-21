@@ -64,8 +64,9 @@ export class AccommodationService {
   // }
 
   private accommodations: Accommodation[];
-  getSearchedAccommodations(location?: string, start?: Date, end?: Date, numPeople?: number, minPrice?:string,maxPrice?:string,ammenities?: string[]) : Observable<Accommodation[]> {
-
+  getSearchedAccommodations(location?: string, start?: Date, end?: Date, numPeople?: number, minPrice?:string,maxPrice?:string,amenities?: string[]) : Observable<Accommodation[]> {
+    console.log("ABC");
+    console.log(amenities);
     let params = new HttpParams();
     if (location != undefined)
     {
@@ -84,10 +85,11 @@ export class AccommodationService {
     {
       params = params.append("maxPrice", maxPrice );
     }
-    if (ammenities != undefined)
+    if (amenities != undefined)
     {
+
       // @ts-ignore
-      params = params.append("ammenities", ammenities  );
+      params = params.append("amenities", amenities  );
     }
 
     return this.httpClient.get<Accommodation[]>(environment.apiHost + "/accommodations/accommodationsSearch", {params: params});
@@ -113,7 +115,10 @@ export class AccommodationService {
   }
 
   updateAccommodation(accommodation: Accommodation) {
-      console.log(" USAOOO");
       return this.httpClient.put(environment.apiHost + "/accommodations/" + accommodation.id, accommodation);
+  }
+
+  getOwnerAccommodations(id: number): Observable<Accommodation[]> {
+      return this.httpClient.get<Accommodation[]>(environment.apiHost + "/owners/" + id + "/accommodations");
   }
 }
