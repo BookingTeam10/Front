@@ -35,4 +35,9 @@ export class OwnerNavbarComponent {
   home(){
     this.router.navigate(['/owners/accommodations']);
   }
+
+  viewReservations(){
+    this.router.navigate(['/owners/reservations']);
+  }
+
 }

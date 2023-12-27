@@ -42,4 +42,14 @@ export class ReservationService {
       +id+'/reservations')
   }
 
+  getOwnerReservations(id: number):Observable<Reservation[]>{
+      return this.httpClient.get<Reservation[]>(environment.apiHost + '/reservations/owner/' + id)
+  }
+  acceptReservation(reservationId: number): Observable<Object> {
+        return this.httpClient.put(environment.apiHost + "/reservations/accept/" + reservationId, {});
+  }
+
+  rejectReservation(reservationId: number) {
+      return this.httpClient.put(environment.apiHost + "/reservations/cancel/" + reservationId + "?canceledByHost=true", {});
+  }
 }

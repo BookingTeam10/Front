@@ -11,26 +11,32 @@ import {SignupComponent} from "../unregistered-user/signup/signup.component";
 import {MatButtonModule} from "@angular/material/button";
 import {MatDialogModule} from "@angular/material/dialog";
 import { OwnerAccommodationsComponent } from './owner-accommodations/owner-accommodations.component';
-
-
+import {MatListModule} from "@angular/material/list";
+import {MatCardModule} from "@angular/material/card";
+import {RouterLink} from "@angular/router";
+import { OwnerReservationComponent } from './owner-reservation/owner-reservation.component';
 
 @NgModule({
 
   declarations: [
     EditProfileComponent,
     OwnerHomeComponent,
-    OwnerAccommodationsComponent
+    OwnerAccommodationsComponent,
+    OwnerReservationComponent,
   ],
-    imports: [
-        CommonModule,
-        AccommodationsModule,
-        LayoutModule,
-        MatButtonModule,
-        MatDialogModule
-    ],
+  imports: [
+    CommonModule,
+    AccommodationsModule,
+    LayoutModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatListModule,
+    MatCardModule,
+    RouterLink
+  ],
   exports: [
     EditProfileComponent,
-    OwnerHomeComponent
+    OwnerHomeComponent,
   ]
 })
 export class OwnerModule { }
