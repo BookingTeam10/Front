@@ -24,6 +24,7 @@ import {AccommodationApprovalComponent} from "./modules/administrator/accommodat
 import {EditAccommodationComponent} from "./modules/accommodations/accommodation-edit/accommodation-edit.component";
 import {AdministratorHomeComponent} from "./modules/administrator/administrator-home/administrator-home.component";
 import {OwnerAccommodationsComponent} from "./modules/owner/owner-accommodations/owner-accommodations.component";
+import {OwnerReservationComponent} from "./modules/owner/owner-reservation/owner-reservation.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'accommodations', pathMatch: 'full'},
@@ -43,6 +44,7 @@ const routes: Routes = [
   {path: 'edit-accommodation/:accommodationId', component: EditAccommodationComponent},
   {path : 'admin/accommodations', component: AdministratorHomeComponent},
   {path: 'owners/my-accommodations', component: OwnerAccommodationsComponent},
+  {path: 'owners/reservations', component: OwnerReservationComponent},
 ];
 
 

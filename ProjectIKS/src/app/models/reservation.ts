@@ -2,13 +2,13 @@ import {Accommodation} from "./accommodation";
 import {Guest} from "./users/guest";
 
 export interface Reservation {
-  id?: number;
+  id: number;
   totalPrice: number;
   status: ReservationStatus;
   startDate: Date  | null;
   endDate: Date  | null;
   numberOfNights: number;
-  accommodation: Accommodation | null;
+  accommodation: Accommodation;
   guest: Guest;
   reviews: Review[];
 }

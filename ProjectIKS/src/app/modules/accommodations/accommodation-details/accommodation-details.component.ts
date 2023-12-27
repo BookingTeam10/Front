@@ -1,5 +1,5 @@
 import {Component, Injectable, OnInit} from '@angular/core';
-import {Accommodation, Amenity} from "../../../models/accommodation";
+import {Accommodation, AccommodationStatus, Amenity, TypeAccommodation} from "../../../models/accommodation";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AccommodationService} from "../service/accommodation.service";
 import {Reservation, ReservationStatus, Review} from "../../../models/reservation";
@@ -9,6 +9,7 @@ import {ReservationService} from "../../reservation/reservation.service";
 import {map, Observable} from "rxjs";
 import {ReviewsService} from "../../review/reviews.service";
 import {LoginService} from "../../auth/login/service/login.service";
+import {Owner} from "../../../models/users/owner";
 
 @Component({
   selector: 'app-accommodation-details',
@@ -77,6 +78,57 @@ export class AccommodationDetailsComponent implements OnInit{
   }
 
   reserveAccommodation(accommodation: Accommodation) {
+    const exampleOwner: Owner = {
+      id: 1,
+      name: "Luka",
+      surname: "Popovic",
+      email: "popovic.sv4.2021@uns.ac.rs",
+      password: '$2a$12$uI4adYfDz9yGq1ExBaiZmODKYxEFOKBKLvYanhV1ys0JsY3STJ92i',
+      address: "Adresa1",
+      phone: "0655197633",
+      createdNotification: false,
+      rateMeNotification: true,
+      cancelledNotification: false,
+      rateAccommodationNotification: true,
+    };
+
+    const exampleAccommodation: Accommodation = {
+      id: 1,
+      name: "Cozy Apartment",
+      accepted: true,
+      automaticActivation: true,
+      description: "A comfortable apartment with a beautiful view.",
+      minPeople: 2,
+      maxPeople: 4,
+      photos: ["photo1.jpg", "photo2.jpg"],
+      type: TypeAccommodation.Apartment,
+      rating: 4.5,
+      cancelDeadline: 48, // in hours
+      prices: [
+        { startDate: new Date("2023-01-01"), endDate: new Date("2023-12-31"), price: 100 },
+      ],
+      takenDates: [],
+      amenities: [
+        { name: "Wi-Fi" },
+        { name: "Air Conditioning" },
+      ],
+      location: {
+        id: 1,
+        country: "Example Country",
+        city: "Example City",
+        street: "123 Main Street",
+        number: 456,
+      },
+      owner: exampleOwner,
+      reservations: [],
+      weekendPrice: 120,
+      holidayPrice: 150,
+      summerPrice: 130,
+      isNight: false,
+      accommodationStatus: AccommodationStatus.APPROVED,
+      automaticConfirmation: true,
+    };
+
     this.reservation = {
       id:100,
       totalPrice: 3000,
@@ -84,7 +136,7 @@ export class AccommodationDetailsComponent implements OnInit{
       startDate: this.startDate,
       endDate: this.endDate,
       numberOfNights: this.getDaysBetweenDates(this.startDate,this.endDate),
-      accommodation: null,
+      accommodation: exampleAccommodation,
       guest: this.guest,
       reviews: []
     };
