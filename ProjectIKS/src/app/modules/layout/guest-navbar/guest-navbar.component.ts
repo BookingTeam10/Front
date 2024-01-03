@@ -32,4 +32,11 @@ export class GuestNavbarComponent {
     this.router.navigate(['/edit-profile']);
   }
 
+  RateOwner() {
+    this.router.navigate(['/guests/rate-owner']);
+  }
+
+  RateAccommodation() {
+    this.router.navigate(['/guests/rate-accommodation']);
+  }
 }

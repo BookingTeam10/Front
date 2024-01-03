@@ -33,8 +33,6 @@
 }
 
 .form-group2 {
-  display: flex;
-  align-items: flex-start;
   margin-bottom: 10px;
   font-size: 1.2em;
 }
@@ -53,8 +51,15 @@ input {
   box-sizing: border-box;
 }
 
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  box-sizing: border-box;
+}
+
 .button-group {
-  display: flex;
   justify-content: space-around;
   margin: auto 10px 10px 10px;
 }
@@ -82,5 +87,10 @@ button:hover {
 .save-button {
   background-color: white;
   color: #006600;
+}
+
+.radio-group label {
+  display: inline-block;
+  margin-right: 15px;
 }
 
