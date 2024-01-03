@@ -33,4 +33,12 @@ export class AccommodationCardComponent {
   isOwnersUrl():boolean {
       return this.router.url === "/owners/my-accommodations";
   }
+
+  isGuestsUrl() {
+    return this.router.url === "/guests/rate-accommodations";
+  }
+
+  openReviewDialogue(id: number) {
+    this.router.navigate(['/edit-accommodation', id]);
+  }
 }

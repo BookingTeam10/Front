@@ -24,6 +24,10 @@ import {AccommodationApprovalComponent} from "./modules/administrator/accommodat
 import {EditAccommodationComponent} from "./modules/accommodations/accommodation-edit/accommodation-edit.component";
 import {AdministratorHomeComponent} from "./modules/administrator/administrator-home/administrator-home.component";
 import {OwnerAccommodationsComponent} from "./modules/owner/owner-accommodations/owner-accommodations.component";
+import {ReviewOwnerComponent} from "./modules/review/review-owner/review-owner.component";
+import {ReviewOwnerCreateComponent} from "./modules/review/review-owner-create/review-owner-create.component";
+import {ReviewOwnerDetailsComponent} from "./modules/review/review-owner-details/review-owner-details.component";
+import {ReviewAccommodationComponent} from "./modules/review/review-accommodation/review-accommodation.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'accommodations', pathMatch: 'full'},
@@ -43,6 +47,10 @@ const routes: Routes = [
   {path: 'edit-accommodation/:accommodationId', component: EditAccommodationComponent},
   {path : 'admin/accommodations', component: AdministratorHomeComponent},
   {path: 'owners/my-accommodations', component: OwnerAccommodationsComponent},
+  {path: 'guests/rate-owner', component: ReviewOwnerComponent},
+  {path: 'guests/create-rate-owner', component: ReviewOwnerCreateComponent},
+  {path: 'guests/details-rate-owner', component: ReviewOwnerDetailsComponent},
+  {path: 'guests/rate-accommodation', component: ReviewAccommodationComponent},
 ];
 
 

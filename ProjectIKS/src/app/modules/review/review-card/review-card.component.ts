@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Router} from "@angular/router";
 import {Accommodation} from "../../../models/accommodation";
 import {Review} from "../../../models/reservation";
+import {Owner} from "../../../models/users/owner";
 
 @Component({
   selector: 'app-review-card',
@@ -11,6 +12,7 @@ import {Review} from "../../../models/reservation";
 export class ReviewCardComponent {
   @Input()
   review:Review;
+  //owner:Owner;
   constructor(private router: Router) {
   }
 

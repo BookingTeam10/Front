@@ -1,0 +1,13 @@
+<mat-card style="border-radius: 20px">
+  <mat-card-content >
+    <p> Owner </p>
+    <p>Email : {{ owner.email }}</p>
+    <p>Name : {{ owner.name }}</p>
+    <p>Surname : {{ owner.surname }}</p>
+    <p>Rating : {{ 4.3}}</p>
+    <button  class="btn-stilizovano" (click)="AddReview(owner.id)" >Rate owner</button>
+    <button  class="btn-stilizovano " (click)="ViewReview(owner.id)">View rate</button>
+    <button  class="btn-stilizovano" (click)="DeleteReview(owner.id)">Delete rate</button>
+    <button  class="btn-stilizovano">Report owner</button>
+  </mat-card-content>
+</mat-card>
