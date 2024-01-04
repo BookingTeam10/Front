@@ -40,9 +40,14 @@ export class ReviewOwnerCreateComponent {
       return `${year}-${month}-${day}`;
     }
 
+    function getCurrentDate(): Date {
+      return new Date();
+    }
+
     const review:AddReviewOwner = {
       id:100,
-      rate: parseInt(String(confirmationType.checked)),
+      //rate: parseInt(String(confirmationType.checked)),
+      rate:5,
       comment:name,
       commentDate:getCurrentDateFormatted(),
       statusReview:Status.ACTIVE,

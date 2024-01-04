@@ -7,7 +7,7 @@ import {ReviewsService} from "../reviews.service";
 import {Guest} from "../../../models/users/guest";
 import {UserServiceService} from "../../unregistered-user/signup/user-service.service";
 import {Review} from "../../../models/reservation";
-import {ReviewOwner} from "../../../models/reviewOwner";
+import {ReportUser, ReviewOwner} from "../../../models/reviewOwner";
 
 @Component({
   selector: 'app-review-owner-card',
@@ -54,7 +54,7 @@ export class ReviewOwnerCardComponent {
         }
       });
 
-    // this.router.navigate(['/owners/accommodations'])
+    // this.router.navigate(['/guests/rate-owner'])
     //   .then(() => {
     //     window.location.reload();
     //   });
@@ -88,11 +88,12 @@ export class ReviewOwnerCardComponent {
           console.log("POST")
           alert("You haven't rated the owner!")
         }else{
+          console.log("UDJE U DELETE")
           this.service.deleteReview(idOwner,idGuest);
         }
       });
 
-    // this.router.navigate(['/owners/accommodations'])
+    // this.router.navigate(['/guests/rate-owner'])
     //   .then(() => {
     //     window.location.reload();
     //   });
@@ -118,6 +119,34 @@ export class ReviewOwnerCardComponent {
           alert("You haven't rated the owner!")
         }else{
           this.router.navigate(['/guests/details-rate-owner', { id: review.id}]);
+        }
+      });
+  }
+
+  ReportReview(idOwner: number) {
+    console.log(idOwner);
+    this.userService.getGuest(this.loginService.getUsername()).subscribe(
+      (guest: Guest) => {
+        this.guest = guest;
+        this.addReportComment(idOwner,guest.id);
+      }
+    );
+  }
+
+  addReportComment(idOwner:number,idGuest:number | undefined){
+    console.log(idOwner);
+    console.log(idGuest);
+    this.service.setOwnerAndGuest(idOwner, idGuest);
+    //this.router.navigate(['/guests/create-report-owner', { idOwner: idOwner, idGuest: idGuest }]);
+    this.service.getReportGO(idOwner,idGuest).subscribe(
+      (reportUser: ReportUser) =>{
+        console.log(reportUser);
+        if(reportUser===null){
+          console.log("POST")
+          this.router.navigate(['/guests/create-report-owner', { idOwner: idOwner, idGuest: idGuest }]);
+          return
+        } else{
+          alert("You have already rated the owner!")
         }
       });
   }

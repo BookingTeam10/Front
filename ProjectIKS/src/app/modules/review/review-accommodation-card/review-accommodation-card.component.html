@@ -1,0 +1,12 @@
+<mat-card style="border-radius: 20px">
+  <mat-card-content >
+    <p> Accommodation </p>
+    <p>Name : {{ accommodation.name }}</p>
+    <p>Description : {{ accommodation.description }}</p>
+    <p>Owner : {{ accommodation.owner.name+" "+accommodation.owner.surname }}</p>
+    <p>Rating : {{ accommodation.rating}}</p>
+    <button  class="btn-stilizovano" (click)="AddReview(accommodation.id)" >Rate accommodation</button>
+    <button  class="btn-stilizovano" (click)="AddReview(accommodation.id)" >Delete review</button>
+    <button  class="btn-stilizovano" (click)="AddReview(accommodation.id)" >View review</button>
+  </mat-card-content>
+</mat-card>

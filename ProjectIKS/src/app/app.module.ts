@@ -19,7 +19,6 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {Interceptor} from "./modules/auth/login/interceptor";
 import {AdministratorModule} from "./modules/administrator/administrator.module";
 
-
 @NgModule({
   declarations: [
     AppComponent,

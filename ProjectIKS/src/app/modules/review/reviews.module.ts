@@ -20,6 +20,18 @@ import { ReviewOwnerDetailsComponent } from './review-owner-details/review-owner
 import {SharedModule} from "../shared/shared.module";
 import { ReviewAccommodationCardsComponent } from './review-accommodation-cards/review-accommodation-cards.component';
 import { ReviewAccommodationComponent } from './review-accommodation/review-accommodation.component';
+import { ReviewAccommodationCardComponent } from './review-accommodation-card/review-accommodation-card.component';
+import { ReportGuestComponent } from './report-guest/report-guest.component';
+import { ReportGuestCardComponent } from './report-guest-card/report-guest-card.component';
+import { ReportGuestCardsComponent } from './report-guest-cards/report-guest-cards.component';
+import { ReportGuestCommentComponent } from './report-guest-comment/report-guest-comment.component';
+import { ReportAccommodationCommentComponent } from './report-accommodation-comment/report-accommodation-comment.component';
+import { ReportGuestCommentCardComponent } from './report-guest-comment-card/report-guest-comment-card.component';
+import { ReportGuestCommentCardsComponent } from './report-guest-comment-cards/report-guest-comment-cards.component';
+import { ReportAccommodationCommentCardComponent } from './report-accommodation-comment-card/report-accommodation-comment-card.component';
+import { ReportAccommodationCommentCardsComponent } from './report-accommodation-comment-cards/report-accommodation-comment-cards.component';
+import { ReportOwnerCreateComponent } from './report-owner-create/report-owner-create.component';
+import { ReportGuestCreateComponent } from './report-guest-create/report-guest-create.component';
 
 
 
@@ -33,7 +45,19 @@ import { ReviewAccommodationComponent } from './review-accommodation/review-acco
     ReviewOwnerCreateComponent,
     ReviewOwnerDetailsComponent,
     ReviewAccommodationCardsComponent,
-    ReviewAccommodationComponent
+    ReviewAccommodationComponent,
+    ReviewAccommodationCardComponent,
+    ReportGuestComponent,
+    ReportGuestCardComponent,
+    ReportGuestCardsComponent,
+    ReportGuestCommentComponent,
+    ReportAccommodationCommentComponent,
+    ReportGuestCommentCardComponent,
+    ReportGuestCommentCardsComponent,
+    ReportAccommodationCommentCardComponent,
+    ReportAccommodationCommentCardsComponent,
+    ReportOwnerCreateComponent,
+    ReportGuestCreateComponent
   ],
   exports: [
     ReviewCardComponent,

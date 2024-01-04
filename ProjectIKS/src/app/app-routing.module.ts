@@ -29,6 +29,13 @@ import {ReviewOwnerCreateComponent} from "./modules/review/review-owner-create/r
 import {ReviewOwnerDetailsComponent} from "./modules/review/review-owner-details/review-owner-details.component";
 import {ReviewAccommodationComponent} from "./modules/review/review-accommodation/review-accommodation.component";
 import {OwnerReservationComponent} from "./modules/owner/owner-reservation/owner-reservation.component";
+import {ReportGuestComponent} from "./modules/review/report-guest/report-guest.component";
+import {ReportGuestCommentComponent} from "./modules/review/report-guest-comment/report-guest-comment.component";
+import {
+  ReportAccommodationCommentComponent
+} from "./modules/review/report-accommodation-comment/report-accommodation-comment.component";
+import {ReportOwnerCreateComponent} from "./modules/review/report-owner-create/report-owner-create.component";
+import {ReportGuestCreateComponent} from "./modules/review/report-guest-create/report-guest-create.component";
 
 
 const routes: Routes = [
@@ -54,6 +61,11 @@ const routes: Routes = [
   {path: 'guests/create-rate-owner', component: ReviewOwnerCreateComponent},
   {path: 'guests/details-rate-owner', component: ReviewOwnerDetailsComponent},
   {path: 'guests/rate-accommodation', component: ReviewAccommodationComponent},
+  {path: 'owners/guests', component: ReportGuestComponent},
+  {path: 'owners/guests/comments', component: ReportGuestCommentComponent},
+  {path: 'owners/accommodation/comments', component: ReportAccommodationCommentComponent},
+  {path: 'guests/create-report-owner', component: ReportOwnerCreateComponent},
+  {path: 'guests/create-report-guest', component: ReportGuestCreateComponent},
 ];
 
 

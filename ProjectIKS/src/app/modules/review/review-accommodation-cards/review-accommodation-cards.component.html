@@ -1,1 +1,3 @@
-<p>review-accommodation-cards works!</p>
+<div *ngFor="let accommodation of accommodations" style="margin-left: 5%; margin-right: 5%;" >
+  <app-review-accommodation-card [accommodation]="accommodation"></app-review-accommodation-card>
+</div>

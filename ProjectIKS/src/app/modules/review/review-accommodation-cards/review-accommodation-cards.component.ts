@@ -43,6 +43,8 @@ export class ReviewAccommodationCardsComponent {
   loadAccommodation(guest: Guest){
     this.service.getAccommodation(guest.id).subscribe(
       (data: Accommodation[]) =>{
+        console.log("data")
+        console.log(data)
         this.accommodations = data;
       });
   }
