@@ -31,6 +31,9 @@ export class AccommodationDetailsComponent implements OnInit{
   typeAcc : string = '';
   startDate: Date | null = null;
   endDate: Date | null = null;
+  favouriteAccommodations: undefined;
+
+  // @ts-ignore
   guest: Guest = {
     email: "aleksa@gmail.com",
     password: "1234",
@@ -41,7 +44,7 @@ export class AccommodationDetailsComponent implements OnInit{
     blocked: false,
     numberCanceledReservation: 0,
     turnOnNotification: false,
-    reported: false
+    reported: false,
   };
 
   constructor(private route: ActivatedRoute, private router: Router, private accommodationService: AccommodationService,private mapService:MapService,private reservationService:ReservationService,private reviewService:ReviewsService,public loginService:LoginService) {}

@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Reservation} from "../../models/reservation";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {environment} from "../../environment/environment";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
+import {Accommodation} from "../../models/accommodation";
+import {LoginService} from "../auth/login/service/login.service";
+import {Owner} from "../../models/users/owner";
+import {UserServiceService} from "../unregistered-user/signup/user-service.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +19,26 @@ export class ReservationService {
     'Accept': 'application/json'
   });
   public postJSON : any;
-  constructor(private httpClient: HttpClient) { }
+  private reservationsSubject = new BehaviorSubject<Reservation[]>([]);
+  reservations$ = this.reservationsSubject.asObservable();
+
+
+  constructor(private httpClient: HttpClient,public loginService:LoginService,private userService:UserServiceService) {
+    this.userService.getOwner(this.loginService.getUsername()).subscribe(
+      (owner: Owner) => {
+        // this.owner = owner;
+        this.getOwnersRequests(owner.id).subscribe({
+          next: (data: Reservation[]) => {
+            this.reservationsSubject.next(data);
+          },
+          error: (_) => {
+            console.log("Greska!")
+          }
+        });
+      });
+
+
+  }
   getAll(): Observable<Reservation[]> {
     return this.httpClient.get<Reservation[]>(environment.apiHost + '/reservations')
   }
@@ -51,5 +74,36 @@ export class ReservationService {
 
   rejectReservation(reservationId: number) {
       return this.httpClient.put(environment.apiHost + "/reservations/cancel/" + reservationId + "?canceledByHost=true", {});
+  }
+
+  getOwnersRequests(ownerId: number): Observable<Reservation[]> {
+    console.log(environment.apiHost + '/owners/'+ownerId+ '/requests')
+    return this.httpClient.get<Reservation[]>(environment.apiHost + '/owners/'+ownerId+ '/requestsReservations')
+  }
+
+  getSearchedRequests(type?: string | null, startDate?: Date | null, endDate?: Date | null, nameAccommodation?: string) : Observable<Reservation[]> {
+    let params = new HttpParams();
+    if (type != undefined)
+    {
+      params = params.append("type", type );
+    }
+    if (startDate != undefined) {
+      const formattedStartDate = startDate.toISOString().split('T')[0];
+      params = params.append('start', formattedStartDate);
+    }
+
+    if (endDate != undefined) {
+      const formattedEndDate = endDate.toISOString().split('T')[0];
+      params = params.append('end', formattedEndDate);
+    }
+    if ( nameAccommodation != undefined)
+    {
+      params = params.append("nameAccommodation",  nameAccommodation );
+    }
+    console.log("POGODI PUTANJU")
+    return this.httpClient.get<Reservation[]>(environment.apiHost + "/owners/requestsSearch", {params: params});
+  }
+  updateReservations(reservations: Reservation[]) {
+    this.reservationsSubject.next(reservations);
   }
 }

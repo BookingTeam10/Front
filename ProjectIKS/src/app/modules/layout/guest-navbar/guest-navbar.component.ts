@@ -31,6 +31,9 @@ export class GuestNavbarComponent {
   EditProfile() {
     this.router.navigate(['/edit-profile']);
   }
+  favouriteAccommodations() {
+    this.router.navigate(['/guests/favourite-accommodations']);
+  }
 
   RateOwner() {
     this.router.navigate(['/guests/rate-owner']);

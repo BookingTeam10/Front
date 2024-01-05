@@ -1,0 +1,30 @@
+<mat-toolbar style="display: flex; justify-content: center; margin-bottom: 30px; height: 150px; margin-right: 50px">
+  <form [formGroup]="form" class="cities-form">
+    <input style="margin-right: 50px; height: 40px" type="text"
+           placeholder="Type accommodation"
+           matInput
+           [formControl]="typeAccommodationCombobox"
+           [matAutocomplete]="accommodationAuto">
+    <mat-autocomplete #accommodationAuto="matAutocomplete">
+      <mat-option *ngFor="let optionType of filteredType | async" [value]="optionType">
+        {{ optionType }}
+      </mat-option>
+    </mat-autocomplete>
+  </form>
+  <mat-form-field>
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate [(ngModel)] = "startDate" placeholder="Start date">
+      <input matEndDate [(ngModel)] = "endDate" placeholder="End date">
+    </mat-date-range-input>
+    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+  <mat-form-field style="width: 200px;" class="price-form-field" appearance="outline">
+    <mat-label>Name accommodation</mat-label>
+    <input matInput [(ngModel)]="nameAccommodation" name="nameAccommodation">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="selectClicked()" style="height:50px; margin-bottom: 20px" >Select</button>
+</mat-toolbar>

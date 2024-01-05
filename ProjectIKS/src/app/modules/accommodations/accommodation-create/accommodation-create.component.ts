@@ -256,7 +256,6 @@ export class AccommodationCreateComponent implements OnInit{
   }
 
   saveChanges() {
-    console.log("UDJE OVDE")
     //this.getAccommodationData();
     const a=this.getAccommodationData();
     console.log(a);

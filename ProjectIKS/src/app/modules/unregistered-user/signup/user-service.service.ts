@@ -47,17 +47,11 @@ export class UserServiceService {
     );
   }
 
-
   getAdmin(username: string): Observable<Admin> {
     return this.httpClient.get<Admin>(environment.apiHost + '/admin/username/' + username);
   }
 
   getGuest(username: string): Observable<Guest> {
-    // const accessToken = localStorage.getItem('User');
-    // const header_user = new HttpHeaders({
-    //   'Content-Type': 'application/json',
-    //   'Authorization': 'Bearer ' + accessToken
-    // })
     return this.httpClient.get<Guest>(environment.apiHost + '/guests/username/' + username);
   }
 

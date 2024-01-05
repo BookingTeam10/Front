@@ -1,0 +1,16 @@
+<mat-toolbar style="display: flex; justify-content: center; margin-bottom: 30px; height: 150px; margin-right: 50px">
+  <mat-form-field>
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate [(ngModel)] = "startDate" placeholder="Start date">
+      <input matEndDate [(ngModel)] = "endDate" placeholder="End date">
+    </mat-date-range-input>
+    <mat-hint>Enter the date range for which you want the report</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+
+  <mat-date-range-picker #picker></mat-date-range-picker>
+  <button mat-raised-button color="primary" (click)="selectClicked()" style="height:50px; margin-bottom: 20px" >View report</button>
+</mat-toolbar>
+

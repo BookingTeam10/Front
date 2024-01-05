@@ -39,6 +39,13 @@ export class OwnerNavbarComponent {
   viewReservations(){
     this.router.navigate(['/owners/reservations']);
   }
+  viewReports(){
+    this.router.navigate(['/owners/reports']);
+  }
+  //izmeniti posle putanju
+  viewRequests(){
+    this.router.navigate(['/owners/requests']);
+  }
 
   viewGuests(){
     this.router.navigate(['/owners/guests']);

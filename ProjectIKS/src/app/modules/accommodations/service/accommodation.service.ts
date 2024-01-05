@@ -6,6 +6,7 @@ import { AccommodationStatus} from "../../../models/accommodation";
 import {environment} from "../../../environment/environment";
 import {AddAccommodation} from "../../../models/addAccommodation";
 import {Reservation} from "../../../models/reservation";
+import {Guest} from "../../../models/users/guest";
 
 
 @Injectable({
@@ -46,22 +47,6 @@ export class AccommodationService {
   getAccommodation(id: number): Observable<Accommodation> {
     return this.httpClient.get<Accommodation>(environment.apiHost + '/accommodations/' + id)
   }
-
-  // getSearchedAccommodations(location?: String, start?: Date, end?: Date, numPeople?: number) : Observable<Accommodation[]> {
-  //
-  //   let params = new HttpParams();
-  //   if (location != undefined)
-  //   {
-  //     // @ts-ignore
-  //     params = params.append("location", location );
-  //   }
-  //   if (numPeople != undefined)
-  //   {
-  //     params = params.append("numPeople", numPeople );
-  //   }
-  //
-  //   return this.httpClient.get<Accommodation[]>(environment.apiHost + "/accommodations/accommodationsSearch", {params: params});
-  // }
 
   private accommodations: Accommodation[];
   getSearchedAccommodations(location?: string, start?: Date, end?: Date, numPeople?: number, minPrice?:string,maxPrice?:string,amenities?: string[]) : Observable<Accommodation[]> {
@@ -119,6 +104,23 @@ export class AccommodationService {
   }
 
   getOwnerAccommodations(id: number): Observable<Accommodation[]> {
-      return this.httpClient.get<Accommodation[]>(environment.apiHost + "/owners/" + id + "/accommodations");
+    return this.httpClient.get<Accommodation[]>(environment.apiHost + "/owners/" + id + "/accommodations");
+  }
+
+  getGuestFavouriteAccommodations(id: number | undefined): Observable<Accommodation[]> {
+    return this.httpClient.get<Accommodation[]>(environment.apiHost + "/guests/" + id + "/favouriteAccommodations");
+  }
+  // addFavouriteAccommodation(id: number | undefined,accommodation: Accommodation): Observable<Accommodation> {
+  //   console.log(environment.apiHost + "/guests/" + id + "/favouriteAccommodations/add");
+  //   return this.httpClient.post<Accommodation>(environment.apiHost + "/guests/" + id + "/favouriteAccommodations/add", accommodation)
+  // }
+  addFavouriteAccommodation(id: number | undefined,accommodation: Accommodation): Observable<Guest> {
+    console.log(environment.apiHost + "/guests/" + id + "/favouriteAccommodations/add");
+    return this.httpClient.post<Guest>(environment.apiHost + "/guests/" + id + "/favouriteAccommodations/add", accommodation)
+  }
+
+  deleteFavouriteAccommodation(idGuest: number | undefined,idAccommodation: number | undefined): Observable<Guest> {
+    console.log(environment.apiHost + "/guests/" + idGuest + "/favouriteAccommodations/"+idAccommodation)
+    return this.httpClient.delete<Guest>(environment.apiHost + "/guests/" + idGuest + "/favouriteAccommodations/"+idAccommodation)
   }
 }

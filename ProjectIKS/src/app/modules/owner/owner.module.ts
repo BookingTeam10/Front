@@ -15,6 +15,17 @@ import {MatListModule} from "@angular/material/list";
 import {MatCardModule} from "@angular/material/card";
 import {RouterLink} from "@angular/router";
 import { OwnerReservationComponent } from './owner-reservation/owner-reservation.component';
+import { OwnerReportsComponent } from './owner-reports/owner-reports.component';
+import {FormsModule} from "@angular/forms";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatInputModule} from "@angular/material/input";
+import {MatOptionModule} from "@angular/material/core";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import { OwnerRequestsComponent } from './owner-requests/owner-requests.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
 
@@ -23,6 +34,8 @@ import { OwnerReservationComponent } from './owner-reservation/owner-reservation
     OwnerHomeComponent,
     OwnerAccommodationsComponent,
     OwnerReservationComponent,
+    OwnerReportsComponent,
+    OwnerRequestsComponent,
   ],
   imports: [
     CommonModule,
@@ -32,7 +45,16 @@ import { OwnerReservationComponent } from './owner-reservation/owner-reservation
     MatDialogModule,
     MatListModule,
     MatCardModule,
-    RouterLink
+    RouterLink,
+    FormsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatOptionModule,
+    MatToolbarModule,
+    MatPaginatorModule,
+    MatTableModule
   ],
   exports: [
     EditProfileComponent,
