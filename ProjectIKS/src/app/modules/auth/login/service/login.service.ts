@@ -29,7 +29,6 @@ export class LoginService {
       headers: this.headers,
     });
   }
-
   getRole(): any {
     if (this.isLoggedIn()) {
       const accessToken: any = localStorage.getItem('User');
@@ -38,11 +37,9 @@ export class LoginService {
     }
     return 'User';
   }
-
   isLoggedIn(): boolean {
     return localStorage.getItem('User') != null;
   }
-
   setUser(): void {
     this.user$.next(this.getRole());
   }

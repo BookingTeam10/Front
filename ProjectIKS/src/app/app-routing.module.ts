@@ -25,6 +25,11 @@ import {EditAccommodationComponent} from "./modules/accommodations/accommodation
 import {AdministratorHomeComponent} from "./modules/administrator/administrator-home/administrator-home.component";
 import {OwnerAccommodationsComponent} from "./modules/owner/owner-accommodations/owner-accommodations.component";
 import {OwnerReservationComponent} from "./modules/owner/owner-reservation/owner-reservation.component";
+import {
+  GuestFavouriteAccommodationsComponent
+} from "./modules/guest/guest-favourite-accommodations/guest-favourite-accommodations.component";
+import {OwnerReportsComponent} from "./modules/owner/owner-reports/owner-reports.component";
+import {OwnerRequestsComponent} from "./modules/owner/owner-requests/owner-requests.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'accommodations', pathMatch: 'full'},
@@ -45,6 +50,9 @@ const routes: Routes = [
   {path : 'admin/accommodations', component: AdministratorHomeComponent},
   {path: 'owners/my-accommodations', component: OwnerAccommodationsComponent},
   {path: 'owners/reservations', component: OwnerReservationComponent},
+  {path: 'guests/favourite-accommodations', component: GuestFavouriteAccommodationsComponent},
+  {path: 'owners/reports', component: OwnerReportsComponent},
+  {path: 'owners/requests', component: OwnerRequestsComponent}
 ];
 
 

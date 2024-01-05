@@ -1,3 +1,5 @@
+import {Accommodation} from "../accommodation";
+
 export interface Guest {
   id?: number;
   email: string;
@@ -10,4 +12,5 @@ export interface Guest {
   numberCanceledReservation: number;
   turnOnNotification: boolean;
   reported: boolean;
+  favouriteAccommodations : Accommodation[];
 }

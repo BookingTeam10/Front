@@ -11,13 +11,15 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatTableModule} from "@angular/material/table";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
+import { GuestFavouriteAccommodationsComponent } from './guest-favourite-accommodations/guest-favourite-accommodations.component';
 
 
 
 @NgModule({
   declarations: [
     GuestHomeComponent,
-    GuestReviewsComponent
+    GuestReviewsComponent,
+    GuestFavouriteAccommodationsComponent
   ],
   imports: [
     CommonModule,

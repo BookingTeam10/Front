@@ -13,6 +13,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatOptionModule} from "@angular/material/core";
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { FilterReviewComponent } from './filter-review/filter-review.component';
 
 
 
@@ -23,7 +24,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     GuestNavbarComponent,
     AdministratorNavbarComponent,
     OwnerNavbarComponent,
-    SearchComponent
+    SearchComponent,
+    FilterReviewComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +44,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
         SearchComponent,
         UnregisteredUserNavbarComponent,
         OwnerNavbarComponent,
-        AdministratorNavbarComponent
+        AdministratorNavbarComponent,
+        FilterReviewComponent
     ],
 })
 export class LayoutModule { }
