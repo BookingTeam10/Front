@@ -5,6 +5,9 @@ import {AccommodationService} from "../../accommodations/service/accommodation.s
 import {ReservationService} from "../../reservation/reservation.service";
 import {Accommodation} from "../../../models/accommodation";
 import {Reservation} from "../../../models/reservation";
+import {LoginService} from "../../auth/login/service/login.service";
+import {UserServiceService} from "../../unregistered-user/signup/user-service.service";
+import {Owner} from "../../../models/users/owner";
 
 @Component({
   selector: 'app-filter-review',
@@ -18,8 +21,9 @@ export class FilterReviewComponent implements OnInit {
   nameAccommodation:string = '';
   optionsType: string[] = ['ACCEPTED','WAITING','REJECTED'];
   filteredType: Observable<string[]>;
+  owner:Owner;
 
-  constructor(private service: ReservationService) {
+  constructor(private service: ReservationService,public loginService: LoginService, private userService: UserServiceService) {
   }
 
   ngOnInit(): void {
@@ -27,6 +31,10 @@ export class FilterReviewComponent implements OnInit {
       startWith(''),
       map(valueType => this._filterType(valueType || '')),
     );
+    this.userService.getOwner(this.loginService.getUsername()).subscribe(
+      (owner: Owner) => {
+        this.owner = owner;
+      });
   }
   private _filterType(value: string): string[] {
     const filterValueType = value.toLowerCase();
@@ -42,8 +50,10 @@ export class FilterReviewComponent implements OnInit {
     console.log(this.startDate);
     console.log(this.endDate);
     console.log(this.nameAccommodation);
+    console.log(this.owner);
     //mzd bude trebalo id ownera al nvrj
-    this.service.getSearchedRequests(type,this.startDate,this.endDate,this.nameAccommodation).subscribe({
+
+    this.service.getSearchedRequests(type,this.startDate,this.endDate,this.nameAccommodation,this.owner.id).subscribe({
       next: (data: Reservation[]) => {
         console.log("AAAAA")
         console.log(data);

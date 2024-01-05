@@ -1,7 +1,12 @@
 table {
-  margin-top: 50px;
+  margin-top: 0px;
   align-items: center;
   width: 60%;
   margin-left: 100px;
   margin-right: 100px;
+}
+label {
+  display: block;
+  text-align: center;
+  margin-top: 30px;
 }

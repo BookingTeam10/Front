@@ -14,12 +14,13 @@ import {ReservationService} from "../../reservation/reservation.service";
 export class GuestReviewsComponent implements AfterViewInit,OnInit {
   reservations: Reservation[] = [];
   dataSource = new MatTableDataSource<Reservation>(this.reservations);
+  dataSourceAllReviews = new MatTableDataSource<Reservation>(this.reservations);
 
   constructor(private service: ReservationService) {
   }
 
   displayedColumns: string[] = ['id', 'numberOfNights', 'price', 'start-end', 'accommodation', 'status', 'actions'];
-
+  displayedColumnsAllReviews: string[] = ['id', 'numberOfNights', 'price', 'start-end', 'accommodation', 'status'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -33,6 +34,15 @@ export class GuestReviewsComponent implements AfterViewInit,OnInit {
         this.reservations = data
         console.log(data);
         this.dataSource.data = data;
+      },
+      error: (_) => {
+        console.log("Greska!")
+      }
+    })
+    //nalepiti svoj posle
+    this.service.getGuestRequests(3).subscribe({
+      next: (data: Reservation[]) => {
+        this.dataSourceAllReviews.data = data;
       },
       error: (_) => {
         console.log("Greska!")
