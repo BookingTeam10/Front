@@ -16,6 +16,13 @@ export interface AddReviewOwner {
   isReported:boolean
 }
 
+export interface ReportUser {
+  id: number;
+  comment:string,
+  statusReview:Status,
+  userReportUser:string
+}
+
 export enum Status {
   ACTIVE= 'ACTIVE',
   REPORTED='REPORTED'

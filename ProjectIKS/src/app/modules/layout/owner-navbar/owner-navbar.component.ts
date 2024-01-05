@@ -40,4 +40,16 @@ export class OwnerNavbarComponent {
     this.router.navigate(['/owners/reservations']);
   }
 
+  viewGuests(){
+    this.router.navigate(['/owners/guests']);
+  }
+
+  viewCommentGuests(){
+    this.router.navigate(['/owners/guests/comments']);
+  }
+
+  viewCommentAccommodation(){
+    this.router.navigate(['/owners/accommodation/comments']);
+  }
+
 }
