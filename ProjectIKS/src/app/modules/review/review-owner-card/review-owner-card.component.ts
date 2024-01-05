@@ -7,7 +7,7 @@ import {ReviewsService} from "../reviews.service";
 import {Guest} from "../../../models/users/guest";
 import {UserServiceService} from "../../unregistered-user/signup/user-service.service";
 import {Review} from "../../../models/reservation";
-import {ReportUser, ReviewOwner} from "../../../models/reviewOwner";
+import {AddReviewOwner, ReportUser, ReviewOwner} from "../../../models/reviewOwner";
 
 @Component({
   selector: 'app-review-owner-card',
@@ -89,14 +89,15 @@ export class ReviewOwnerCardComponent {
           alert("You haven't rated the owner!")
         }else{
           console.log("UDJE U DELETE")
-          this.service.deleteReview(idOwner,idGuest);
+          // this.service.deleteReview(idOwner,idGuest);
+
+          this.service.deleteReview(idOwner,idGuest).subscribe(
+            (review: AddReviewOwner) =>{
+              console.log(review);
+            });
         }
       });
 
-    // this.router.navigate(['/guests/rate-owner'])
-    //   .then(() => {
-    //     window.location.reload();
-    //   });
   }
 
   ViewReview(idOwner: number) {

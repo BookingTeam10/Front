@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
-import {Reservation, Review} from "../../models/reservation";
+import {Reservation, Review, Review1} from "../../models/reservation";
 import {environment} from "../../environment/environment";
 import {Accommodation} from "../../models/accommodation";
 import {Owner} from "../../models/users/owner";
@@ -90,9 +90,9 @@ export class ReviewsService {
     return this.httpClient.post<ReviewOwner>(environment.apiHost + '/reviews/rate/' +idOwner+"/"+idGuest,a)
   }
 
-  deleteReview(idOwner: number, idGuest: number | undefined):Observable<any> {
-    console.log(environment.apiHost + '/reviews/rate/' + idOwner+"/"+idGuest)
-    return this.httpClient.delete<any>(environment.apiHost + '/reviews/rate/' + idOwner+"/"+idGuest);
+  deleteReview(idOwner: number | undefined, idGuest: number | undefined):Observable<AddReviewOwner> {
+    console.log(environment.apiHost + '/reviews/rateDelete/' + idOwner+"/"+idGuest)
+    return this.httpClient.delete<AddReviewOwner>(environment.apiHost + '/reviews/rateDelete/' + idOwner+"/"+idGuest);
   }
 
   getRateById(idReview: number):Observable<AddReviewOwner> {
@@ -127,5 +127,37 @@ export class ReviewsService {
 
   getReportOG(idOwner: number, idGuest: number | undefined):Observable<ReportUser> {
     return this.httpClient.get<ReportUser>(environment.apiHost + '/reportUser/OG/' +idOwner+"/"+idGuest)
+  }
+
+  getReviewOwner(id: number | undefined):Observable<AddReviewOwner> {
+    return this.httpClient.get<AddReviewOwner>(environment.apiHost + '/reviews/get/' +id)
+  }
+
+  edit(review: AddReviewOwner): Observable<AddReviewOwner> {
+    return this.httpClient.put<AddReviewOwner>(environment.apiHost + '/reviews/editReviewOwner/'+review.id,review);
+  }
+
+  getReviewAccommodation(id: number | undefined):Observable<Review> {
+    console.log(environment.apiHost + '/reviews/getAccommodation/' +id)
+    return this.httpClient.get<Review>(environment.apiHost + '/reviews/getAccommodation/' +id)
+  }
+
+  editReview(review: Review) {
+    console.log(review.id)
+    return this.httpClient.put<AddReviewOwner>(environment.apiHost + '/reviews/editReviewAccommodation/'+review.id,review);
+  }
+
+  getRateAccommodation(idAccommodation: number, idGuest: number | undefined):Observable<Review> {
+    return this.httpClient.get<Review>(environment.apiHost + '/reviews/rateAccommodation/' +idAccommodation+"/"+idGuest)
+  }
+
+  addReviewAccommodation(a: Review1): Observable<Review1> {
+    console.log("SLANJE")
+    console.log(a)
+    return this.httpClient.post<Review1>(environment.apiHost + '/reviews/addAccRate/'+a.reservation,a)
+  }
+
+  deleteReviewAcc(id: number, idGuest: number | undefined):Observable<Review> {
+    return this.httpClient.delete<Review>(environment.apiHost + '/reviews/rateAccDelete/' + id+"/"+idGuest);
   }
 }
