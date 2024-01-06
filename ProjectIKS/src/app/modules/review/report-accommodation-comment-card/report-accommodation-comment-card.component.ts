@@ -5,6 +5,7 @@ import {ReviewsService} from "../reviews.service";
 import {LoginService} from "../../auth/login/service/login.service";
 import {UserServiceService} from "../../unregistered-user/signup/user-service.service";
 import {Review} from "../../../models/reservation";
+import {AddReviewOwner, Status} from "../../../models/reviewOwner";
 
 @Component({
   selector: 'app-report-accommodation-comment-card',
@@ -22,7 +23,25 @@ export class ReportAccommodationCommentCardComponent {
   clicked: EventEmitter<Review> = new EventEmitter<Review>();
 
   ReportAccommodationComment(id: number | undefined) {
+    console.log(id)
+    console.log("AAAAAAA")
+    this.service.getReviewAccommodation(id).subscribe(
+      (review: Review) => {
+        this.editIsReported(review);
+      }
+    );
+  }
 
+  private editIsReported(review: Review) {
+    console.log("review")
+    console.log(review);
+    console.log(review);
+    this.service.editReview(review).subscribe((response: any) =>{});
+
+    this.router.navigate(['/owners/accommodation/comments'])
+      .then(() => {
+        window.location.reload();
+      });
   }
 
 }

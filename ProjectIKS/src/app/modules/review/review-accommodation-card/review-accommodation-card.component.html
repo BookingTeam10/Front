@@ -6,7 +6,7 @@
     <p>Owner : {{ accommodation.owner.name+" "+accommodation.owner.surname }}</p>
     <p>Rating : {{ accommodation.rating}}</p>
     <button  class="btn-stilizovano" (click)="AddReview(accommodation.id)" >Rate accommodation</button>
-    <button  class="btn-stilizovano" (click)="AddReview(accommodation.id)" >Delete review</button>
-    <button  class="btn-stilizovano" (click)="AddReview(accommodation.id)" >View review</button>
+    <button  class="btn-stilizovano" (click)="ViewReview(accommodation.id)" >View review</button>
+    <button  class="btn-stilizovano" (click)="DeleteReview(accommodation.id)" >Delete review</button>
   </mat-card-content>
 </mat-card>
