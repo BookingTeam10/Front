@@ -11,6 +11,7 @@ import {ReviewsService} from "../../review/reviews.service";
 import {LoginService} from "../../auth/login/service/login.service";
 import {Owner} from "../../../models/users/owner";
 import {UserServiceService} from "../../unregistered-user/signup/user-service.service";
+import {MessageNotification} from "../../../models/message";
 
 @Component({
   selector: 'app-accommodation-details',
@@ -92,7 +93,27 @@ export class AccommodationDetailsComponent implements OnInit{
         console.error('Došlo je do greške pri kreiranju rezervacije', error);
       }
     );
+    console.log("ACC MATIJA")
+    console.log(accommodation)
+    console.log(accommodation.owner)
+    console.log(accommodation.owner.id)
+    if(accommodation.owner.createdNotification){
+      console.log("UPALJENA NOTIFIKACIJA")
+      if(this.guest.id!=null){
+        let message:MessageNotification={
+          idOwner:this.accommodation.owner.id,
+          text:"Guest "+this.guest.name+" "+this.guest.surname+" is create reservation",
+          idGuest:this.guest.id,
+          userRate:"GO"
+        }
+        console.log(message);
+        this.reviewService.addTurnOfNotification(message).subscribe((response: any) =>{});
+        // this.socketService.postRest(message).subscribe(res => {
+        //   console.log(res);
+        // })
+      }
     }
+  }
 
 
   getDaysBetweenDates(startDate: Date | null, endDate: Date | null): number{

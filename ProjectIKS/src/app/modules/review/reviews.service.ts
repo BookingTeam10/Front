@@ -7,6 +7,8 @@ import {Accommodation} from "../../models/accommodation";
 import {Owner} from "../../models/users/owner";
 import {AddReviewOwner, ReportUser, ReviewOwner} from "../../models/reviewOwner";
 import {Guest} from "../../models/users/guest";
+import {NotificationVisible} from "../../models/notification";
+import {MessageNotification} from "../../models/message";
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +24,8 @@ export class ReviewsService {
 
   private commentGuestsSubject = new BehaviorSubject<AddReviewOwner[]>([]);
 
+  private notificationsSubject = new BehaviorSubject<NotificationVisible[]>([]);
+
   reviews$: Observable<Review[]> = this.reviewsSubject.asObservable();
 
   owners$: Observable<Owner[]> = this.ownersSubject.asObservable();
@@ -31,6 +35,8 @@ export class ReviewsService {
   accommodations$: Observable<Accommodation[]> = this.accommodationsSubject.asObservable();
 
   commentsGuests$: Observable<AddReviewOwner[]> = this.commentGuestsSubject.asObservable();
+
+  notifications$: Observable<NotificationVisible[]> = this.notificationsSubject.asObservable();
 
   private ownerId: number;
   private guestId: number | undefined;
@@ -159,5 +165,17 @@ export class ReviewsService {
 
   deleteReviewAcc(id: number, idGuest: number | undefined):Observable<Review> {
     return this.httpClient.delete<Review>(environment.apiHost + '/reviews/rateAccDelete/' + id+"/"+idGuest);
+  }
+
+  getNotification(idOwner: number):Observable<NotificationVisible[]> {
+    return this.httpClient.get<NotificationVisible[]>(environment.apiHost + '/notifications/notifications/' +idOwner)
+
+  }
+
+  addTurnOfNotification(message: MessageNotification):Observable<NotificationVisible> {
+    console.log(message)
+    console.log(message.idOwner)
+    console.log(message.idGuest)
+    return this.httpClient.post<NotificationVisible>(environment.apiHost + '/notifications/turnOfNot/' +message.idOwner+"/"+message.idGuest,message)
   }
 }

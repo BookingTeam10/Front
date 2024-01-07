@@ -168,4 +168,8 @@ export class UserServiceService {
   checkUsername(email: string) {
     return this.httpClient.get<boolean>(environment.apiHost + "/users/exists/" + email)
   }
+
+  getOwnerById(idOwner: number):Observable<Owner> {
+    return this.httpClient.get<Owner>(environment.apiHost + '/owners/full/' + idOwner);
+  }
 }
