@@ -6,6 +6,7 @@ import {environment} from "../../../../environment/environment";
 import {Login} from "../../../../models/login";
 import {AuthResponse} from "../../../../models/auth-response";
 import {JwtHelperService} from "@auth0/angular-jwt";
+import {MessageNotification} from "../../../../models/message";
 
 @Injectable({
   providedIn: 'root'
@@ -71,5 +72,10 @@ export class LoginService {
   }
   logout(): Observable<Boolean> {
     return this.http.get<any>(environment.apiHost + '/users/logout');
+  }
+
+  sub(email:string): Observable<MessageNotification> {
+    console.log(email);
+    return this.http.get<MessageNotification>(environment.apiHost + '/socket-publisher/'+email);
   }
 }

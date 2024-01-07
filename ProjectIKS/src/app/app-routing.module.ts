@@ -47,6 +47,7 @@ import {
 import {
   ReviewAccommodationDetailsComponent
 } from "./modules/review/review-accommodation-details/review-accommodation-details.component";
+import {ViewNotificationComponent} from "./modules/review/view-notification/view-notification.component";
 
 
 const routes: Routes = [
@@ -82,6 +83,7 @@ const routes: Routes = [
   {path: 'owners/requests', component: OwnerRequestsComponent},
   {path: 'guests/create-rate-accommodation', component: ReviewAccommodationCreateComponent},
   {path: 'guests/details-rate-accommodation', component: ReviewAccommodationDetailsComponent},
+  {path: 'owners/notifications', component: ViewNotificationComponent},
 ];
 
 

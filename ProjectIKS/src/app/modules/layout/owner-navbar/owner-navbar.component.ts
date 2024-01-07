@@ -59,4 +59,7 @@ export class OwnerNavbarComponent {
     this.router.navigate(['/owners/accommodation/comments']);
   }
 
+  viewNotification() {
+    this.router.navigate(['/owners/notifications']);
+  }
 }
