@@ -4,11 +4,13 @@ import { AdministratorHomeComponent } from './administrator-home/administrator-h
 import {NavbarComponent} from "../layout/navbar/navbar.component";
 import {LayoutModule} from "../layout/layout.module";
 import {GuestHomeComponent} from "../guest/guest-home/guest-home.component";
+import { UserReportsComponent } from './user-reports/user-reports.component';
 
 
 @NgModule({
   declarations: [
     AdministratorHomeComponent,
+    UserReportsComponent,
   ],
   imports: [
     CommonModule,

@@ -110,6 +110,8 @@ export class ReservationService {
 
   cancelReservation(id: number) {
     return this.httpClient.put(environment.apiHost + "/reservations/cancel/" + id, {});
+  }
+
   getGuestRequests(guestId: number): Observable<Reservation[]> {
     return this.httpClient.get<Reservation[]>(environment.apiHost + '/guests/'+guestId+'/requests')
   }
