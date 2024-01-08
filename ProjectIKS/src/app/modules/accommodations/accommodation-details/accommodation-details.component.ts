@@ -31,8 +31,8 @@ export class AccommodationDetailsComponent implements OnInit{
   temp$ : Observable<Review[]>;
   review : Observable<Review>;
   typeAcc : string = '';
-  startDate: Date | null = null;
-  endDate: Date | null = null;
+  startDate: Date;
+  endDate: Date;
   favouriteAccommodations: undefined;
   guest:Guest;
 

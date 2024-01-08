@@ -12,6 +12,7 @@ import {MatTableModule} from "@angular/material/table";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import { GuestFavouriteAccommodationsComponent } from './guest-favourite-accommodations/guest-favourite-accommodations.component';
+import { GuestReservationsComponent } from './guest-reservations/guest-reservations.component';
 
 
 
@@ -19,7 +20,8 @@ import { GuestFavouriteAccommodationsComponent } from './guest-favourite-accommo
   declarations: [
     GuestHomeComponent,
     GuestReviewsComponent,
-    GuestFavouriteAccommodationsComponent
+    GuestFavouriteAccommodationsComponent,
+    GuestReservationsComponent
   ],
   imports: [
     CommonModule,
