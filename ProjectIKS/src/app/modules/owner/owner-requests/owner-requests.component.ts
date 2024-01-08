@@ -18,47 +18,37 @@ export class OwnerRequestsComponent implements AfterViewInit,OnInit{
   reservations: Reservation[] = [];
   owner:Owner;
   dataSource = new MatTableDataSource<Reservation>(this.reservations);
+  dataSourceAcceptReject = new MatTableDataSource<Reservation>(this.reservations);
 
   constructor(private service: ReservationService, public loginService: LoginService, private userService: UserServiceService) {
   }
 
   displayedColumns: string[] = ['id','accommodation-id', 'accommodation', 'guest-name','number-canceled', 'start-end', 'status'];
-
+  displayedColumnsAcceptReject: string[] = ['id','accommodation-id', 'accommodation', 'guest-name','number-canceled', 'start-end', 'status','accept-reservation','rejected-reservation'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSourceAcceptReject.paginator=this.paginator;
   }
 
-  //ovo izmeniti da bude za ownera njegove za smestaje
   ngOnInit(): void {
     this.loadOwner();
 
   }
-
-  //mora ovakva seljacka varijanta jer nece drugacije
   loadOwner() {
     this.userService.getOwner(this.loginService.getUsername()).subscribe(
       (owner: Owner) => {
         this.owner = owner;
         console.log(owner.id);
         console.log(this.owner.id);
-        // this.service.getOwnersRequests(this.owner.id).subscribe({
-        //   next: (data: Reservation[]) => {
-        //     this.reservations = data
-        //     console.log(data);
-        //     this.dataSource.data = data;
-        //   },
-        //   error: (_) => {
-        //     console.log("Greska!")
-        //   }
-        // });
         this.service.reservations$.subscribe({
           next: (data: Reservation[]) => {
             this.reservations = data
-            console.log(data);
             this.dataSource.data = data;
+            //posle prepraviti samo nek sad stoji ovo
+            this.dataSourceAcceptReject.data = data;
           },
           error: (_) => {
             console.log("Greska!")
@@ -66,7 +56,11 @@ export class OwnerRequestsComponent implements AfterViewInit,OnInit{
         });
       }
     );
-
   }
-
+  // acceptRequest(element) {
+  // }
+  //
+  // rejectRequest(element) {
+  //
+  // }
 }

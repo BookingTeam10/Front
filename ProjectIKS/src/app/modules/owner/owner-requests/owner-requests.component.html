@@ -1,6 +1,8 @@
 <app-owner-navbar></app-owner-navbar>
 <app-filter-review></app-filter-review>
+
 <div class="mat-elevation-z8">
+  <label >MY ALL REVIEWS</label>
   <table mat-table [dataSource]="dataSource">
 
     <ng-container matColumnDef="id">
@@ -22,7 +24,7 @@
 
     <ng-container matColumnDef="guest-name">
       <th mat-header-cell *matHeaderCellDef> guest </th>
-      <td mat-cell *matCellDef="let element"> {{element.guest.name}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.guest.id}} {{element.guest.name}} {{element.guest.surname}} </td>
     </ng-container>
     <ng-container matColumnDef="number-canceled">
       <th mat-header-cell *matHeaderCellDef> numberCanceledReservation </th>
@@ -39,6 +41,66 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>
+
+<div class="mat-elevation-z8">
+  <label >"REQUESTS FOR ACCOMMODATIONS THAT REQUIRE MANUAL CONFIRMATION</label>
+  <table mat-table [dataSource]="dataSourceAcceptReject">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> id </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="accommodation-id">
+      <th mat-header-cell *matHeaderCellDef> accommodation id </th>
+      <td mat-cell *matCellDef="let element"> {{element.accommodation.id}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="accommodation">
+      <th mat-header-cell *matHeaderCellDef> accommodation location </th>
+      <td mat-cell *matCellDef="let element"> {{element.accommodation.location.city}}, {{element.accommodation.location.street}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="guest-name">
+      <th mat-header-cell *matHeaderCellDef> guest </th>
+      <td mat-cell *matCellDef="let element">  {{element.guest.id}} {{element.guest.name}} {{element.guest.surname}} </td>
+    </ng-container>
+    <ng-container matColumnDef="number-canceled">
+      <th mat-header-cell *matHeaderCellDef> numberCanceledReservation </th>
+      <td mat-cell *matCellDef="let element"> {{element.guest.numberCanceledReservation}} </td>
+    </ng-container>
+    <ng-container matColumnDef="start-end">
+      <th mat-header-cell *matHeaderCellDef> start-end </th>
+      <td mat-cell *matCellDef="let element"> {{element.startDate}}-{{element.endDate}} </td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> status </th>
+      <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+    </ng-container>>
+    <ng-container matColumnDef="accept-reservation">
+      <th mat-header-cell *matHeaderCellDef> Accept  </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button  >Accept request</button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="rejected-reservation">
+      <th mat-header-cell *matHeaderCellDef> Reject </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button  >Delete request</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsAcceptReject"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsAcceptReject;"></tr>
   </table>
 
   <mat-paginator [pageSizeOptions]="[5, 10, 20]"

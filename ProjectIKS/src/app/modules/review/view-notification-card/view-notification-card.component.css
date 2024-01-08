@@ -1,0 +1,22 @@
+mat-card {
+  background-color: #ADD8E6;
+  color: white;
+  margin: 30px
+}
+.b-description {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  font-size: 24px;
+}
+
+.p-description {
+  text-align: left;
+  display: block;
+  margin: 0 auto;
+  font-family: 'YourChosenFont', sans-serif;
+  font-size: 18px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+

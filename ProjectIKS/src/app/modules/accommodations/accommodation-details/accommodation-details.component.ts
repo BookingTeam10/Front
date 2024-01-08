@@ -10,6 +10,8 @@ import {map, Observable} from "rxjs";
 import {ReviewsService} from "../../review/reviews.service";
 import {LoginService} from "../../auth/login/service/login.service";
 import {Owner} from "../../../models/users/owner";
+import {UserServiceService} from "../../unregistered-user/signup/user-service.service";
+import {MessageNotification} from "../../../models/message";
 
 @Component({
   selector: 'app-accommodation-details',
@@ -32,24 +34,12 @@ export class AccommodationDetailsComponent implements OnInit{
   startDate: Date;
   endDate: Date;
   favouriteAccommodations: undefined;
+  guest:Guest;
 
-  // @ts-ignore
-  guest: Guest = {
-    email: "aleksa@gmail.com",
-    password: "1234",
-    name: "Aleksa",
-    surname: "Janjic",
-    phone: "854574324",
-    address: "Bulevar",
-    blocked: false,
-    numberCanceledReservation: 0,
-    turnOnNotification: false,
-    reported: false,
-  };
-
-  constructor(private route: ActivatedRoute, private router: Router, private accommodationService: AccommodationService,private mapService:MapService,private reservationService:ReservationService,private reviewService:ReviewsService,public loginService:LoginService) {}
+  constructor(private route: ActivatedRoute, private router: Router, private accommodationService: AccommodationService,private mapService:MapService,private reservationService:ReservationService,private reviewService:ReviewsService,public loginService:LoginService,private userService:UserServiceService) {}
 
   ngOnInit(): void {
+    this.loadGuest();
     this.route.params.subscribe((params) => {
         const id = +params['accommodationId']
         this.accommodationService.getAccommodation(id).subscribe({
@@ -62,8 +52,6 @@ export class AccommodationDetailsComponent implements OnInit{
             this.reservations.subscribe(data => {
               for (let reservation of data) {
                 this.reviews$ = this.reviewService.reviews$;
-                console.log("KRUG");
-                console.log(reservation);
                 this.review = this.reviewService.getByReservations(reservation.id);
                 this.reviewService.reviews$.pipe(
                   map((elements: any[]) => {
@@ -81,70 +69,51 @@ export class AccommodationDetailsComponent implements OnInit{
   }
 
   reserveAccommodation(accommodation: Accommodation) {
-    const exampleOwner: Owner = {
-      id: 1,
-      name: "Luka",
-      surname: "Popovic",
-      email: "popovic.sv4.2021@uns.ac.rs",
-      password: '$2a$12$uI4adYfDz9yGq1ExBaiZmODKYxEFOKBKLvYanhV1ys0JsY3STJ92i',
-      address: "Adresa1",
-      phone: "0655197633",
-      createdNotification: false,
-      rateMeNotification: true,
-      cancelledNotification: false,
-      rateAccommodationNotification: true,
-    };
-
-    const exampleAccommodation: Accommodation = {
-      id: 1,
-      name: "Cozy Apartment",
-      accepted: true,
-      automaticActivation: true,
-      description: "A comfortable apartment with a beautiful view.",
-      minPeople: 2,
-      maxPeople: 4,
-      photos: ["photo1.jpg", "photo2.jpg"],
-      type: TypeAccommodation.Apartment,
-      rating: 4.5,
-      cancelDeadline: 48, // in hours
-      prices: [
-        { startDate: new Date("2023-01-01"), endDate: new Date("2023-12-31"), price: 100 },
-      ],
-      takenDates: [],
-      amenities: [
-        { name: "Wi-Fi" },
-        { name: "Air Conditioning" },
-      ],
-      location: {
-        id: 1,
-        country: "Example Country",
-        city: "Example City",
-        street: "123 Main Street",
-        number: 456,
-      },
-      owner: exampleOwner,
-      reservations: [],
-      weekendPrice: 120,
-      holidayPrice: 150,
-      summerPrice: 130,
-      isNight: false,
-      accommodationStatus: AccommodationStatus.APPROVED,
-      automaticConfirmation: true,
-    };
 
     this.reservation = {
+      //STAVIM NEKI ID PA MI SE PROMENI NA BEKENDU
       id:100,
       totalPrice: 3000,
+      //stavim WAITING NA POCETKU PA AKO JE AUTOMATSKA AKTIVACIJA PROMENI SE NA BEKENDU
       status: ReservationStatus.WAITING,
       startDate: this.startDate,
       endDate: this.endDate,
       numberOfNights: this.getDaysBetweenDates(this.startDate,this.endDate),
-      accommodation: exampleAccommodation,
+      accommodation:this.accommodation,
       guest: this.guest,
       reviews: []
     };
-      this.reservationService.createReservation(this.reservation);
+    this.reservationService.createReservation(this.reservation).subscribe(
+      (response) => {
+        // Obrada uspešnog odgovora
+        console.log('Rezervacija uspešno kreirana', response);
+      },
+      (error) => {
+        // Obrada greške
+        console.error('Došlo je do greške pri kreiranju rezervacije', error);
+      }
+    );
+    console.log("ACC MATIJA")
+    console.log(accommodation)
+    console.log(accommodation.owner)
+    console.log(accommodation.owner.id)
+    if(accommodation.owner.createdNotification){
+      console.log("UPALJENA NOTIFIKACIJA")
+      if(this.guest.id!=null){
+        let message:MessageNotification={
+          idOwner:this.accommodation.owner.id,
+          text:"Guest "+this.guest.name+" "+this.guest.surname+" is create reservation",
+          idGuest:this.guest.id,
+          userRate:"GO"
+        }
+        console.log(message);
+        this.reviewService.addTurnOfNotification(message).subscribe((response: any) =>{});
+        // this.socketService.postRest(message).subscribe(res => {
+        //   console.log(res);
+        // })
+      }
     }
+  }
 
 
   getDaysBetweenDates(startDate: Date | null, endDate: Date | null): number{
@@ -156,4 +125,11 @@ export class AccommodationDetailsComponent implements OnInit{
     return 0; // In case one or both dates are null
   }
 
+  loadGuest() {
+    this.userService.getGuest(this.loginService.getUsername()).subscribe(
+      (guest: Guest) => {
+        this.guest = guest;
+      }
+    );
+  }
 }

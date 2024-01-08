@@ -32,6 +32,11 @@ import { ReportAccommodationCommentCardComponent } from './report-accommodation-
 import { ReportAccommodationCommentCardsComponent } from './report-accommodation-comment-cards/report-accommodation-comment-cards.component';
 import { ReportOwnerCreateComponent } from './report-owner-create/report-owner-create.component';
 import { ReportGuestCreateComponent } from './report-guest-create/report-guest-create.component';
+import { ReviewAccommodationCreateComponent } from './review-accommodation-create/review-accommodation-create.component';
+import { ReviewAccommodationDetailsComponent } from './review-accommodation-details/review-accommodation-details.component';
+import { ViewNotificationComponent } from './view-notification/view-notification.component';
+import { ViewNotificationCardComponent } from './view-notification-card/view-notification-card.component';
+import { ViewNotificationCardsComponent } from './view-notification-cards/view-notification-cards.component';
 
 
 
@@ -57,7 +62,12 @@ import { ReportGuestCreateComponent } from './report-guest-create/report-guest-c
     ReportAccommodationCommentCardComponent,
     ReportAccommodationCommentCardsComponent,
     ReportOwnerCreateComponent,
-    ReportGuestCreateComponent
+    ReportGuestCreateComponent,
+    ReviewAccommodationCreateComponent,
+    ReviewAccommodationDetailsComponent,
+    ViewNotificationComponent,
+    ViewNotificationCardComponent,
+    ViewNotificationCardsComponent
   ],
   exports: [
     ReviewCardComponent,

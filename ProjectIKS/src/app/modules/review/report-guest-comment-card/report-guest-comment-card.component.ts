@@ -1,10 +1,9 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Guest} from "../../../models/users/guest";
 import {Router} from "@angular/router";
 import {ReviewsService} from "../reviews.service";
 import {LoginService} from "../../auth/login/service/login.service";
 import {UserServiceService} from "../../unregistered-user/signup/user-service.service";
-import {AddReviewOwner, ReportUser} from "../../../models/reviewOwner";
+import {AddReviewOwner, Status} from "../../../models/reviewOwner";
 
 @Component({
   selector: 'app-report-guest-comment-card',
@@ -24,6 +23,25 @@ export class ReportGuestCommentCardComponent {
   ReportGuestComment(id: number | undefined) {
     console.log(id)
     console.log("AAAAAAA")
+    this.service.getReviewOwner(id).subscribe(
+      (review: AddReviewOwner) => {
+        this.editIsReported(review);
+      }
+    );
   }
 
+
+  private editIsReported(review: AddReviewOwner) {
+    console.log("review")
+    console.log(review);
+    review.isReported=true;
+    review.statusReview=Status.REPORTED;
+    console.log(review);
+    this.service.edit(review).subscribe((response: any) =>{});
+
+    this.router.navigate(['/owners/guests/comments'])
+      .then(() => {
+        window.location.reload();
+      });
+  }
 }

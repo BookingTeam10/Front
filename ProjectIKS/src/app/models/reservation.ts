@@ -29,7 +29,24 @@ export interface Review {
   reservation: Reservation;
 }
 
-enum ReviewStatus {
+export interface Review1 {
+  id: number;
+  rate: number;
+  comment: string;
+  status: ReviewStatus;
+  reservation: number;
+}
+
+export interface ReviewBigger {
+  id: number;
+  rate: number;
+  comment: string;
+  status: ReviewStatus;
+  commentDate:string
+}
+
+
+export enum ReviewStatus {
   ACTIVE,
   DELETED,
   REPORTED

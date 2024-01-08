@@ -3,6 +3,16 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Accommodation, AccommodationStatus, TypeAccommodation} from "../../../models/accommodation";
 import {AddReviewOwner, Status} from "../../../models/reviewOwner";
 import {ReviewsService} from "../reviews.service";
+import {UserServiceService} from "../../unregistered-user/signup/user-service.service";
+import {Guest} from "../../../models/users/guest";
+import {Owner} from "../../../models/users/owner";
+import {Login} from "../../../models/login";
+import {LoginService} from "../../auth/login/service/login.service";
+import {MessageNotification} from "../../../models/message";
+import {environment} from "../../../environment/environment";
+import {SocketServiceService} from "../socket-service.service";
+
+
 
 @Component({
   selector: 'app-review-owner-create',
@@ -13,7 +23,11 @@ export class ReviewOwnerCreateComponent {
 
   idOwner: number;
   idGuest: number | undefined;
-  constructor(private route: ActivatedRoute,private router: Router, private service:ReviewsService) {
+  private serverUrl = environment.apiHost + 'socket'
+  private stompClient: any;
+
+  owner:Owner;
+  constructor(private route: ActivatedRoute,private router: Router, private service:ReviewsService, private userService:UserServiceService,private loginService:LoginService,private socketService: SocketServiceService) {
     this.route.params.subscribe(params => {
       console.log("Owner ID:", params['idOwner']);
       console.log("Guest ID:", params['idGuest']);
@@ -77,8 +91,36 @@ export class ReviewOwnerCreateComponent {
     console.log(this.idGuest)
     const a=this.getReviewData();
     console.log(a);
+
+
+
     if(a!=null){
       this.service.add(a,this.idOwner,this.idGuest).subscribe((response: any) =>{});
+
+      this.userService.getOwnerById(this.idOwner).subscribe(
+        (owner: Owner) => {
+          console.log(owner);
+          this.owner = owner;
+          if(owner.rateMeNotification){
+            console.log("UPALJENA NOTIFIKACIJA")
+            if(this.idGuest!=null){
+              let message:MessageNotification={
+                idOwner:this.idOwner,
+                text:a.comment,
+                idGuest:this.idGuest,
+                userRate:"GO"
+              }
+              console.log(message);
+              this.service.addTurnOfNotification(message).subscribe((response: any) =>{});
+              // this.socketService.postRest(message).subscribe(res => {
+              //   console.log(res);
+              // })
+            }
+          }
+        }
+      );
+
+      //this.stompClient.send("/socket-subscriber/send/message", {}, JSON.stringify(message));
 
       this.router.navigate(['/guests/rate-owner'])
         .then(() => {

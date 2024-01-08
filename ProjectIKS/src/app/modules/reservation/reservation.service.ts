@@ -26,7 +26,6 @@ export class ReservationService {
   constructor(private httpClient: HttpClient,public loginService:LoginService,private userService:UserServiceService) {
     this.userService.getOwner(this.loginService.getUsername()).subscribe(
       (owner: Owner) => {
-        // this.owner = owner;
         this.getOwnersRequests(owner.id).subscribe({
           next: (data: Reservation[]) => {
             this.reservationsSubject.next(data);
@@ -49,9 +48,6 @@ export class ReservationService {
     return this.httpClient.get<Reservation>(environment.apiHost + '/reservations/' + id)
   }
   createReservation(reservation: Reservation): Observable<Reservation> {
-    console.log("udje u funkciju")
-    console.log(reservation);
-    console.log(environment.apiHost + '/guests/reservations');
     return this.httpClient.post<Reservation>(environment.apiHost + '/guests/reservations', reservation)
   }
   deleteReservation(id: number): Observable<Reservation> {
@@ -59,8 +55,6 @@ export class ReservationService {
   }
 
   getByAccommodations(id:number): Observable<Reservation[]> {
-    console.log(environment.apiHost + '/'
-      +id+'/reservations');
     return this.httpClient.get<Reservation[]>(environment.apiHost + '/reservations/'
       +id+'/reservations')
   }
@@ -77,11 +71,10 @@ export class ReservationService {
   }
 
   getOwnersRequests(ownerId: number): Observable<Reservation[]> {
-    console.log(environment.apiHost + '/owners/'+ownerId+ '/requests')
     return this.httpClient.get<Reservation[]>(environment.apiHost + '/owners/'+ownerId+ '/requestsReservations')
   }
 
-  getSearchedRequests(type?: string | null, startDate?: Date | null, endDate?: Date | null, nameAccommodation?: string) : Observable<Reservation[]> {
+  getSearchedRequests(type?: string | null, startDate?: Date | null, endDate?: Date | null, nameAccommodation?: string,idOwner?:number) : Observable<Reservation[]> {
     let params = new HttpParams();
     if (type != undefined)
     {
@@ -100,7 +93,11 @@ export class ReservationService {
     {
       params = params.append("nameAccommodation",  nameAccommodation );
     }
-    console.log("POGODI PUTANJU")
+    if ( idOwner!= undefined)
+    {
+      params = params.append("idOwner",  idOwner );
+    }
+
     return this.httpClient.get<Reservation[]>(environment.apiHost + "/owners/requestsSearch", {params: params});
   }
   updateReservations(reservations: Reservation[]) {
@@ -113,5 +110,7 @@ export class ReservationService {
 
   cancelReservation(id: number) {
     return this.httpClient.put(environment.apiHost + "/reservations/cancel/" + id, {});
+  getGuestRequests(guestId: number): Observable<Reservation[]> {
+    return this.httpClient.get<Reservation[]>(environment.apiHost + '/guests/'+guestId+'/requests')
   }
 }
