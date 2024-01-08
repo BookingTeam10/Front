@@ -5,8 +5,8 @@ export interface Reservation {
   id: number;
   totalPrice: number;
   status: ReservationStatus;
-  startDate: Date  | null;
-  endDate: Date  | null;
+  startDate: Date;
+  endDate: Date;
   numberOfNights: number;
   accommodation: Accommodation;
   guest: Guest;

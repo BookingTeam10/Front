@@ -28,6 +28,10 @@ export class GuestNavbarComponent {
     })
 
   }
+
+  GuestReservations() {
+    this.router.navigate(['/guests/reservations']);
+  }
   EditProfile() {
     this.router.navigate(['/edit-profile']);
   }

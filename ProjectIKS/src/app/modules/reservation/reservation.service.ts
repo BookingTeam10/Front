@@ -106,4 +106,12 @@ export class ReservationService {
   updateReservations(reservations: Reservation[]) {
     this.reservationsSubject.next(reservations);
   }
+
+  getGuestReservations(id: number) {
+      return this.httpClient.get<Reservation[]>(environment.apiHost + "/guests/" + id + "/requests")
+  }
+
+  cancelReservation(id: number) {
+    return this.httpClient.put(environment.apiHost + "/reservations/cancel/" + id, {});
+  }
 }
