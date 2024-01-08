@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {LoginComponent} from "../login.component";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, Observable, of} from "rxjs";
 import {environment} from "../../../../environment/environment";
 import {Login} from "../../../../models/login";
 import {AuthResponse} from "../../../../models/auth-response";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {MessageNotification} from "../../../../models/message";
+import {UserServiceService} from "../../../unregistered-user/signup/user-service.service";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class LoginService {
 
   user$ = new BehaviorSubject("");
   userState = this.user$.asObservable();
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private userService: UserServiceService) {
     this.user$.next(this.getRole());
     // this.user$.next("User");
   }
@@ -77,5 +77,12 @@ export class LoginService {
   sub(email:string): Observable<MessageNotification> {
     console.log(email);
     return this.http.get<MessageNotification>(environment.apiHost + '/socket-publisher/'+email);
+  }
+
+  isBlocked(): Observable<boolean> {
+    if (this.isLoggedIn()) {
+      return this.userService.isBlocked(this.getUsername());
+    }
+    return of(false);
   }
 }

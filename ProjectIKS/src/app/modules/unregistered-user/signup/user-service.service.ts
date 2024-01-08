@@ -172,4 +172,17 @@ export class UserServiceService {
   getOwnerById(idOwner: number):Observable<Owner> {
     return this.httpClient.get<Owner>(environment.apiHost + '/owners/full/' + idOwner);
   }
+
+  blockUser(id: number | undefined) {
+    if(id != null){
+      return this.httpClient.put(environment.apiHost + "/users/block/" + id, {});
+    }else{
+      return new Observable<Object>();
+    }
+
+  }
+
+  isBlocked(username: string) {
+    return this.httpClient.get<boolean>(environment.apiHost + "/users/is-blocked/" + username);
+  }
 }

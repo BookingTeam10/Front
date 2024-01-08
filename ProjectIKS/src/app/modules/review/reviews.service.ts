@@ -5,7 +5,7 @@ import {Reservation, Review, Review1} from "../../models/reservation";
 import {environment} from "../../environment/environment";
 import {Accommodation} from "../../models/accommodation";
 import {Owner} from "../../models/users/owner";
-import {AddReviewOwner, ReportUser, ReviewOwner} from "../../models/reviewOwner";
+import {AddReviewOwner, ReportUser, ReportUserExtended, ReviewOwner} from "../../models/reviewOwner";
 import {Guest} from "../../models/users/guest";
 import {NotificationVisible} from "../../models/notification";
 import {MessageNotification} from "../../models/message";
@@ -177,5 +177,15 @@ export class ReviewsService {
     console.log(message.idOwner)
     console.log(message.idGuest)
     return this.httpClient.post<NotificationVisible>(environment.apiHost + '/notifications/turnOfNot/' +message.idOwner+"/"+message.idGuest,message)
+  }
+
+
+  getAllUserReports(){
+    return this.httpClient.get<ReportUserExtended[]>(environment.apiHost + '/reportUser');
+  }
+
+  deleteReport(id: number) {
+    return this.httpClient.delete(environment.apiHost + "/reportUser/" + id);
+
   }
 }

@@ -47,7 +47,7 @@ export interface ReviewBigger {
 
 
 export enum ReviewStatus {
-  ACTIVE,
-  DELETED,
-  REPORTED
+  ACTIVE = "ACTIVE",
+  DELETED = "DELETED",
+  REPORTED = "REPORTED"
 }

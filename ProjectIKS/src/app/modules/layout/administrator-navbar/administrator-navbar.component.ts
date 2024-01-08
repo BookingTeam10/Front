@@ -30,4 +30,8 @@ export class AdministratorNavbarComponent {
   Aprove() {
     this.router.navigate(['/admin/accommodation-approve']);
   }
+
+  UserReports() {
+    this.router.navigate(['/admin/user-reports']);
+  }
 }
