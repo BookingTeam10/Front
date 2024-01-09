@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Reservation} from "../../models/reservation";
+import {Reservation, Report, ReportAccommodation} from "../../models/reservation";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {environment} from "../../environment/environment";
 import {BehaviorSubject, Observable} from "rxjs";
@@ -114,5 +114,22 @@ export class ReservationService {
 
   getGuestRequests(guestId: number): Observable<Reservation[]> {
     return this.httpClient.get<Reservation[]>(environment.apiHost + '/guests/'+guestId+'/requests')
+  }
+  getOwnerReports(id: number, startDate: Date | null, endDate: Date | null) {
+    let params = new HttpParams();
+      if (startDate != undefined) {
+        const formattedStartDate = startDate.toISOString().split('T')[0];
+        params = params.append('start', formattedStartDate);
+      }
+
+      if (endDate != undefined) {
+        const formattedEndDate = endDate.toISOString().split('T')[0];
+        params = params.append('end', formattedEndDate);
+      }
+    return this.httpClient.get<Report[]>(environment.apiHost + "/owners/"+id+"/report", {params: params});
+  }
+
+  getOwnerReportsAccommodation(idAccommodation: number) {
+    return this.httpClient.get<ReportAccommodation>(environment.apiHost + "/owners/"+idAccommodation+"/reportYear");
   }
 }

@@ -51,3 +51,13 @@ export enum ReviewStatus {
   DELETED = "DELETED",
   REPORTED = "REPORTED"
 }
+
+export interface Report {
+  accommodation:Accommodation;
+  numberReservation:number;
+  profit:number;
+}
+export interface ReportAccommodation {
+  accommodation: Accommodation;
+  map: { [key: number]: number[] };
+}
