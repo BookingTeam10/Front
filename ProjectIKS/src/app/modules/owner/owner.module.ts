@@ -16,7 +16,7 @@ import {MatCardModule} from "@angular/material/card";
 import {RouterLink} from "@angular/router";
 import { OwnerReservationComponent } from './owner-reservation/owner-reservation.component';
 import { OwnerReportsComponent } from './owner-reports/owner-reports.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
@@ -26,6 +26,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import { OwnerRequestsComponent } from './owner-requests/owner-requests.component';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatTableModule} from "@angular/material/table";
+import {NgChartsModule} from "ng2-charts";
 
 @NgModule({
 
@@ -37,25 +38,27 @@ import {MatTableModule} from "@angular/material/table";
     OwnerReportsComponent,
     OwnerRequestsComponent,
   ],
-  imports: [
-    CommonModule,
-    AccommodationsModule,
-    LayoutModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatListModule,
-    MatCardModule,
-    RouterLink,
-    FormsModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatAutocompleteModule,
-    MatInputModule,
-    MatOptionModule,
-    MatToolbarModule,
-    MatPaginatorModule,
-    MatTableModule
-  ],
+    imports: [
+        CommonModule,
+        AccommodationsModule,
+        LayoutModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatListModule,
+        MatCardModule,
+        RouterLink,
+        FormsModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatAutocompleteModule,
+        MatInputModule,
+        MatOptionModule,
+        MatToolbarModule,
+        MatPaginatorModule,
+        MatTableModule,
+        NgChartsModule,
+        ReactiveFormsModule
+    ],
   exports: [
     EditProfileComponent,
     OwnerHomeComponent,

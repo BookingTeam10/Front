@@ -1,3 +1,4 @@
+<app-owner-navbar></app-owner-navbar>
 <mat-toolbar style="display: flex; justify-content: center; margin-bottom: 30px; height: 150px; margin-right: 50px">
   <mat-form-field>
     <mat-label>Enter a date range</mat-label>
@@ -13,4 +14,26 @@
   <mat-date-range-picker #picker></mat-date-range-picker>
   <button mat-raised-button color="primary" (click)="selectClicked()" style="height:50px; margin-bottom: 20px" >View report</button>
 </mat-toolbar>
+<div>
+  <canvas #chartCanvas></canvas>
+</div>
 
+<form [formGroup]="accommodationForm" >
+    <input style="margin-right: 50px; height: 40px" type="text"
+           placeholder="Accommodation"
+           matInput
+           [formControl]="AccommodationCheckbox"
+           [matAutocomplete]="accommodationAuto">
+    <mat-autocomplete #accommodationAuto="matAutocomplete">
+      <mat-option *ngFor="let option of filter | async" [value]="option">
+        {{ option}}
+      </mat-option>
+    </mat-autocomplete>
+</form>
+<button mat-raised-button color="primary" (click)="selectClickedAccommodation()" style="height:50px; margin-bottom: 20px" >View report</button>
+<div>
+  <canvas #chartCanvas2></canvas>
+</div>
+<div class="download-btn-container">
+  <button (click)="generatePDF()" class="download-pdf-btn">Download PDF</button>
+</div>

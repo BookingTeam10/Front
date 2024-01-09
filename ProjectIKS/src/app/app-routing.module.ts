@@ -82,7 +82,7 @@ const routes: Routes = [
   {path: 'guests/favourite-accommodations', component: GuestFavouriteAccommodationsComponent},
   {path: 'owners/reports', component: OwnerReportsComponent},
   {path: 'owners/requests', component: OwnerRequestsComponent},
-  {path: 'guests/reservations', component: GuestReservationsComponent}
+  {path: 'guests/reservations', component: GuestReservationsComponent},
   {path: 'guests/create-rate-accommodation', component: ReviewAccommodationCreateComponent},
   {path: 'guests/details-rate-accommodation', component: ReviewAccommodationDetailsComponent},
   {path: 'owners/notifications', component: ViewNotificationComponent},

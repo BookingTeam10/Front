@@ -18,6 +18,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatDialogModule} from "@angular/material/dialog";
 import {Interceptor} from "./modules/auth/login/interceptor";
 import {AdministratorModule} from "./modules/administrator/administrator.module";
+import {NgChartsModule} from "ng2-charts";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {AdministratorModule} from "./modules/administrator/administrator.module"
     MatDatepickerModule,
     ReviewsModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    NgChartsModule
   ],
   providers: [
     {

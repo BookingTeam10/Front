@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Reservation} from "../../models/reservation";
+import {Reservation, Report, ReportAccommodation} from "../../models/reservation";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {environment} from "../../environment/environment";
 import {BehaviorSubject, Observable} from "rxjs";
@@ -110,7 +110,51 @@ export class ReservationService {
 
   cancelReservation(id: number) {
     return this.httpClient.put(environment.apiHost + "/reservations/cancel/" + id, {});
+  }
   getGuestRequests(guestId: number): Observable<Reservation[]> {
     return this.httpClient.get<Reservation[]>(environment.apiHost + '/guests/'+guestId+'/requests')
+  }
+  // getOwnerReports(type?: string | null, startDate?: Date | null, endDate?: Date | null, nameAccommodation?: string,idOwner?:number) : Observable<Reservation[]> {
+  //   let params = new HttpParams();
+  //   if (type != undefined)
+  //   {
+  //     params = params.append("type", type );
+  //   }
+  //   if (startDate != undefined) {
+  //     const formattedStartDate = startDate.toISOString().split('T')[0];
+  //     params = params.append('start', formattedStartDate);
+  //   }
+  //
+  //   if (endDate != undefined) {
+  //     const formattedEndDate = endDate.toISOString().split('T')[0];
+  //     params = params.append('end', formattedEndDate);
+  //   }
+  //   if ( nameAccommodation != undefined)
+  //   {
+  //     params = params.append("nameAccommodation",  nameAccommodation );
+  //   }
+  //   if ( idOwner!= undefined)
+  //   {
+  //     params = params.append("idOwner",  idOwner );
+  //   }
+  //
+  //   return this.httpClient.get<Reservation[]>(environment.apiHost + "/owners/requestsSearch", {params: params});
+  // }
+  getOwnerReports(id: number, startDate: Date | null, endDate: Date | null) {
+    let params = new HttpParams();
+      if (startDate != undefined) {
+        const formattedStartDate = startDate.toISOString().split('T')[0];
+        params = params.append('start', formattedStartDate);
+      }
+
+      if (endDate != undefined) {
+        const formattedEndDate = endDate.toISOString().split('T')[0];
+        params = params.append('end', formattedEndDate);
+      }
+    return this.httpClient.get<Report[]>(environment.apiHost + "/owners/"+id+"/report", {params: params});
+  }
+
+  getOwnerReportsAccommodation(idAccommodation: number) {
+    return this.httpClient.get<ReportAccommodation>(environment.apiHost + "/owners/"+idAccommodation+"/reportYear");
   }
 }

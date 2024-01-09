@@ -31,3 +31,26 @@ ul {
   list-style-type: none;
   margin-top: 4px;
 }
+/* grafikon.component.css */
+.download-btn-container {
+  text-align: center; /* Centrira dugme unutar kontejnera */
+  margin-top: 20px; /* Dodaje malo prostora iznad dugmeta */
+  margin-bottom: 30px;
+}
+
+.download-pdf-btn {
+  padding: 10px 20px; /* Dodaje prostor unutar dugmeta */
+  font-size: 16px; /* Povećava font dugmeta */
+  color: white; /* Boja teksta */
+  background-color: #007bff; /* Plava boja pozadine */
+  border: none; /* Uklanja border */
+  border-radius: 5px; /* Zaobljeni uglovi */
+  cursor: pointer; /* Stavlja kursor kao pokazivač */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Dodaje senku za 3D efekat */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Animacija za hover */
+}
+
+.download-pdf-btn:hover {
+  background-color: #0056b3; /* Tamnija nijansa plave kada je miš preko dugmeta */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Veća senka za efekat pritiska */
+}
