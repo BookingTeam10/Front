@@ -5,6 +5,8 @@ import {UserServiceService} from "../../unregistered-user/signup/user-service.se
 import {Owner} from "../../../models/users/owner";
 import {ReservationService} from "../../reservation/reservation.service";
 import {Router} from "@angular/router";
+import {MessageNotification} from "../../../models/message";
+import {ReviewsService} from "../../review/reviews.service";
 
 @Component({
   selector: 'app-owner-reservation',
@@ -31,8 +33,8 @@ import {Router} from "@angular/router";
           <td>{{reservation.accommodation.name}}</td>
           <td>{{reservation.totalPrice}}</td>
           <td>
-            <button (click)="approveReservation(reservation.id)">Approve</button>
-            <button (click)="rejectReservation(reservation.id)">Reject</button>
+            <button (click)="approveReservation(reservation)">Approve</button>
+            <button (click)="rejectReservation(reservation)">Reject</button>
           </td>
         </tr>
         </tbody>
@@ -47,7 +49,8 @@ export class OwnerReservationComponent implements OnInit{
   constructor(private loginService: LoginService,
               private userService: UserServiceService,
               private reservationService: ReservationService,
-              private router: Router) {
+              private router: Router,
+              private reviewService: ReviewsService) {
   }
 
   ngOnInit() {
@@ -71,14 +74,38 @@ export class OwnerReservationComponent implements OnInit{
     this.router.navigate(['accommodations/' + id]);
   }
 
-  approveReservation(id: number) {
-      this.reservationService.acceptReservation(id).subscribe(() => {
+  approveReservation(reservation: Reservation) {
+
+      let notification: MessageNotification = {
+        text: "Owner " + reservation.accommodation.owner.name + " accepted your reservation " + reservation.id,
+        idOwner: reservation.accommodation.owner.id,
+        idGuest: reservation.guest.id,
+        userRate: "OG"
+      }
+
+      if(reservation.guest.turnOnNotification) {
+        this.reviewService.addTurnOfNotification(notification).subscribe((response) => {
+        });
+      }
+      this.reservationService.acceptReservation(reservation.id).subscribe(() => {
         this.loadReservations(this.owner.id);
       });
   }
 
-  rejectReservation(id: number) {
-      this.reservationService.rejectReservation(id).subscribe(() => {
+  rejectReservation(reservation: Reservation) {
+
+    let notification: MessageNotification = {
+      text: "Owner " + reservation.accommodation.owner.name + " rejected your reservation " + reservation.id,
+      idOwner: reservation.accommodation.owner.id,
+      idGuest: reservation.guest.id,
+      userRate: "OG"
+    }
+
+    if(reservation.guest.turnOnNotification) {
+      this.reviewService.addTurnOfNotification(notification).subscribe((response) => {
+      });
+    }
+      this.reservationService.rejectReservation(reservation.id).subscribe(() => {
         this.loadReservations(this.owner.id);
       });
   }

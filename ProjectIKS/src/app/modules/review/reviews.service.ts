@@ -193,4 +193,8 @@ export class ReviewsService {
     console.log(report.status + "    report");
     return this.httpClient.put(environment.apiHost + "/reviews/"  + report.id , report);
   }
+
+  getNotificationGuest(id: number) {
+    return this.httpClient.get<NotificationVisible[]>(environment.apiHost + '/notifications/notificationsGuest/' + id)
+  }
 }

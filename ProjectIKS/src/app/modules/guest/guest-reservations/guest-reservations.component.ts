@@ -5,6 +5,9 @@ import {UserServiceService} from "../../unregistered-user/signup/user-service.se
 import {ReservationService} from "../../reservation/reservation.service";
 import {Router} from "@angular/router";
 import {Guest} from "../../../models/users/guest";
+import {NotificationVisible} from "../../../models/notification";
+import {ReviewsService} from "../../review/reviews.service";
+import {MessageNotification} from "../../../models/message";
 
 @Component({
   selector: 'app-guest-reservations',
@@ -46,7 +49,8 @@ export class GuestReservationsComponent {
   constructor(private loginService: LoginService,
               private userService: UserServiceService,
               private reservationService: ReservationService,
-              private router: Router) {
+              private router: Router,
+              private reviewService: ReviewsService) {
   }
 
   ngOnInit() {
@@ -100,6 +104,20 @@ export class GuestReservationsComponent {
             if(this.guest.id)
               this.loadReservations(this.guest.id);
           });
+
+          // KREIRAM NOTIFICATION
+          let notification: MessageNotification = {
+            text: "Guest " + r.guest.name +  " cancelled reservation " + r.id,
+            idGuest: r.guest.id,
+            idOwner: r.accommodation.owner.id,
+            userRate: "GO"
+          }
+          if(r.accommodation.owner.cancelledNotification) {
+              this.reviewService.addTurnOfNotification(notification).subscribe((response) => {
+              });
+          }
+
+          // KRAJ
           alert("Reservation cancelled")
         } else {
           alert("Cancel deadline passed!")

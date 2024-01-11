@@ -1,14 +1,15 @@
 <mat-toolbar>
   <span (click)="toHome()" >Booking</span>
   <div>
+    <button (click)="Logout()" style="float: right" mat-raised-button >Logout</button>
    <button (click)="EditProfile()" style="float: right" mat-raised-button >Profile</button>
     <button (click)="GuestReservations()" style="float: right" mat-raised-button >Reservations</button>
-    <button [routerLink]="['']"  style="float: right" mat-raised-button >Notifications</button>
+    <button (click)="ViewGuestNotifications()" style="float: right" mat-raised-button >Notifications</button>
     <button (click)="viewReviews()"  style="float: right" mat-raised-button >Reviews</button>
     <button (click)="favouriteAccommodations()" style="float: right" mat-raised-button >Favourite accommodations</button>
-    <button (click)="Logout()" style="float: right" mat-raised-button >Logout</button>
     <button (click)="RateOwner()" style="float: right" mat-raised-button >Rate Owner</button>
     <button (click)="RateAccommodation()" style="float: right" mat-raised-button >Rate Accommodation</button>
+
   </div>
 </mat-toolbar>
 
