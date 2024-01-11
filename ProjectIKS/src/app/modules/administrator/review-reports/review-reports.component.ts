@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Review, ReviewStatus} from "../../../models/reservation";
 import {ReviewsService} from "../../review/reviews.service";
+import {MessageNotification} from "../../../models/message";
 
 @Component({
   selector: 'app-review-reports',
@@ -23,7 +24,7 @@ import {ReviewsService} from "../../review/reviews.service";
             <td>{{report.rate}}</td>
             <td>{{report.reservation.id}}</td>
             <td>
-              <button (click)="deleteReport(report)">Delete</button>
+              <button *ngIf="report.status === ReviewStatus.REPORTED" (click)="deleteReport(report)">Delete</button>
               <button (click)="approveReport(report)">Approve</button>
             </td>
         </tr>
@@ -46,7 +47,7 @@ export class ReviewReportsComponent implements OnInit{
 
   loadReports() {
       this.reviewService.getAll().subscribe((reviewes) => {
-          this.reports = reviewes.filter(review => review.status === ReviewStatus.REPORTED);
+          this.reports = reviewes.filter(report => report.status != ReviewStatus.ACTIVE);
       });
   }
 
@@ -59,10 +60,26 @@ export class ReviewReportsComponent implements OnInit{
 
   approveReport(report: Review) {
     report.status = ReviewStatus.ACTIVE;
-    this.reviewService.update(report).subscribe((response ) => {
-      this.loadReports();
+
+    let notification: MessageNotification = {
+      text: "Guest " + report.reservation.guest.name + " rated your accommodation " + report.reservation.accommodation.name,
+      idGuest: report.reservation.guest.id,
+      idOwner: report.reservation.accommodation.owner.id,
+      userRate: "GO"
+    }
+
+    if(report.reservation.accommodation.owner.rateAccommodationNotification){
+    this.reviewService.addTurnOfNotification(notification).subscribe((response) => {
     });
+
+
+    this.reviewService.update(report).subscribe((response) => {
+        this.loadReports();
+      });
+  }
+
   }
 
 
+  protected readonly ReviewStatus = ReviewStatus;
 }

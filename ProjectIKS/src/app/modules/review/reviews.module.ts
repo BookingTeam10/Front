@@ -37,6 +37,9 @@ import { ReviewAccommodationDetailsComponent } from './review-accommodation-deta
 import { ViewNotificationComponent } from './view-notification/view-notification.component';
 import { ViewNotificationCardComponent } from './view-notification-card/view-notification-card.component';
 import { ViewNotificationCardsComponent } from './view-notification-cards/view-notification-cards.component';
+import { ViewNotificationGuestComponent } from './notifications-guest/view-notification-guest/view-notification-guest.component';
+import { ViewNotificationCardGuestComponent } from './notifications-guest/view-notification-card-guest/view-notification-card-guest.component';
+import { ViewNotificationCardsGuestComponent } from './notifications-guest/view-notification-cards-guest/view-notification-cards-guest.component';
 
 
 
@@ -67,7 +70,10 @@ import { ViewNotificationCardsComponent } from './view-notification-cards/view-n
     ReviewAccommodationDetailsComponent,
     ViewNotificationComponent,
     ViewNotificationCardComponent,
-    ViewNotificationCardsComponent
+    ViewNotificationCardsComponent,
+    ViewNotificationGuestComponent,
+    ViewNotificationCardGuestComponent,
+    ViewNotificationCardsGuestComponent
   ],
   exports: [
     ReviewCardComponent,

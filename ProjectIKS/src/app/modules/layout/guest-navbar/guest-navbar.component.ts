@@ -46,4 +46,8 @@ export class GuestNavbarComponent {
   RateAccommodation() {
     this.router.navigate(['/guests/rate-accommodation']);
   }
+
+  ViewGuestNotifications() {
+    this.router.navigate(['/guests/notifications']);
+  }
 }

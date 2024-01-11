@@ -1,7 +1,7 @@
 import {Accommodation} from "../accommodation";
 
 export interface Guest {
-  id?: number;
+  id: number;
   email: string;
   password: string;
   name: string;
