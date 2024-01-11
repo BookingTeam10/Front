@@ -188,4 +188,9 @@ export class ReviewsService {
     return this.httpClient.delete(environment.apiHost + "/reportUser/" + id);
 
   }
+
+  update(report: Review) {
+    console.log(report.status + "    report");
+    return this.httpClient.put(environment.apiHost + "/reviews/"  + report.id , report);
+  }
 }
