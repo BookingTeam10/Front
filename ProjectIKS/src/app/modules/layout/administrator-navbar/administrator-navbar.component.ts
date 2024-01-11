@@ -34,4 +34,8 @@ export class AdministratorNavbarComponent {
   UserReports() {
     this.router.navigate(['/admin/user-reports']);
   }
+
+  ReviewReports() {
+    this.router.navigate(['/admin/review-reports']);
+  }
 }

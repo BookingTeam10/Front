@@ -50,6 +50,7 @@ import {
 } from "./modules/review/review-accommodation-details/review-accommodation-details.component";
 import {ViewNotificationComponent} from "./modules/review/view-notification/view-notification.component";
 import {UserReportsComponent} from "./modules/administrator/user-reports/user-reports.component";
+import {ReviewReportsComponent} from "./modules/administrator/review-reports/review-reports.component";
 
 
 const routes: Routes = [
@@ -88,6 +89,7 @@ const routes: Routes = [
   {path: 'guests/details-rate-accommodation', component: ReviewAccommodationDetailsComponent},
   {path: 'owners/notifications', component: ViewNotificationComponent},
   {path: 'admin/user-reports', component: UserReportsComponent},
+  {path: 'admin/review-reports', component: ReviewReportsComponent},
 
 ];
 
