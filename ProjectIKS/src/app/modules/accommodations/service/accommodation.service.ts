@@ -123,4 +123,49 @@ export class AccommodationService {
     console.log(environment.apiHost + "/guests/" + idGuest + "/favouriteAccommodations/"+idAccommodation)
     return this.httpClient.delete<Guest>(environment.apiHost + "/guests/" + idGuest + "/favouriteAccommodations/"+idAccommodation)
   }
+
+  getSearchedFilteredAccommodations(location?: string, start?: Date, end?: Date, numPeople?: number, minPrice?:string,maxPrice?:string,amenities?: string[],type?:string) : Observable<Accommodation[]> {
+    let params = new HttpParams();
+    console.log("DATUM2",start);
+    if (location != undefined)
+    {
+      // @ts-ignore
+      params = params.append("location", location );
+    }
+    if (numPeople != undefined)
+    {
+      params = params.append("numPeople", numPeople );
+    }
+    if (minPrice != undefined)
+    {
+      params = params.append("minPrice", minPrice );
+    }
+    if (maxPrice != undefined)
+    {
+      params = params.append("maxPrice", maxPrice );
+    }
+    if (amenities != undefined)
+    {
+
+      // @ts-ignore
+      params = params.append("amenities", amenities  );
+    }
+
+    if (type != undefined)
+    {
+      params = params.append("type", type );
+    }
+    if (start != undefined)
+    {
+      // @ts-ignore
+      params = params.append("start", start );
+    }
+    if (end != undefined)
+    {
+      // @ts-ignore
+      params = params.append("end", end );
+    }
+
+    return this.httpClient.get<Accommodation[]>(environment.apiHost + "/accommodations/accommodationsSearchFilterAll", {params: params});
+  }
 }
