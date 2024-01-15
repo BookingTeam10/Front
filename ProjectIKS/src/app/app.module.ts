@@ -19,6 +19,9 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {Interceptor} from "./modules/auth/login/interceptor";
 import {AdministratorModule} from "./modules/administrator/administrator.module";
 import {NgChartsModule} from "ng2-charts";
+import { MatCardModule } from '@angular/material/card';
+import { MatRadioModule } from '@angular/material/radio';
+import {SignupComponent} from "./modules/unregistered-user/signup/signup.component";
 
 @NgModule({
   declarations: [
@@ -42,7 +45,9 @@ import {NgChartsModule} from "ng2-charts";
     ReviewsModule,
     MatDialogModule,
     MatButtonModule,
-    NgChartsModule
+    NgChartsModule,
+    MatCardModule,
+    MatRadioModule,
   ],
   providers: [
     {

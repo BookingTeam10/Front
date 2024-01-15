@@ -302,7 +302,11 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
         event.preventDefault();
         this.getAccommodationPriceData();
 
-        this.accommodationService.updateAccommodation(this.accommodation).subscribe((response: any) =>{});
+        //this.accommodationService.updateAccommodation(this.accommodation).subscribe((response: any) =>{});
+        //this.accommodationService.updateAccommodation(this.accommodation).subscribe((response: any) =>{});
+        this.accommodationService.updateAccommodation(this.accommodation).subscribe(response =>{
+            alert(response.message);
+        });
         this.editBasic = true;
         this.ngAfterViewInit();
   }
