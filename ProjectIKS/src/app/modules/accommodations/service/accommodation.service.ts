@@ -99,8 +99,12 @@ export class AccommodationService {
     return this.httpClient.post(environment.apiHost + "/accommodations/reject/" + id,{});
   }
 
-  updateAccommodation(accommodation: Accommodation) {
-      return this.httpClient.put(environment.apiHost + "/accommodations/" + accommodation.id, accommodation);
+  // updateAccommodation(accommodation: Accommodation) {
+  //     return this.httpClient.put(environment.apiHost + "/accommodations/" + accommodation.id, accommodation);
+  // }
+
+  updateAccommodation(accommodation: Accommodation):Observable<any> {
+    return this.httpClient.put<any>(environment.apiHost + "/accommodations/" + accommodation.id, accommodation);
   }
 
   getOwnerAccommodations(id: number): Observable<Accommodation[]> {

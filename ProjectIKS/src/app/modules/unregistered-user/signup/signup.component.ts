@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
-import {LoginService} from "../../auth/login/service/login.service";
+import {AbstractControl, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import {MatRadioChange} from "@angular/material/radio";
 import {RegistrationService} from "../services/registration.service";
 import {Registration, TypeUser} from "../../../models/registration";
-import {SharedDataService} from "./activation/shared-data.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -17,6 +15,7 @@ export class SignupComponent implements OnInit{
   allTextPattern = "[a-zA-Z][a-zA-Z]*";
   phoneNumberPattern = "[0-9 +]?[0-9]+[0-9 \\-]+";
   selectedUserType: string;
+  submitted = false;
 
   constructor(private service:RegistrationService,private router: Router) {
   }
@@ -31,13 +30,13 @@ export class SignupComponent implements OnInit{
     phone: new FormControl('', [Validators.pattern(this.phoneNumberPattern), Validators.minLength(6), Validators.maxLength(20), Validators.required]),
     userType: new FormControl('', [Validators.required])
   }, {validators: [match('password', 'confirmPassword')]});
+
   registerClicked() {
-    console.log("KLIKNUTO");
+    this.submitted=true;
     const signUpData:Registration={
-      id:500, //doda se cisto neki id, posle se to u bazi promeni
+      id:500,
       email:this.signUp.value.email || "",
       password:this.signUp.value.password || "",
-
       firstName:this.signUp.value.name || "",
       lastName:this.signUp.value.surname || "",
       phoneNumber:this.signUp.value.phone || "",
@@ -46,12 +45,13 @@ export class SignupComponent implements OnInit{
       activationCode:""
     }
     if(this.signUp.valid) {
-      this.service.registration(signUpData).subscribe({
-        next: (response) => {
-          console.log(response.activationCode);
-          this.router.navigate(['/users/login']);
-        }
-      });
+      // this.service.registration(signUpData).subscribe({
+      //   next: (response) => {
+      //     console.log(response.activationCode);
+      //     this.router.navigate(['/users/login']);
+      //   }
+      // });
+      this.service.registerUserObs(signUpData);
     }
   }
 
