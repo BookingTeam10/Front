@@ -32,6 +32,7 @@ export class SearchComponent implements OnInit{
   optionsType: string[] = ['Apartment','Room'];
   filteredType: Observable<string[]>;
 
+
   wifi: boolean = false;
   parking: boolean = false;
   airConditioning: boolean = false;
