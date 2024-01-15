@@ -22,6 +22,7 @@ import {NgChartsModule} from "ng2-charts";
 import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import {SignupComponent} from "./modules/unregistered-user/signup/signup.component";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {SignupComponent} from "./modules/unregistered-user/signup/signup.compone
     NgChartsModule,
     MatCardModule,
     MatRadioModule,
+    MatSnackBarModule
   ],
   providers: [
     {

@@ -10,6 +10,7 @@ import {MessageNotification} from "../../../models/message";
 
 import {environment} from "../../../environment/environment";
 import {UserServiceService} from "../../unregistered-user/signup/user-service.service";
+import {SocketApiService} from "../../review/socket-api.service";
 
 @Component({
   selector: 'app-login',
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit{
   }
 
 
-  constructor(private service:LoginService,private userService:UserServiceService,private router: Router) {
+  constructor(private service:LoginService,private userService:UserServiceService,private router: Router,private socketApiService:SocketApiService) {
   }
 
   loginForm=new FormGroup({
@@ -57,6 +58,13 @@ export class LoginComponent implements OnInit{
           localStorage.setItem('User', response.jwt);
           this.service.setUser();
 
+          if (this.loginForm.value.email != null) {
+            this.socketApiService.openSocket(this.loginForm.value.email);
+            //this.openGlobalSocket(this.loginForm.value.email);
+            //this.openSocket(this.loginForm.value.email);
+          }
+
+          //this.socketApiService.openSocket(this.loginForm.value.email);
           this.service.isBlocked().subscribe((blocked) => {
             if (blocked) {
 
@@ -67,6 +75,7 @@ export class LoginComponent implements OnInit{
           });
 
           if (this.loginForm.value.email != null) {
+
             //this.openGlobalSocket(this.loginForm.value.email);
             //this.openSocket(this.loginForm.value.email);
           }

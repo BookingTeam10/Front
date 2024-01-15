@@ -10,7 +10,6 @@ import {Login} from "../../../models/login";
 import {LoginService} from "../../auth/login/service/login.service";
 import {MessageNotification} from "../../../models/message";
 import {environment} from "../../../environment/environment";
-import {SocketServiceService} from "../socket-service.service";
 
 
 
@@ -27,7 +26,7 @@ export class ReviewOwnerCreateComponent {
   private stompClient: any;
 
   owner:Owner;
-  constructor(private route: ActivatedRoute,private router: Router, private service:ReviewsService, private userService:UserServiceService,private loginService:LoginService,private socketService: SocketServiceService) {
+  constructor(private route: ActivatedRoute,private router: Router, private service:ReviewsService, private userService:UserServiceService,private loginService:LoginService) {
     this.route.params.subscribe(params => {
       console.log("Owner ID:", params['idOwner']);
       console.log("Guest ID:", params['idGuest']);

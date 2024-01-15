@@ -57,10 +57,4 @@ export class OwnerRequestsComponent implements AfterViewInit,OnInit{
       }
     );
   }
-  // acceptRequest(element) {
-  // }
-  //
-  // rejectRequest(element) {
-  //
-  // }
 }
