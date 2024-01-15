@@ -48,6 +48,7 @@ export class ReservationService {
     return this.httpClient.get<Reservation>(environment.apiHost + '/reservations/' + id)
   }
   createReservation(reservation: Reservation): Observable<Reservation> {
+    console.log(reservation);
     return this.httpClient.post<Reservation>(environment.apiHost + '/guests/reservations', reservation)
   }
   deleteReservation(id: number): Observable<Reservation> {

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Accommodation} from "../../../models/accommodation";
+import {Accommodation, Price} from "../../../models/accommodation";
 import {Router} from "@angular/router";
 import {LoginService} from "../../auth/login/service/login.service";
 import {AccommodationService} from "../service/accommodation.service";
@@ -18,10 +18,23 @@ export class AccommodationCardComponent implements OnInit{
   guest:Guest;
   isButtonClicked = false;
   favouriteAccommodations: Accommodation[];
+  prices: Price[];
+  todayPrice: number;
+
   constructor(private router: Router, public loginService: LoginService, private service:AccommodationService, private userService: UserServiceService) {
   }
   ngOnInit(): void {
       this.loadGuest();
+      this.prices = this.accommodation.prices;
+    for (const price of this.prices) {
+      const today = new Date();
+      let dateStartObj = new Date( price.startDate);
+      let dateEndObj = new Date( price.endDate);
+      if(dateStartObj<today && today<dateEndObj){
+        this.todayPrice = price.price;
+      }
+    }
+
     }
 
   @Output()
