@@ -74,8 +74,17 @@ export class SearchComponent implements OnInit{
      console.log(this.selectedOptionsDisplay);
     console.log(typeof this.maximumPr);
     //dodati ovde type i selectedOptions i min i max price
+    // // @ts-ignore
+    // this.service.getSearchedAccommodations(city,this.startDate,this.endDate,numberOfGuests,this.minimumPr,this.maximumPr,this.selectedOptionsDisplay).subscribe({
+    //   next: (data: Accommodation[]) => {
+    //     console.log(data);
+    //     this.service.updateAccommodations(data);
+    //   },
+    //   error: (_) => {console.log("Greska!")}
+    // })
     // @ts-ignore
-    this.service.getSearchedAccommodations(city,this.startDate,this.endDate,numberOfGuests,this.minimumPr,this.maximumPr,this.selectedOptionsDisplay).subscribe({
+
+    this.service.getSearchedFilteredAccommodations(city,this.startDate,this.endDate,numberOfGuests,this.minimumPr,this.maximumPr,this.selectedOptionsDisplay,this.typeAccommodationCheckbox.value).subscribe({
       next: (data: Accommodation[]) => {
         console.log(data);
         this.service.updateAccommodations(data);
