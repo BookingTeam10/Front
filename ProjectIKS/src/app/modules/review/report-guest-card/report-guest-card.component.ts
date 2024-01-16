@@ -47,7 +47,7 @@ export class ReportGuestCardComponent {
           this.router.navigate(['/guests/create-report-guest', { idOwner: idOwner, idGuest: idGuest }]);
           return
         } else{
-          alert("You have already rated the guest!")
+          alert("You have already report the guest!")
         }
       });
   }
