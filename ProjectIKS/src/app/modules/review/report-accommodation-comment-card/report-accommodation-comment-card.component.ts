@@ -1,11 +1,10 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Guest} from "../../../models/users/guest";
 import {Router} from "@angular/router";
 import {ReviewsService} from "../reviews.service";
 import {LoginService} from "../../auth/login/service/login.service";
 import {UserServiceService} from "../../unregistered-user/signup/user-service.service";
-import {Review} from "../../../models/reservation";
-import {AddReviewOwner, Status} from "../../../models/reviewOwner";
+import {Review, Review1, ReviewStatus} from "../../../models/reservation";
+import {Status} from "../../../models/reviewOwner";
 
 @Component({
   selector: 'app-report-accommodation-comment-card',
@@ -23,6 +22,7 @@ export class ReportAccommodationCommentCardComponent {
   clicked: EventEmitter<Review> = new EventEmitter<Review>();
 
   ReportAccommodationComment(id: number | undefined) {
+    console.log("USLO OVDE UOPSTE")
     console.log(id)
     console.log("AAAAAAA")
     this.service.getReviewAccommodation(id).subscribe(
@@ -36,12 +36,21 @@ export class ReportAccommodationCommentCardComponent {
     console.log("review")
     console.log(review);
     console.log(review);
-    this.service.editReview(review).subscribe((response: any) =>{});
+    if(review.status===ReviewStatus.REPORTED){
+      alert("VEC REPORTOVANO")
+      return
+    }
+    review.status=ReviewStatus.REPORTED
+    // this.service.editReview(review).subscribe(() =>{});
 
-    this.router.navigate(['/owners/accommodation/comments'])
-      .then(() => {
-        window.location.reload();
-      });
+    this.service.editReview(review.id).subscribe((response:Review) =>{
+      console.log(response);
+    });
+
+    // this.router.navigate(['/owners/accommodation/comments'])
+    //   .then(() => {
+    //     window.location.reload();
+    //   });
   }
 
 }

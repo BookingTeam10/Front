@@ -34,6 +34,10 @@ export class ReportGuestCommentCardComponent {
   private editIsReported(review: AddReviewOwner) {
     console.log("review")
     console.log(review);
+    if(review.isReported || review.statusReview===Status.REPORTED){
+      alert("VEC REPORTOVANO")
+      return
+    }
     review.isReported=true;
     review.statusReview=Status.REPORTED;
     console.log(review);
