@@ -148,9 +148,17 @@ export class ReviewsService {
     return this.httpClient.get<Review>(environment.apiHost + '/reviews/getAccommodation/' +id)
   }
 
-  editReview(review: Review) {
-    console.log(review.id)
-    return this.httpClient.put<AddReviewOwner>(environment.apiHost + '/reviews/editReviewAccommodation/'+review.id,review);
+  // editReview(review: Review):Observable<Review1> {
+  //   console.log(review.id)
+  //   return this.httpClient.put<Review1>(environment.apiHost + '/reviews/editReviewAccommodation',review);
+  // }
+
+  // editReview(id:number):Observable<Review> {
+  //   return this.httpClient.get<Review>(environment.apiHost + '/reviews/editReviewAccommodation/'+id);
+  // }
+
+  editReview(reviewId:number):Observable<Review> {
+    return this.httpClient.get<Review>(environment.apiHost + '/reviews/editReviewAccommodation/'+reviewId);
   }
 
   getRateAccommodation(idAccommodation: number, idGuest: number | undefined):Observable<Review> {

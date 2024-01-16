@@ -33,7 +33,7 @@ export class ReportGuestCreateComponent {
     const report:ReportUser = {
       id:100,
       comment:name,
-      statusReview:Status.ACTIVE,
+      statusReview:Status.REPORTED,
       userReportUser:"OG"
     };
     return report;

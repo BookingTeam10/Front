@@ -36,7 +36,7 @@ export class ReviewAccommodationCreateComponent {
       id:100,
       rate:5,
       comment:name,
-      status:ReviewStatus.ACTIVE,
+      status:ReviewStatus.WAITING,
       reservation:1
     };
     return review;
