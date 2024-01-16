@@ -22,19 +22,22 @@
   <div *ngIf="accommodation.photos.length > 0" class="photo-gallery">
     <img *ngFor="let photo of accommodation.photos" [src]="photo" alt="Slika smeštaja" style="width: 100%; height: auto; padding: 10px; border-radius: 20px;">
   </div>
-
-  <mat-form-field *ngIf="loginService.hasRole('Guest')" style="margin-top: 20px">
-    <mat-label>Enter a date range</mat-label>
-    <mat-date-range-input [rangePicker]="picker">
-      <input matStartDate [(ngModel)] = "startDate" placeholder="Start date">
-      <input matEndDate [(ngModel)] = "endDate" placeholder="End date">
-    </mat-date-range-input>
-    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-date-range-picker #picker></mat-date-range-picker>
-  </mat-form-field>
-
-  <button *ngIf="loginService.hasRole('Guest')" class="reservation_button" mat-raised-button color="primary" (click)="reserveAccommodation(accommodation)">Reservation accommodation</button>
+  <form fxLayoutAlign="stretch" fxLayout="column" class="reservation-form" [formGroup]="reservationSend" >
+    <mat-form-field *ngIf="loginService.hasRole('Guest')" style="margin-top: 20px">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate [(ngModel)] = "startDate" formControlName="startDate" placeholder="Start date">
+        <input matEndDate [(ngModel)] = "endDate" formControlName="endDate" placeholder="End date">
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" id="number-guests" formControlName="numberGuests"  placeholder="Add number guests" min="0">
+    </mat-form-field>
+    <button *ngIf="loginService.hasRole('Guest')" class="reservation_button" mat-raised-button color="primary" [disabled]="!reservationSend.valid" (click)="reserveAccommodation(accommodation)">Reservation accommodation</button>
+  </form>
 </div>
 <div>
   <app-review-cards></app-review-cards>

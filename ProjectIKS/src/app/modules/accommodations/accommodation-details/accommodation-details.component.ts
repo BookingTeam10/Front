@@ -12,6 +12,7 @@ import {LoginService} from "../../auth/login/service/login.service";
 import {Owner} from "../../../models/users/owner";
 import {UserServiceService} from "../../unregistered-user/signup/user-service.service";
 import {MessageNotification} from "../../../models/message";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-accommodation-details',
@@ -35,6 +36,7 @@ export class AccommodationDetailsComponent implements OnInit{
   endDate: Date;
   favouriteAccommodations: undefined;
   guest:Guest;
+  submitted = false;
 
 
   constructor(private route: ActivatedRoute, private router: Router, private accommodationService: AccommodationService,private mapService:MapService,private reservationService:ReservationService,private reviewService:ReviewsService,public loginService:LoginService,private userService:UserServiceService) {}
@@ -133,4 +135,10 @@ export class AccommodationDetailsComponent implements OnInit{
       }
     );
   }
+
+  reservationSend = new FormGroup({
+    startDate: new FormControl('', [Validators.required]),
+    endDate: new FormControl('', [Validators.required]),
+    numberGuests: new FormControl('', [Validators.required]),
+  });
 }

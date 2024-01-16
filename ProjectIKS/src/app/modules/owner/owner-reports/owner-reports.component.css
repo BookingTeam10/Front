@@ -54,3 +54,18 @@ ul {
   background-color: #0056b3; /* Tamnija nijansa plave kada je miš preko dugmeta */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Veća senka za efekat pritiska */
 }
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-style {
+  margin-right: 20px; /* Adjust as needed */
+}
+
+.button-style {
+  height: 50px;
+  margin-bottom: 20px;
+}

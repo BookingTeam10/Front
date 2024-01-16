@@ -18,7 +18,8 @@
   <canvas #chartCanvas></canvas>
 </div>
 
-<form [formGroup]="accommodationForm" >
+<div class="container">
+  <form [formGroup]="accommodationForm" class="form-style">
     <input style="margin-right: 50px; height: 40px" type="text"
            placeholder="Accommodation"
            matInput
@@ -26,11 +27,14 @@
            [matAutocomplete]="accommodationAuto">
     <mat-autocomplete #accommodationAuto="matAutocomplete">
       <mat-option *ngFor="let option of filter | async" [value]="option">
-        {{ option}}
+        {{ option }}
       </mat-option>
     </mat-autocomplete>
-</form>
-<button mat-raised-button color="primary" (click)="selectClickedAccommodation()" style="height:50px; margin-bottom: 20px" >View report</button>
+  </form>
+  <button mat-raised-button color="primary" (click)="selectClickedAccommodation()"
+          class="button-style">View report</button>
+</div>
+<!--<button mat-raised-button color="primary" (click)="selectClickedAccommodation()" style="height:50px; margin-bottom: 20px" >View report</button>-->
 <div>
   <canvas #chartCanvas2></canvas>
 </div>

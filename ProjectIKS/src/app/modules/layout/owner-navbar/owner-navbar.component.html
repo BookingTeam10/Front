@@ -1,5 +1,5 @@
 <mat-toolbar>
-  <h1 class="title">Booking Owner</h1>
+  <h1 (click)="home()" class="title">Booking Owner</h1>
   <div>
     <button (click)="Logout()" style="float: right" mat-raised-button >Logout</button>
     <button (click)="viewProfile()" style="float: right" mat-raised-button >Profile</button>
@@ -12,6 +12,6 @@
     <button  (click)="viewReports()" style="float: right" mat-raised-button >Reports </button>
     <button  (click)="viewRequests()" style="float: right" mat-raised-button >Requests </button>
     <button  (click)="viewNotification()" style="float: right" mat-raised-button >New Notification </button>
-    <button   (click)="home()" style="float: right" mat-raised-button >Home</button>
+<!--    <button   (click)="home()" style="float: right" mat-raised-button >Home</button>-->
   </div>
 </mat-toolbar>
