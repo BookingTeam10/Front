@@ -9,6 +9,17 @@ export interface ReviewOwner {
   statusReview:Status
 }
 
+export interface ReviewOwnerExtended {
+  id: number;
+  rate: number;
+  comment:string,
+  commentDate:string,
+  status:Status,
+  owner: Owner,
+  guest:Guest,
+  isReported:boolean
+}
+
 export interface AddReviewOwner {
   id: number;
   rate: number;
@@ -29,7 +40,9 @@ export interface ReportUser {
 
 export enum Status {
   ACTIVE= 'ACTIVE',
-  REPORTED='REPORTED'
+  REPORTED='REPORTED',
+  WAITING = 'WAITING',
+  DELETED = 'DELETED'
 }
 
 export interface  ReportUserExtended{

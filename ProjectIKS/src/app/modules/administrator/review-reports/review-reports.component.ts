@@ -53,6 +53,7 @@ export class ReviewReportsComponent implements OnInit{
 
   deleteReport(report: Review) {
       report.status = ReviewStatus.DELETED;
+      report.reservation.accommodation.takenDates = [];
       this.reviewService.update(report).subscribe((response ) => {
         this.loadReports();
       });
@@ -60,6 +61,7 @@ export class ReviewReportsComponent implements OnInit{
 
   approveReport(report: Review) {
     report.status = ReviewStatus.ACTIVE;
+    report.reservation.accommodation.takenDates = [];
 
     let notification: MessageNotification = {
       text: "Guest " + report.reservation.guest.name + " rated your accommodation " + report.reservation.accommodation.name,
@@ -68,18 +70,16 @@ export class ReviewReportsComponent implements OnInit{
       userRate: "GO"
     }
 
-    if(report.reservation.accommodation.owner.rateAccommodationNotification){
-    this.reviewService.addTurnOfNotification(notification).subscribe((response) => {
-    });
+    if(report.reservation.accommodation.owner.rateAccommodationNotification) {
+      this.reviewService.addTurnOfNotification(notification).subscribe((response) => {
+      });
+    }
 
 
     this.reviewService.update(report).subscribe((response) => {
         this.loadReports();
       });
   }
-
-  }
-
 
   protected readonly ReviewStatus = ReviewStatus;
 }

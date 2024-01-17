@@ -57,7 +57,7 @@ export class UserReportsComponent implements OnInit{
   private loadUserReports() {
     this.reviewService.getAllUserReports().subscribe((reports) =>{
 
-        this.reports = reports.filter(report => report.status === ReviewStatus.REPORTED);
+        this.reports = reports.filter(report => report.status === ReviewStatus.ACTIVE);
     })
   }
 
