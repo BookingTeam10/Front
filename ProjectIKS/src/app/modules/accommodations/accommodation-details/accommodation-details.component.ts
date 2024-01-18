@@ -1,6 +1,6 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {Accommodation, AccommodationStatus, Amenity, Price, TypeAccommodation} from "../../../models/accommodation";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {AccommodationService} from "../service/accommodation.service";
 import {Reservation, ReservationStatus, Review} from "../../../models/reservation";
 import {Guest} from "../../../models/users/guest";
@@ -20,7 +20,7 @@ import {match} from "../../unregistered-user/signup/signup.component";
 @Component({
   selector: 'app-accommodation-details',
   templateUrl: './accommodation-details.component.html',
-  styleUrls: ['./accommodation-details.component.css']
+  styleUrls: ['./accommodation-details.component.css'],
 
 })
 @Injectable({
@@ -43,7 +43,7 @@ export class AccommodationDetailsComponent implements OnInit{
   submitted = false;
 
 
-  constructor(private route: ActivatedRoute, private router: Router, private accommodationService: AccommodationService,private mapService:MapService,private reservationService:ReservationService,private reviewService:ReviewsService,public loginService:LoginService,private userService:UserServiceService) {}
+  constructor(private route: ActivatedRoute, private accommodationService: AccommodationService,private mapService:MapService,private reservationService:ReservationService,private reviewService:ReviewsService,public loginService:LoginService,private userService:UserServiceService) {}
 
   ngOnInit(): void {
     this.loadGuest();
@@ -75,7 +75,7 @@ export class AccommodationDetailsComponent implements OnInit{
     )
   }
 
-  reserveAccommodation(accommodation: Accommodation) {
+  reserveAccommodation(accommodation:Accommodation) {
     this.submitted = true;
 
     this.reservation = {
@@ -88,7 +88,7 @@ export class AccommodationDetailsComponent implements OnInit{
       startDate: this.startDate,
       endDate: this.endDate,
       numberOfNights: this.getDaysBetweenDates(this.startDate,this.endDate),
-      accommodation:this.accommodation,
+      accommodation:accommodation,
       guest: this.guest,
       reviews: []
     };
@@ -103,6 +103,7 @@ export class AccommodationDetailsComponent implements OnInit{
       //     console.error('Došlo je do greške pri kreiranju rezervacije', error);
       //   }
       this.reservationService.reservationCreateObs(this.reservation);
+
       if(accommodation.owner.createdNotification){
         if(this.guest.id!=null){
           let message:MessageNotification={
