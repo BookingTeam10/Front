@@ -7,6 +7,7 @@ import {Accommodation} from "../../models/accommodation";
 import {LoginService} from "../auth/login/service/login.service";
 import {Owner} from "../../models/users/owner";
 import {UserServiceService} from "../unregistered-user/signup/user-service.service";
+import {Registration} from "../../models/registration";
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,19 @@ export class ReservationService {
   getReservation(id: number): Observable<Reservation> {
     return this.httpClient.get<Reservation>(environment.apiHost + '/reservations/' + id)
   }
+  reservationCreateObs(reservation: Reservation):any {
+    this.createReservation(reservation).subscribe(
+      (response) => {
+        // Obrada uspešnog odgovora
+        console.log('Rezervacija uspešno kreirana', response);
+      },
+      (error) => {
+        // Obrada greške
+        console.error('Došlo je do greške pri kreiranju rezervacije', error);
+      }
+    );
+  }
+
   createReservation(reservation: Reservation): Observable<Reservation> {
     console.log(reservation);
     return this.httpClient.post<Reservation>(environment.apiHost + '/guests/reservations', reservation)

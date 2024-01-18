@@ -80,7 +80,7 @@ describe('SignupComponent', () => {
     expect(component.signUp.valid).toBeFalsy();
   });
 
-  it(`form should be incorrect for wrong mail format`, () => {
+  it(`form should be incorrect for wrong password format`, () => {
     component.signUp.controls['email'].setValue('matijap59@gmail.com');
     component.signUp.controls['password'].setValue('ab');
     component.signUp.controls['confirmPassword'].setValue('ab');

@@ -12,7 +12,10 @@ import {LoginService} from "../../auth/login/service/login.service";
 import {Owner} from "../../../models/users/owner";
 import {UserServiceService} from "../../unregistered-user/signup/user-service.service";
 import {MessageNotification} from "../../../models/message";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
+import {match} from "../../unregistered-user/signup/signup.component";
+
+
 
 @Component({
   selector: 'app-accommodation-details',
@@ -23,6 +26,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 @Injectable({
   providedIn: 'root'
 })
+
 export class AccommodationDetailsComponent implements OnInit{
   accommodation: Accommodation;
   reservation: Reservation;
@@ -72,10 +76,12 @@ export class AccommodationDetailsComponent implements OnInit{
   }
 
   reserveAccommodation(accommodation: Accommodation) {
+    this.submitted = true;
 
     this.reservation = {
       //STAVIM NEKI ID PA MI SE PROMENI NA BEKENDU
       id:100,
+      //promeniti cenu
       totalPrice: 3000,
       //stavim WAITING NA POCETKU PA AKO JE AUTOMATSKA AKTIVACIJA PROMENI SE NA BEKENDU
       status: ReservationStatus.WAITING,
@@ -86,36 +92,36 @@ export class AccommodationDetailsComponent implements OnInit{
       guest: this.guest,
       reviews: []
     };
-    this.reservationService.createReservation(this.reservation).subscribe(
-      (response) => {
-        // Obrada uspešnog odgovora
-        console.log('Rezervacija uspešno kreirana', response);
-      },
-      (error) => {
-        // Obrada greške
-        console.error('Došlo je do greške pri kreiranju rezervacije', error);
-      }
-    );
-    console.log("ACC MATIJA")
-    console.log(accommodation)
-    console.log(accommodation.owner)
-    console.log(accommodation.owner.id)
-    if(accommodation.owner.createdNotification){
-      console.log("UPALJENA NOTIFIKACIJA")
-      if(this.guest.id!=null){
-        let message:MessageNotification={
-          idOwner:this.accommodation.owner.id,
-          text:"Guest "+this.guest.name+" "+this.guest.surname+" is create reservation",
-          idGuest:this.guest.id,
-          userRate:"GO"
+    if(this.reservationSend.valid){
+      // this.reservationService.createReservation(this.reservation).subscribe(
+      //   (response) => {
+      //     // Obrada uspešnog odgovora
+      //     console.log('Rezervacija uspešno kreirana', response);
+      //   },
+      //   (error) => {
+      //     // Obrada greške
+      //     console.error('Došlo je do greške pri kreiranju rezervacije', error);
+      //   }
+      this.reservationService.reservationCreateObs(this.reservation);
+      if(accommodation.owner.createdNotification){
+        if(this.guest.id!=null){
+          let message:MessageNotification={
+            idOwner:this.accommodation.owner.id,
+            text:"Guest "+this.guest.name+" "+this.guest.surname+" is create reservation",
+            idGuest:this.guest.id,
+            userRate:"GO"
+          }
+          this.reviewService.addTurnOfNotification(message).subscribe((response: any) =>{});
+          // this.socketService.postRest(message).subscribe(res => {
+          //   console.log(res);
+          // })
         }
-        console.log(message);
-        this.reviewService.addTurnOfNotification(message).subscribe((response: any) =>{});
-        // this.socketService.postRest(message).subscribe(res => {
-        //   console.log(res);
-        // })
       }
     }
+    else{
+      console.log("NIJE VALIDNO")
+    }
+
   }
 
 
@@ -139,6 +145,50 @@ export class AccommodationDetailsComponent implements OnInit{
   reservationSend = new FormGroup({
     startDate: new FormControl('', [Validators.required]),
     endDate: new FormControl('', [Validators.required]),
-    numberGuests: new FormControl('', [Validators.required]),
-  });
+    numberGuests: new FormControl('', [Validators.required,validateGuestsNumber()]),
+  }, {validators: [validateDateRange('startDate', 'endDate')]});
+
+}
+
+
+export function validateGuestsNumber(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+    if (value !== null && value !== '' && isNaN(value)) {
+      return { 'notANumber': true };
+    }
+    return value > 0 ? null : { 'invalidNumberGuests': true };
+  };
+}
+
+
+export function validateDateRange(startDateControlName: string, endDateControlName: string): ValidatorFn {
+  return (formGroup: AbstractControl) => {
+    const startDateControl = formGroup.get(startDateControlName);
+    const endDateControl = formGroup.get(endDateControlName);
+
+    if (!startDateControl || !endDateControl) {
+      return null;
+    }
+
+    if ((endDateControl.errors && !endDateControl.errors['dateRange']) || (startDateControl.errors && !startDateControl.errors['dateRange'])) {
+      return null;
+    }
+
+    const startDate = new Date(startDateControl.value);
+    const endDate = new Date(endDateControl.value);
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+    if (startDate < today || startDate >= endDate) {
+      endDateControl.setErrors({ dateRange: true });
+      startDateControl.setErrors({ dateRange: true });
+      return { dateRange: true };
+    } else {
+      endDateControl.setErrors(null);
+      startDateControl.setErrors(null);
+      return null;
+    }
+  };
 }
