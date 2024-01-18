@@ -34,9 +34,9 @@
       <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="number" id="number-guests" formControlName="numberGuests"  placeholder="Add number guests" min="0">
+      <input *ngIf="loginService.hasRole('Guest')" matInput type="number" id="number-guests" formControlName="numberGuests"  placeholder="Add number guests" min="0">
     </mat-form-field>
-    <button *ngIf="loginService.hasRole('Guest')" class="reservation_button" mat-raised-button color="primary" [disabled]="!reservationSend.valid" (click)="reserveAccommodation(accommodation)">Reservation accommodation</button>
+    <button *ngIf="loginService.hasRole('Guest')" class="reservation_button" mat-raised-button color="primary" id="reservationbtn" [disabled]="!reservationSend.valid" (click)="reserveAccommodation(accommodation)">Reservation accommodation</button>
   </form>
 </div>
 <div>

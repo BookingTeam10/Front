@@ -60,8 +60,7 @@ import { EditAccommodationComponent } from './accommodation-edit/accommodation-e
   ],
   exports:[
     AccommodationCardComponent,
-    AccommodationCardsComponent,
-    HttpClientModule
+    AccommodationCardsComponent
   ]
 })
 export class AccommodationsModule { }
