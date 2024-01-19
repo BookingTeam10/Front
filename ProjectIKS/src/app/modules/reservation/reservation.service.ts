@@ -50,11 +50,7 @@ export class ReservationService {
     this.createReservation(reservation).subscribe(
       (response) => {
         // Obrada uspešnog odgovora
-        console.log('Rezervacija uspešno kreirana', response);
-      },
-      (error) => {
-        // Obrada greške
-        console.error('Došlo je do greške pri kreiranju rezervacije', error);
+        console.log('Rezervacija uspešno kreirana');
       }
     );
   }

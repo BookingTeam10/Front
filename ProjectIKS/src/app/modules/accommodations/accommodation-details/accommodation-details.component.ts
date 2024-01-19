@@ -87,37 +87,31 @@ export class AccommodationDetailsComponent implements OnInit{
       status: ReservationStatus.WAITING,
       startDate: this.startDate,
       endDate: this.endDate,
-      numberOfNights: this.getDaysBetweenDates(this.startDate,this.endDate),
+      numberOfNights: 10,
       accommodation:accommodation,
       guest: this.guest,
       reviews: []
     };
     if(this.reservationSend.valid){
-      // this.reservationService.createReservation(this.reservation).subscribe(
-      //   (response) => {
-      //     // Obrada uspešnog odgovora
-      //     console.log('Rezervacija uspešno kreirana', response);
-      //   },
-      //   (error) => {
-      //     // Obrada greške
-      //     console.error('Došlo je do greške pri kreiranju rezervacije', error);
-      //   }
+
+      //this.reservation.numberOfNights=this.getDaysBetweenDates(this.startDate,this.endDate);
+
       this.reservationService.reservationCreateObs(this.reservation);
 
-      if(accommodation.owner.createdNotification){
-        if(this.guest.id!=null){
-          let message:MessageNotification={
-            idOwner:this.accommodation.owner.id,
-            text:"Guest "+this.guest.name+" "+this.guest.surname+" is create reservation",
-            idGuest:this.guest.id,
-            userRate:"GO"
-          }
-          this.reviewService.addTurnOfNotification(message).subscribe((response: any) =>{});
-          // this.socketService.postRest(message).subscribe(res => {
-          //   console.log(res);
-          // })
-        }
-      }
+      // if(accommodation.owner.createdNotification){
+      //   if(this.guest.id!=null){
+      //     let message:MessageNotification={
+      //       idOwner:this.accommodation.owner.id,
+      //       text:"Guest "+this.guest.name+" "+this.guest.surname+" is create reservation",
+      //       idGuest:this.guest.id,
+      //       userRate:"GO"
+      //     }
+      //     this.reviewService.addTurnOfNotification(message).subscribe((response: any) =>{});
+      //     // this.socketService.postRest(message).subscribe(res => {
+      //     //   console.log(res);
+      //     // })
+      //   }
+      // }
     }
     else{
       console.log("NIJE VALIDNO")
@@ -127,6 +121,7 @@ export class AccommodationDetailsComponent implements OnInit{
 
 
   getDaysBetweenDates(startDate: Date | null, endDate: Date | null): number{
+
     if (startDate && endDate) {
       const msPerDay = 24 * 60 * 60 * 1000; // Number of milliseconds per day
       const differenceInMs = endDate.getTime() - startDate.getTime();
