@@ -25,19 +25,17 @@ export class ReservationService {
 
 
   constructor(private httpClient: HttpClient,public loginService:LoginService,private userService:UserServiceService) {
-    this.userService.getOwner(this.loginService.getUsername()).subscribe(
-      (owner: Owner) => {
-        this.getOwnersRequests(owner.id).subscribe({
-          next: (data: Reservation[]) => {
-            this.reservationsSubject.next(data);
-          },
-          error: (_) => {
-            console.log("Greska!")
-          }
-        });
-      });
-
-
+    // this.userService.getOwner(this.loginService.getUsername()).subscribe(
+    //   (owner: Owner) => {
+    //     this.getOwnersRequests(owner.id).subscribe({
+    //       next: (data: Reservation[]) => {
+    //         this.reservationsSubject.next(data);
+    //       },
+    //       error: (_) => {
+    //         console.log("Greska!")
+    //       }
+    //     });
+    //   });
   }
   getAll(): Observable<Reservation[]> {
     return this.httpClient.get<Reservation[]>(environment.apiHost + '/reservations')

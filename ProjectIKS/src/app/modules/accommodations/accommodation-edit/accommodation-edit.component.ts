@@ -323,6 +323,15 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
       return;
     }
 
+    console.log("DATA SOURCE")
+    console.log(this.dataSource.data)
+
+    for(const a of this.dataSource.data){
+      console.log(a)
+    }
+
+
+
     this.accommodation = {
       ...this.accommodation,
       weekendPrice: parseInt(weekendPrice),
