@@ -1,5 +1,4 @@
 <app-guest-navbar></app-guest-navbar>
-
 <div class="mat-elevation-z8">
   <label >MY NON-ACCEPTED REVIEWS</label>
   <table mat-table [dataSource]="dataSource">
@@ -8,7 +7,6 @@
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
-    <!-- Name Column -->
     <ng-container matColumnDef="numberOfNights">
       <th mat-header-cell *matHeaderCellDef> nights </th>
       <td mat-cell *matCellDef="let element"> {{element.numberOfNights}} </td>

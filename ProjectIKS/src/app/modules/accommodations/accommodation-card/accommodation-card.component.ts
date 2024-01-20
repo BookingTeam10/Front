@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Accommodation, Price} from "../../../models/accommodation";
+import {Accommodation, Price, TypeAccommodation} from "../../../models/accommodation";
 import {Router} from "@angular/router";
 import {LoginService} from "../../auth/login/service/login.service";
 import {AccommodationService} from "../service/accommodation.service";
@@ -119,4 +119,7 @@ export class AccommodationCardComponent implements OnInit{
       }
     );
   }
+
+  protected readonly location = location;
+  protected readonly TypeAccommodation = TypeAccommodation;
 }

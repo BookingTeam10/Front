@@ -87,6 +87,8 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
   imageUrls: string[] = [];
   myDataArray = [];
   dataSource: MatTableDataSource<any, any> = new MatTableDataSource<any>(this.myDataArray);
+  myNewArray = [];
+  dataSourceNew: MatTableDataSource<any, any> = new MatTableDataSource<any>(this.myNewArray);
   displayedColumns: string[] = ['firstDate', 'endDate', 'price', 'actions'];
   editBasic: boolean = true;
 
@@ -322,14 +324,6 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
       this.wrongInput();
       return;
     }
-
-    console.log("DATA SOURCE")
-    console.log(this.dataSource.data)
-
-    for(const a of this.dataSource.data){
-      console.log(a)
-    }
-
 
 
     this.accommodation = {
