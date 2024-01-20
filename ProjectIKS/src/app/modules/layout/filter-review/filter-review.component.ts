@@ -46,6 +46,7 @@ export class FilterReviewComponent implements OnInit {
 
   selectClicked() {
     const type =  this.typeAccommodationCombobox.value;
+    console.log("OWNERRR", this.owner)
     console.log(type);
     console.log(this.startDate);
     console.log(this.endDate);

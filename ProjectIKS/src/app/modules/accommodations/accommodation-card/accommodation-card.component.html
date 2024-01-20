@@ -11,7 +11,20 @@
         </b>
         <p class="p-description">Details: {{accommodation.description}}</p>
         <p class="p-description">Average rating: {{accommodation.rating}}</p>
-        <p class="p-description">Price : {{ todayPrice }} </p>
+        <p class="p-description" id="city">Location : {{ accommodation.location.city }} </p>
+        <p class="p-description" id="minPeople">Min people : {{ accommodation.minPeople }} </p>
+        <p class="p-description" id="maxPeople">Max people : {{ accommodation.maxPeople }} </p>
+        <p class="p-description" id="price">Price : {{ todayPrice }} </p>
+        <p class="p-description" id="amenities">Amenities :
+          <span *ngFor="let amenity of accommodation.amenities; let isLast=last">
+              {{ amenity.name }}<ng-container *ngIf="!isLast">, </ng-container>
+          </span>
+        </p>
+<!--        <p class="p-description">Free dates:-->
+<!--          <span *ngFor="let price of accommodation.prices; let isLast=last">-->
+<!--            {{ price.startDate | date:'mediumDate' }} - {{ price.endDate | date:'mediumDate' }}<ng-container *ngIf="!isLast">, </ng-container>-->
+<!--          </span>-->
+<!--        </p>-->
         <button  class="btn-stilizovano" *ngIf="isOwnersUrl()" (click)="openEditDialogue(accommodation.id)" >Edit accommodation</button>
         <button  class="btn-stilizovano" *ngIf="loginService.hasRole('Guest')" (click)="editFavouriteAccommodations($event,accommodation.id)"> {{ getButtonLabel() }}</button>
       </div>
