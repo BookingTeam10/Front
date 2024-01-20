@@ -5,7 +5,13 @@ import {Reservation, Review, Review1} from "../../models/reservation";
 import {environment} from "../../environment/environment";
 import {Accommodation} from "../../models/accommodation";
 import {Owner} from "../../models/users/owner";
-import {AddReviewOwner, ReportUser, ReportUserExtended, ReviewOwner} from "../../models/reviewOwner";
+import {
+  AddReviewOwner,
+  ReportUser,
+  ReportUserExtended,
+  ReviewOwner,
+  ReviewOwnerExtended
+} from "../../models/reviewOwner";
 import {Guest} from "../../models/users/guest";
 import {NotificationVisible} from "../../models/notification";
 import {MessageNotification} from "../../models/message";
@@ -204,5 +210,13 @@ export class ReviewsService {
 
   getNotificationGuest(id: number) {
     return this.httpClient.get<NotificationVisible[]>(environment.apiHost + '/notifications/notificationsGuest/' + id)
+  }
+
+  getAllReviewOwnerReports() {
+    return this.httpClient.get<ReviewOwnerExtended[]>(environment.apiHost + "/reviews/reviewOwners");
+  }
+
+  updateReviewOwner(report: ReviewOwnerExtended) {
+      return this.httpClient.put(environment.apiHost + "/reviews/reviewOwners/" + report.id, report);
   }
 }

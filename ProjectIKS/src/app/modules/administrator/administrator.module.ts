@@ -6,6 +6,7 @@ import {LayoutModule} from "../layout/layout.module";
 import {GuestHomeComponent} from "../guest/guest-home/guest-home.component";
 import { UserReportsComponent } from './user-reports/user-reports.component';
 import { ReviewReportsComponent } from './review-reports/review-reports.component';
+import { ReviewOwnerReportsComponent } from './review-owner-reports/review-owner-reports.component';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { ReviewReportsComponent } from './review-reports/review-reports.componen
     AdministratorHomeComponent,
     UserReportsComponent,
     ReviewReportsComponent,
+    ReviewOwnerReportsComponent,
   ],
   imports: [
     CommonModule,
