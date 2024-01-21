@@ -36,10 +36,10 @@ export class ReportAccommodationCommentCardComponent {
     console.log("review")
     console.log(review);
     console.log(review);
-    if(review.status===ReviewStatus.REPORTED){
-      alert("VEC REPORTOVANO")
-      return
-    }
+    // if(review.status===ReviewStatus.REPORTED){
+    //   alert("VEC REPORTOVANO")
+    //   return
+    // }
     review.status=ReviewStatus.REPORTED
     // this.service.editReview(review).subscribe(() =>{});
 

@@ -57,6 +57,7 @@ export class ReportOwnerCreateComponent {
     console.log(this.idOwner)
     console.log(this.idGuest)
     const a=this.getReportData();
+    console.log("A REVIEW OWNER")
     console.log(a)
     if(a!=null){
       this.service.addReport(a,this.idOwner,this.idGuest).subscribe((response: any) =>{});
