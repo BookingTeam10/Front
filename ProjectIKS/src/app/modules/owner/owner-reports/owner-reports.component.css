@@ -1,0 +1,71 @@
+mat-toolbar {
+  background-color: #ffffff;
+  margin-right: 50px;
+  height: 150px;
+}
+
+div {
+  width: 100%;
+  justify-content: flex-end;
+}
+
+button {
+  margin-right: 50px;
+}
+form{
+}
+mat-form-field{
+  margin-right: 50px;
+
+}
+
+.example-section {
+  margin: 12px 0;
+}
+
+.example-margin {
+  margin: 0 12px;
+}
+
+ul {
+  list-style-type: none;
+  margin-top: 4px;
+}
+/* grafikon.component.css */
+.download-btn-container {
+  text-align: center; /* Centrira dugme unutar kontejnera */
+  margin-top: 20px; /* Dodaje malo prostora iznad dugmeta */
+  margin-bottom: 30px;
+}
+
+.download-pdf-btn {
+  padding: 10px 20px; /* Dodaje prostor unutar dugmeta */
+  font-size: 16px; /* Povećava font dugmeta */
+  color: white; /* Boja teksta */
+  background-color: #007bff; /* Plava boja pozadine */
+  border: none; /* Uklanja border */
+  border-radius: 5px; /* Zaobljeni uglovi */
+  cursor: pointer; /* Stavlja kursor kao pokazivač */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Dodaje senku za 3D efekat */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Animacija za hover */
+}
+
+.download-pdf-btn:hover {
+  background-color: #0056b3; /* Tamnija nijansa plave kada je miš preko dugmeta */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Veća senka za efekat pritiska */
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-style {
+  margin-right: 20px; /* Adjust as needed */
+}
+
+.button-style {
+  height: 50px;
+  margin-bottom: 20px;
+}

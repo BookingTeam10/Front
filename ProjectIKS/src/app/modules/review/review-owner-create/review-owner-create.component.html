@@ -1,0 +1,42 @@
+<div class="edit-profile-owner">
+  <div class="headline">
+    <h1>Add Rate Owner</h1>
+  </div>
+  <div class="container">
+    <form>
+      <div class="form-group">
+        <textarea placeholder="description" name="description" id="description" required></textarea>
+      </div>
+
+      <p>Rate</p>
+
+      <div class="radio-group">
+        <label>
+          <input type="radio" id="rate1" name="rate" value="1"/>
+          1
+        </label>
+
+        <label>
+          <input type="radio" id="rate2" name="rate" value="2"/>
+          2
+        </label>
+        <label>
+          <input type="radio" id="rate3" name="rate" value="3"/>
+          3
+        </label>
+        <label>
+          <input type="radio" id="rate4" name="rate" value="4"/>
+          4
+        </label>
+        <label>
+          <input type="radio" id="rate5" name="rate" value="5"/>
+          5
+        </label>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="save-button" (click)="addReview()">Add Review</button>
+      </div>
+    </form>
+  </div>
+</div>

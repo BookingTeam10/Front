@@ -1,0 +1,8 @@
+<mat-card style="border-radius: 20px">
+  <mat-card-content >
+    <p> Comment </p>
+    <p>Comment : {{ comment.comment }}</p>
+    <p>Rating: {{ comment.rate }}</p>
+    <button  class="btn-stilizovano" (click)="ReportAccommodationComment(comment.id)" >Report comment</button>
+  </mat-card-content>
+</mat-card>
