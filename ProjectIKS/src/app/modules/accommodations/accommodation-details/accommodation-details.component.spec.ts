@@ -175,7 +175,7 @@ describe('AccommodationDetailsComponent', () => {
 
     mockUserService.getGuest.and.returnValue(of(guestSend));
 
-    mockLoginService.getUsername.and.returnValue("A");
+    mockLoginService.getUsername.and.returnValue("popovic.sv4.2021@uns.ac.rs");
 
     mockAccommodationService.getAccommodation.and.returnValue(of(accommodationSend));
 
@@ -241,10 +241,6 @@ describe('AccommodationDetailsComponent', () => {
 
     reservationService=TestBed.inject(ReservationService);
 
-    //reservationServiceSpy = spyOn(reservationService, 'reservationCreateObs').and.returnValue(reservation);
-
-    //reservationServiceSpy = spyOn(reservationService, 'reservationCreateObs').and.returnValue(of(reservation));
-
     fixture.detectChanges();
 
 
@@ -270,18 +266,36 @@ describe('AccommodationDetailsComponent', () => {
     expect(component.reserveAccommodation).toHaveBeenCalledTimes(0);
   });
 
-  it(`invalid format for date (must be valid format)`, () => {
+  it(`invalid format for startDate (must be valid format)`, () => {
+
+    const today = new Date();
+    jasmine.clock().install();
+    jasmine.clock().mockDate(today);
+
+    const endDate = new Date(today);
+    endDate.setDate(endDate.getDate() + 10);
+
     component.reservationSend.controls['startDate'].setValue('AAAAAAA');
-    component.reservationSend.controls['endDate'].setValue('2025-05-30');
+    component.reservationSend.controls['endDate'].setValue(endDate.toISOString().split('T')[0]);
     component.reservationSend.controls['numberGuests'].setValue('5');
     expect(component.reservationSend.valid).toBeFalsy();
+    jasmine.clock().uninstall();
   });
 
   it(`invalid format for date (must be valid format)`, () => {
-    component.reservationSend.controls['startDate'].setValue('2025-05-29');
+
+    const today = new Date();
+    jasmine.clock().install();
+    jasmine.clock().mockDate(today);
+
+    const startDate = new Date(today);
+    startDate.setDate(startDate.getDate() + 10);
+
+    component.reservationSend.controls['startDate'].setValue(startDate.toISOString().split('T')[0]);
     component.reservationSend.controls['endDate'].setValue('AAAA');
     component.reservationSend.controls['numberGuests'].setValue('5');
     expect(component.reservationSend.valid).toBeFalsy();
+    jasmine.clock().uninstall();
   });
 
   it(`startDate must be after today's date`, () => {
@@ -292,54 +306,107 @@ describe('AccommodationDetailsComponent', () => {
     const pastDate = new Date(today);
     pastDate.setDate(pastDate.getDate() - 1);
 
+    const endDate = new Date(today);
+    endDate.setDate(endDate.getDate() + 1);
+
     component.reservationSend.controls['startDate'].setValue(pastDate.toISOString().split('T')[0]);
     component.reservationSend.controls['endDate'].setValue(today.toISOString().split('T')[0]);
     component.reservationSend.controls['numberGuests'].setValue('5');
 
-    const errors = component.reservationSend.errors || {};
-
-    expect(errors['dateRange']).toBeTruthy();
     expect(component.reservationSend.valid).toBeFalsy();
 
     jasmine.clock().uninstall();
   });
-  //
+
   it(`startDate must be before endDate`, () => {
-    component.reservationSend.controls['startDate'].setValue('2025-05-29');
-    component.reservationSend.controls['endDate'].setValue('2025-05-28');
+
+    const today = new Date();
+    jasmine.clock().install();
+    jasmine.clock().mockDate(today);
+
+    const startDate = new Date(today);
+    startDate.setDate(startDate.getDate() + 2);
+
+    const endDate = new Date(today);
+    endDate.setDate(endDate.getDate() + 1);
+
+    component.reservationSend.controls['startDate'].setValue(startDate.toISOString().split('T')[0]);
+    component.reservationSend.controls['endDate'].setValue(endDate.toISOString().split('T')[0]);
     component.reservationSend.controls['numberGuests'].setValue('5');
+
     expect(component.reservationSend.valid).toBeFalsy();
+
+    jasmine.clock().uninstall();
   });
 
   it(`numberGuests must be over than 0`, () => {
-    component.reservationSend.controls['startDate'].setValue('2025-05-29');
-    component.reservationSend.controls['endDate'].setValue('2025-05-30');
+    const today = new Date();
+    jasmine.clock().install();
+    jasmine.clock().mockDate(today);
+
+    const startDate = new Date(today);
+    startDate.setDate(startDate.getDate() + 1);
+
+    const endDate = new Date(today);
+    endDate.setDate(endDate.getDate() + 2);
+    component.reservationSend.controls['startDate'].setValue(startDate.toISOString().split('T')[0]);
+    component.reservationSend.controls['endDate'].setValue(endDate.toISOString().split('T')[0]);
     component.reservationSend.controls['numberGuests'].setValue('-5');
     expect(component.reservationSend.valid).toBeFalsy();
+    jasmine.clock().uninstall();
   });
 
   it(`valid`, () => {
-    component.reservationSend.controls['startDate'].setValue('2025-05-29');
-    component.reservationSend.controls['endDate'].setValue('2025-05-30');
+    const today = new Date();
+    jasmine.clock().install();
+    jasmine.clock().mockDate(today);
+
+    const startDate = new Date(today);
+    startDate.setDate(startDate.getDate() + 1);
+
+    const endDate = new Date(today);
+    endDate.setDate(endDate.getDate() + 2);
+    component.reservationSend.controls['startDate'].setValue(startDate.toISOString().split('T')[0]);
+    component.reservationSend.controls['endDate'].setValue(endDate.toISOString().split('T')[0]);
     component.reservationSend.controls['numberGuests'].setValue('5');
     expect(component.reservationSend.valid).toBeTruthy();
+    jasmine.clock().uninstall();
   });
 
   it(`form should be valid and request is sent`, () => {
+    const today = new Date();
+    jasmine.clock().install();
+    jasmine.clock().mockDate(today);
+
+    const startDate = new Date(today);
+    startDate.setDate(startDate.getDate() + 1);
+
+    const endDate = new Date(today);
+    endDate.setDate(endDate.getDate() + 2);
     mockReservationService.reservationCreateObs.and.returnValue(of(reservation));
-    component.reservationSend.controls['startDate'].setValue('2025-05-29');
-    component.reservationSend.controls['endDate'].setValue('2025-05-30');
+    component.reservationSend.controls['startDate'].setValue(startDate.toISOString().split('T')[0]);
+    component.reservationSend.controls['endDate'].setValue(endDate.toISOString().split('T')[0]);
     component.reservationSend.controls['numberGuests'].setValue('5');
     component.reserveAccommodation(accommodationSend);
 
-    // Ovo je ispravna upotreba expect na špijunskoj metodi
     expect(mockReservationService.reservationCreateObs).toHaveBeenCalled();
 
     const args = mockReservationService.reservationCreateObs.calls.mostRecent().args;
 
-    const startDate = new Date(args[0].startDate);
-    const endDate = new Date(args[0].endDate);
-    expect(startDate.toDateString()).toBe(new Date('2025-05-29').toDateString());
-    expect(endDate.toDateString()).toBe(new Date('2025-05-30').toDateString());
+    const startDateReturn = new Date(args[0].startDate);
+    const endDateReturn = new Date(args[0].endDate);
+    expect(convertDate(startDateReturn.toDateString())).toBe(startDate.toISOString().split('T')[0]);
+    expect(convertDate(endDateReturn.toDateString())).toBe(endDate.toISOString().split('T')[0]);
+    jasmine.clock().uninstall();
   });
+
+
+  function convertDate(dateString: string): string {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
 });

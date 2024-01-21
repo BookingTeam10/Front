@@ -137,7 +137,7 @@ describe('SignupComponent', () => {
     component.signUp.controls['password'].setValue('Sifra123');
     component.signUp.controls['confirmPassword'].setValue('Sifra123');
     component.signUp.controls['name'].setValue('Matija');
-    component.signUp.controls['surname'].setValue('Popovic1');
+    component.signUp.controls['surname'].setValue('Popovic');
     component.signUp.controls['address'].setValue('Bulevar Oslobodjenja 34');
     component.signUp.controls['phone'].setValue('06666B666666A');
     component.signUp.controls['userType'].setValue("GUEST");
