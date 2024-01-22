@@ -1,4 +1,5 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Owner } from "../../../models/users/owner";
 import { LoginService } from "../../auth/login/service/login.service";
@@ -11,12 +12,15 @@ import { UserServiceService } from "../../unregistered-user/signup/user-service.
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css']
 })
-export class EditProfileComponent implements OnInit, AfterViewInit {
+export class EditProfileComponent implements OnInit {
+  profileForm: FormGroup;
 
   constructor(
     private router: Router,
+    public ngZone: NgZone,
     public loginService: LoginService,
-    private userService: UserServiceService
+    public userService: UserServiceService,
+    private formBuilder: FormBuilder
   ) { }
 
   owner: Owner;
@@ -24,47 +28,224 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
   guest: Guest;
   showPasswordChangeForm = false;
   oldUsername = "";
+  allTextPattern = "[a-zA-ZčćžšđČĆŽŠĐ][a-zA-ZčćžšđČĆŽŠĐ]*"
+  phoneNumberPattern = "[0-9 +]?[0-9]+[0-9 \\-]+";
 
-  openDeleteDialog(): void {
-    const isConfirmed = window.confirm('Are you sure you want to delete this item?');
+  ngOnInit(): void {
+    this.profileForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(this.allTextPattern),
+        ],
+      ],
+      surname: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(this.allTextPattern),
+        ],
+      ],
+      address: ['', Validators.required],
+      phone: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(this.phoneNumberPattern),
+          Validators.minLength(6),
+          Validators.maxLength(20),
+        ],
+      ],
+      createdNotification: [false],
+      cancelledNotification: [false],
+      notificationRateMe: [false],
+      notificationRateAccommodation: [false],
+      turnNotificationOn: [false],
+      password: ['', [Validators.minLength(3)]],
+      confirmPassword: [''],
+    }, {
+      validators: this.passwordMatchValidator,
+    });
 
-    if (isConfirmed) {
-      this.deleteProfile();
+    this.loadInitialValues();
+  }
+
+  passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
+
+    return password === confirmPassword ? null : { passwordMismatch: true };
+  };
+
+
+  loadInitialValues(): void {
+    if (this.loginService.getRole() === 'ROLE_Administrator') {
+      this.userService.getAdmin(this.loginService.getUsername()).subscribe(
+        (admin: Admin) => {
+          this.admin = admin;
+          this.oldUsername = admin.email;
+          this.setFormValues();
+        }
+      );
+    } else if (this.loginService.getRole() === 'ROLE_Guest') {
+      this.userService.getGuest(this.loginService.getUsername()).subscribe(
+        (guest: Guest) => {
+          this.guest = guest;
+          this.oldUsername = guest.email;
+          this.setFormValues();
+        }
+      );
+    } else if (this.loginService.getRole() === 'ROLE_Owner')
+      this.userService.getOwner(this.loginService.getUsername()).subscribe(
+        (owner: Owner) => {
+          this.owner = owner;
+          this.oldUsername = owner.email;
+          this.setFormValues();
+        }
+      );
+    else {
+
     }
   }
 
-  onSubmit(event: Event): void {
-    event.preventDefault();
-    const isConfirmed = window.confirm('Are you sure you want to apply changes to this item?');
+  setFormValues(): void {
+    if (this.loginService.getRole() === 'ROLE_Administrator') {
+      this.profileForm.patchValue({
+        email: this.admin.email,
+        name: this.admin.name,
+        surname: this.admin.surname,
+      });
+    } else if (this.loginService.getRole() === 'ROLE_Guest') {
+      this.profileForm.patchValue({
+        email: this.guest.email,
+        name: this.guest.name,
+        surname: this.guest.surname,
+        phone: this.guest.phone,
+        address: this.guest.address,
+        turnNotificationOn: this.guest.turnOnNotification,
+      });
+    } else if (this.loginService.getRole() === 'ROLE_Owner') {
+      this.profileForm.patchValue({
+        email: this.owner.email,
+        name: this.owner.name,
+        surname: this.owner.surname,
+        phone: this.owner.phone,
+        address: this.owner.address,
+        createdNotification: this.owner.createdNotification,
+        cancelledNotification: this.owner.cancelledNotification,
+        notificationRateMe: this.owner.rateMeNotification,
+        notificationRateAccommodation: this.owner.rateAccommodationNotification,
 
-    if (isConfirmed) {
+      });
+    }
+  }
+
+  onSubmit(): void {
+    if (this.profileForm.valid) {
       if (!this.getValues(this.loginService.getRole())) { return; }
       this.updateProfile();
+    } else {
+      alert('Please check the form for errors.');
     }
   }
 
-  openChangePasswordDialog(event: Event) {
-    event.preventDefault();
-    this.showPasswordChangeForm = true;
+  getValues(role: string): boolean {
+    let isValid = true;
+
+    if (role === 'ROLE_Administrator') {
+      const emailControl = this.profileForm.get('email');
+      const nameControl = this.profileForm.get('name');
+      const surnameControl = this.profileForm.get('surname');
+
+      if (!emailControl || !nameControl || !surnameControl ||
+        emailControl.value === null || nameControl.value === null || surnameControl.value === null) {
+        return false;
+      }
+
+      this.admin.email = emailControl.value;
+      this.admin.name = nameControl.value;
+      this.admin.surname = surnameControl.value;
+
+
+    } else if (role === 'ROLE_Guest') {
+      const emailControl = this.profileForm.get('email');
+      const nameControl = this.profileForm.get('name');
+      const surnameControl = this.profileForm.get('surname');
+      const phoneControl = this.profileForm.get('phone');
+      const addressControl = this.profileForm.get('address');
+      const notificationTurnOnControl = this.profileForm.get("turnNotificationOn")
+
+      if (!emailControl || !nameControl || !surnameControl || !phoneControl || !addressControl || !notificationTurnOnControl ||
+        emailControl.value === null || nameControl.value === null || surnameControl.value === null ||
+        phoneControl.value === null || addressControl.value === null || notificationTurnOnControl.value === null) {
+        return false;
+      }
+
+      this.guest.email = emailControl.value;
+      this.guest.name = nameControl.value;
+      this.guest.surname = surnameControl.value;
+      this.guest.phone = phoneControl.value;
+      this.guest.address = addressControl.value;
+      this.guest.turnOnNotification  = notificationTurnOnControl.value;
+
+    } else if (role === 'ROLE_Owner') {
+      const emailControl = this.profileForm.get('email');
+      const nameControl = this.profileForm.get('name');
+      const surnameControl = this.profileForm.get('surname');
+      const phoneControl = this.profileForm.get('phone');
+      const addressControl = this.profileForm.get('address');
+      const createdNotificationControl = this.profileForm.get('createdNotification');
+      const cancelledNotificationControl = this.profileForm.get('cancelledNotification');
+      const notificationRateMeControl = this.profileForm.get('notificationRateMe');
+      const notificationRateAccommodationControl = this.profileForm.get('notificationRateAccommodation');
+
+      if (!emailControl || !nameControl || !surnameControl || !phoneControl || !addressControl ||
+        !createdNotificationControl || !cancelledNotificationControl || !notificationRateMeControl ||
+        !notificationRateAccommodationControl ||
+        emailControl.value === null || nameControl.value === null || surnameControl.value === null ||
+        phoneControl.value === null || addressControl.value === null ||
+        createdNotificationControl.value === null || cancelledNotificationControl.value === null ||
+        notificationRateMeControl.value === null || notificationRateAccommodationControl.value === null) {
+        return false;
+      }
+
+      this.owner.email = emailControl.value;
+      this.owner.name = nameControl.value;
+      this.owner.surname = surnameControl.value;
+      this.owner.phone = phoneControl.value;
+      this.owner.address = addressControl.value;
+      this.owner.createdNotification = createdNotificationControl.value;
+      this.owner.rateMeNotification = notificationRateMeControl.value;
+      this.owner.rateAccommodationNotification = notificationRateAccommodationControl.value;
+      this.owner.cancelledNotification = cancelledNotificationControl.value;
+
+    }
+
+    return true;
   }
 
-  closePasswordDialog(event: Event) {
-    event.preventDefault();
-    this.showPasswordChangeForm = false;
-    this.ngAfterViewInit();
-  }
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.executeAfterViewInitLogic();
-    });
-  }
 
-  executeAfterViewInitLogic(): void {
-    this.setValues(this.loginService.getRole());
+
+  async updateProfile(): Promise<void> {
+    const res = this.userService.update(this.admin, this.guest, this.owner, this.oldUsername);
+
+
+    res.subscribe(
+      (result) => {
+        if(result){
+          alert("Username already exists!");
+          return;
+        }else{
+          this.exitPage(true);
+        }
+      }
+    )
   }
 
   exitPage(leave: boolean) {
-    let url = '/accommodations';
+    let url = 'accommodations';
 
     if(!leave) {
       if (this.loginService.getRole() == 'ROLE_Administrator') {
@@ -80,99 +261,6 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
     this.router.navigate([url]);
   }
 
-  openCancelDialog() {
-    const isConfirmed = window.confirm('Are you sure you want to cancel changes to this item?');
-
-    if (isConfirmed) {
-      this.exitPage(false);
-    }
-  }
-
-  ngOnInit(): void {
-    console.log(this.loginService.getRole())
-    if (this.loginService.getRole() == 'ROLE_Administrator') {
-      this.userService.getAdmin(this.loginService.getUsername()).subscribe(
-        (admin: Admin) => {
-          this.admin = admin;
-          this.oldUsername = admin.email;
-          this.setValues('ROLE_Administrator');
-        }
-      );
-    } else if (this.loginService.getRole() == 'ROLE_Guest') {
-      this.userService.getGuest(this.loginService.getUsername()).subscribe(
-        (guest: Guest) => {
-          this.guest = guest;
-          this.oldUsername = guest.email;
-          console.log(guest);
-          this.setValues('ROLE_Guest');
-        }
-      );
-    } else {
-      this.userService.getOwner(this.loginService.getUsername()).subscribe(
-        (owner: Owner) => {
-          this.owner = owner;
-          this.oldUsername = owner.email;
-          this.setValues('ROLE_Owner');
-        }
-      );
-    }
-  }
-
-
-  getValues(role: string): boolean {
-    const emailInput = document.getElementById('email') as HTMLInputElement | null;
-    const nameInput = document.getElementById('name') as HTMLInputElement | null;
-    const surnameInput = document.getElementById('surname') as HTMLInputElement | null;
-
-    if (
-      emailInput &&
-      nameInput &&
-      surnameInput &&
-      emailInput?.value !== '' &&
-      nameInput?.value !== '' &&
-      surnameInput?.value !== ''
-    ) {;
-      if (role === 'ROLE_Administrator') {
-        this.admin.email = emailInput?.value;
-        this.admin.name = nameInput?.value;
-        this.admin.surname = surnameInput?.value;
-      } else if (role === 'ROLE_Guest') {
-        const phoneInput = document.getElementById('phone') as HTMLInputElement | null;
-        const addressInput = document.getElementById('address') as HTMLInputElement | null;
-        const turnOffNotification = document.getElementById('turnNotificationOn') as HTMLInputElement | null;
-
-        if (phoneInput) this.guest.phone = phoneInput.value;
-        if (addressInput) this.guest.address = addressInput.value;
-        if (turnOffNotification) this.guest.turnOnNotification = turnOffNotification.checked;
-
-        this.guest.email = emailInput?.value;
-        this.guest.name = nameInput?.value;
-        this.guest.surname = surnameInput?.value;
-
-      } else {
-        const createdNotification = document.getElementById('createdNotification') as HTMLInputElement | null;
-        const cancelledNotification = document.getElementById('cancelledNotification') as HTMLInputElement | null;
-        const rateMeNotifications = document.getElementById('notificationRateMe') as HTMLInputElement | null;
-        const rateAccommodation = document.getElementById('notificationRateAccommodation') as HTMLInputElement | null;
-
-        if (createdNotification) this.owner.createdNotification = createdNotification.checked;
-        if (cancelledNotification) this.owner.cancelledNotification = cancelledNotification.checked;
-        if (rateMeNotifications) this.owner.rateMeNotification = rateMeNotifications.checked;
-        if (rateAccommodation) this.owner.rateAccommodationNotification = rateAccommodation.checked;
-
-        this.owner.email = emailInput?.value;
-        this.owner.name = nameInput?.value;
-        this.owner.surname = surnameInput?.value;
-      }
-    } else {
-      this.wrongInput();
-      return false;
-    }
-
-    return true;
-  }
-
-
   wrongInput(errorMessage: string = "Wrong entries. Please check your input values."): void {
     alert(errorMessage);
   }
@@ -181,87 +269,88 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
     this.userService.delete(this.admin, this.guest, this.owner);
     this.exitPage(true);
   }
+  openCancelDialog() {
+    const isConfirmed = window.confirm('Are you sure you want to cancel changes to this item?');
 
-  private async updateProfile(): Promise<void> {
-    const res = this.userService.update(this.admin, this.guest, this.owner, this.oldUsername);
-
-
-    res.subscribe(
-      (result) => {
-        if(result){
-            alert("Username already exists!");
-           return;
-        }else{
-          this.exitPage(true);
-        }
-      }
-    )
-  }
-
-  setValues(role: string) {
-    const emailInput = document.getElementById('email') as HTMLInputElement | null;
-    const nameInput = document.getElementById('name') as HTMLInputElement | null;
-    const surnameInput = document.getElementById('surname') as HTMLInputElement | null;
-    const addressInput = document.getElementById('address') as HTMLInputElement | null;
-    const phoneInput = document.getElementById('phone') as HTMLInputElement | null;
-    const turnOffNotification = document.getElementById('turnNotificationOn') as HTMLInputElement | null;
-    const createdNotification = document.getElementById('createdNotification') as HTMLInputElement | null;
-    const cancelledNotification = document.getElementById('cancelledNotification') as HTMLInputElement | null;
-    const rateMeNotifications = document.getElementById('notificationRateMe') as HTMLInputElement | null;
-    const rateAccommodation = document.getElementById('notificationRateAccommodation') as HTMLInputElement | null;
-
-    if(role == "ROLE_Administrator"){
-      if (emailInput) emailInput.value = this.admin.email;
-      if (nameInput) nameInput.value = this.admin.name;
-      if (surnameInput) surnameInput.value = this.admin.surname;
-    }else if(role == "ROLE_Guest"){
-      if (emailInput) emailInput.value = this.guest.email;
-      if (nameInput) nameInput.value = this.guest.name;
-      if (surnameInput) surnameInput.value = this.guest.surname;
-      if (phoneInput) phoneInput.value = this.guest.phone;
-      if (addressInput) addressInput.value = this.guest.address;
-      if (turnOffNotification) turnOffNotification.checked = this.guest.turnOnNotification;
-
-    }else{
-      if (emailInput) emailInput.value = this.owner.email;
-      if (nameInput) nameInput.value = this.owner.name;
-      if (surnameInput) surnameInput.value = this.owner.surname;
-      if (phoneInput) phoneInput.value = this.owner.phone;
-      if (addressInput) addressInput.value = this.owner.address;
-      if(createdNotification) createdNotification.checked = this.owner.createdNotification;
-      if(cancelledNotification) cancelledNotification.checked = this.owner.cancelledNotification;
-      if(rateMeNotifications)rateMeNotifications.checked = this.owner.rateMeNotification;
-      if(rateAccommodation) rateAccommodation.checked = this.owner.rateAccommodationNotification;
+    if (isConfirmed) {
+      this.exitPage(false);
     }
   }
 
+  get password() {
+    return this.profileForm.get('password');
+  }
+
+  get confirmPassword() {
+    return this.profileForm.get('confirmPassword');
+  }
 
   changePassword(event: Event) {
-    const passwordInput = document.getElementById('password') as HTMLInputElement | null;
-    const password2Input = document.getElementById('password2') as HTMLInputElement | null;
+    // Accessing password values
+    const newPassword = this.profileForm.get('password')!.value;
+    const confirmPassword = this.profileForm.get('confirmPassword')!.value;
 
-    if (
-      passwordInput &&
-      password2Input &&
-      passwordInput?.value !== '' &&
-      password2Input?.value !== ''
-    ){
-      if(passwordInput.value == password2Input.value){
-        if (this.admin !== null && this.admin !== undefined) {
-          this.userService.changePassword(passwordInput.value, this.admin.id);
-        } else if (this.guest !== null && this.guest !== undefined && this.guest.id != null) {
-          this.userService.changePassword(passwordInput.value, this.guest.id);
-        } else if (this.owner !== null && this.owner !== undefined) {
-          this.userService.changePassword(passwordInput.value, this.owner.id);
-        } else {}
-
-        this.closePasswordDialog(event)
-      }else{
-        this.wrongInput();
-      }
-    }else{
-      this.wrongInput();
-    }
-
+    //
+    // if (
+    //   passwordControl &&
+    //   confirmPasswordControl &&
+    //   passwordControl.value !== null &&
+    //   passwordControl.value !== undefined &&
+    //   confirmPasswordControl.value !== null &&
+    //   confirmPasswordControl.value !== undefined
+    // ) {
+    //   if (passwordControl.value === confirmPasswordControl.value) {
+    //     if (this.admin !== null && this.admin !== undefined) {
+    //       this.userService.changePassword(passwordControl.value, this.admin.id);
+    //     } else if (this.guest !== null && this.guest !== undefined && this.guest.id !== null) {
+    //       this.userService.changePassword(passwordControl.value, this.guest.id);
+    //     } else if (this.owner !== null && this.owner !== undefined) {
+    //       this.userService.changePassword(passwordControl.value, this.owner.id);
+    //     } else {
+    //
+    //     }
+    //
+    //     this.closePasswordDialog(event);
+    //   } else {
+    //     confirmPasswordControl.setErrors({ 'passwordMismatch': true });
+    //   }
+    // } else {
+    //   confirmPasswordControl?.setErrors({ 'passwordMismatch': true });
+    // }
   }
+
+
+
+
+  closePasswordDialog(event: Event) {
+    event.preventDefault();
+    this.showPasswordChangeForm = false;
+    this.ngAfterViewInit();
+  }
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.executeAfterViewInitLogic();
+    });
+  }
+
+  executeAfterViewInitLogic(): void {
+    this.setFormValues();
+  }
+
+
+  openChangePasswordDialog(event: Event) {
+    event.preventDefault();
+    this.showPasswordChangeForm = true;
+  }
+
+  openDeleteDialog(): void {
+    const isConfirmed = window.confirm('Are you sure you want to delete this item?');
+
+    if (isConfirmed) {
+      this.deleteProfile();
+    }
+  }
+
 }
+
+

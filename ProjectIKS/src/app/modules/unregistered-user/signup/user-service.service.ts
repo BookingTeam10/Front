@@ -55,7 +55,7 @@ export class UserServiceService {
     return this.httpClient.get<Guest>(environment.apiHost + '/guests/username/' + username);
   }
 
-  getOwner(username: string): Observable<Owner> {
+  public getOwner(username: string): Observable<Owner> {
     return this.httpClient.get<Owner>(environment.apiHost + '/owners/username/' + username);
   }
 
@@ -92,7 +92,7 @@ export class UserServiceService {
       }
     } else if (owner !== null && owner !== undefined) {
       if (owner.email != oldUsername) {
-          this.checkUsername(owner.email).pipe(
+          return this.checkUsername(owner.email).pipe(
             map((usernameExists) =>{
               if(usernameExists){return true;}
               else{
@@ -110,7 +110,7 @@ export class UserServiceService {
     } else {
     }
 
-    return of(false);
+    return of(true);
   }
 
   private updateAdmin(admin: Admin) {

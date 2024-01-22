@@ -5,49 +5,63 @@
     <div class="container">
       <form>
         <div class="container">
-          <form *ngIf="!showPasswordChangeForm" #passwordChangeForm>
+          <form [formGroup]="profileForm" *ngIf="!showPasswordChangeForm" #passwordChangeForm>
             <div class="form-group">
-              <input type="email" placeholder="Email" name="email" id="email" required>
+              <label for="email">Email</label>
+              <input type="email" id="email" formControlName="email">
+              <div *ngIf="profileForm.get('email')?.hasError('required')">Email is required</div>
+              <div *ngIf="profileForm.get('email')?.hasError('email')">Invalid email address</div>
             </div>
 
             <div class="form-group">
-              <input type="text" placeholder="Name" name="name" id="name" required>
+              <label for="name">Name</label>
+              <input type="text" id="name" formControlName="name">
+              <div *ngIf="profileForm.get('name')?.hasError('required')">Name is required</div>
             </div>
 
             <div class="form-group">
-              <input type="text" placeholder="Surname" name="surname" id="surname" required>
+              <label for="surname">Surname</label>
+              <input type="text" id="surname" formControlName="surname">
+              <div *ngIf="profileForm.get('surname')?.hasError('required')">Surname is required</div>
             </div>
 
-            <div class="form-group" *ngIf="loginService.getRole() != 'ROLE_Administrator'">
-              <input  type="text" id="address" placeholder="Address" name="address"  required>
+            <div *ngIf="loginService.getRole() !== 'ROLE_Administrator'">
+              <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" formControlName="address">
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" formControlName="phone">
+              </div>
             </div>
 
-            <div class="form-group" *ngIf="loginService.getRole() != 'ROLE_Administrator'">
-              <input type="tel" id="phone" placeholder="Phone" name="phone"  required>
+            <div *ngIf="loginService.getRole() === 'ROLE_Owner'">
+              <div class="form-group2">
+                <input type="checkbox" id="createdNotification" formControlName="createdNotification">
+                <label for="createdNotification">Created Notification</label>
+              </div>
+
+              <div class="form-group2">
+                <input type="checkbox" id="cancelledNotification" formControlName="cancelledNotification">
+                <label for="cancelledNotification">Cancelled Notification</label>
+              </div>
+
+              <div class="form-group2">
+                <input type="checkbox" id="notificationRateMe" formControlName="notificationRateMe">
+                <label for="notificationRateMe">Rated me Notification</label>
+              </div>
+
+              <div class="form-group2">
+                <input type="checkbox" id="notificationRateAccommodation" formControlName="notificationRateAccommodation">
+                <label for="notificationRateAccommodation">Rate Accommodation notification</label>
+              </div>
             </div>
 
-            <div class="form-group2" *ngIf="loginService.getRole() == 'ROLE_Owner'">
-              <input type="checkbox" id="createdNotification" name="createdNotification"  >
-              <label for="createdNotification">Created Notification</label>
-            </div>
-
-            <div class="form-group2" *ngIf="loginService.getRole() == 'ROLE_Owner'">
-              <input type="checkbox" id="cancelledNotification" name="cancelledNotification"  >
-              <label for="cancelledNotification">Cancelled Notification</label>
-            </div>
-
-            <div class="form-group2" *ngIf="loginService.getRole() == 'ROLE_Owner'">
-              <input type="checkbox" id="notificationRateMe" name="notificationRateMe"  >
-              <label for="notificationRateMe">Rated me Notification</label>
-            </div>
-
-            <div class="form-group2" *ngIf="loginService.getRole() == 'ROLE_Owner'">
-              <input type="checkbox" id="notificationRateAccommodation" name="notificationRateAccommodation"  >
-              <label for="notificationRateAccommodation">Rate Accommodation notification</label>
-            </div>
-            <div class="form-group2" id="turnNotification" *ngIf="loginService.getRole() == 'ROLE_Guest'">
-              <input type="checkbox" id="turnNotificationOn" name="turnNotification"  >
-              <label for="turnNotification">Turn on Notification</label>
+            <div class="form-group2" *ngIf="loginService.getRole() === 'ROLE_Guest'">
+              <input type="checkbox" id="turnNotificationOn" formControlName="turnNotificationOn">
+              <label for="turnNotificationOn">Turn on Notification</label>
             </div>
 
             <div class="button-group">
@@ -58,21 +72,29 @@
 
               <div class="button-row">
                 <button mat-raised-button class="delete-button" color="warn" (click)="openDeleteDialog()">Delete</button>
-                <button mat-raised-button class="save-button" (click)="onSubmit($event)">Save</button>
+                <button mat-raised-button class="save-button" (click)="onSubmit()">Save</button>
               </div>
             </div>
-
           </form>
 
           <form *ngIf="showPasswordChangeForm">
             <div class="dialog-container">
+              <!-- Inside the form for changing password -->
+              <!-- Inside the form for changing password -->
               <div class="form-group">
-                <input type="password" placeholder="Password" name="password" id="password" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" formControlName="password">
+                <div *ngIf="password?.hasError('minlength')">Password must be at least 3 characters</div>
               </div>
 
               <div class="form-group">
-                <input type="password" placeholder="Repeat Password" name="password2" id="password2" required>
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" formControlName="confirmPassword">
+                <div *ngIf="confirmPassword?.hasError('passwordMismatch')">Passwords must match</div>
               </div>
+
+
+
             </div>
 
             <button mat-raised-button class="delete-button" (click)="closePasswordDialog($event)">Cancel</button>
