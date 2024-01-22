@@ -339,6 +339,23 @@ describe('AccommodationDetailsComponent', () => {
     jasmine.clock().uninstall();
   });
 
+  it(`numberGuests must be integer`, () => {
+    const today = new Date();
+    jasmine.clock().install();
+    jasmine.clock().mockDate(today);
+
+    const startDate = new Date(today);
+    startDate.setDate(startDate.getDate() + 1);
+
+    const endDate = new Date(today);
+    endDate.setDate(endDate.getDate() + 2);
+    component.reservationSend.controls['startDate'].setValue(startDate.toISOString().split('T')[0]);
+    component.reservationSend.controls['endDate'].setValue(endDate.toISOString().split('T')[0]);
+    component.reservationSend.controls['numberGuests'].setValue('dawdaw');  //ovde ima i za null i za ''
+    expect(component.reservationSend.valid).toBeFalsy();
+    jasmine.clock().uninstall();
+  });
+
   it(`numberGuests must be over than 0`, () => {
     const today = new Date();
     jasmine.clock().install();
