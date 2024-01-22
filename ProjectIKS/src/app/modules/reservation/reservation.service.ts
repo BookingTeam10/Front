@@ -49,7 +49,6 @@ export class ReservationService {
   reservationCreateObs(reservation: Reservation):any {
     this.createReservation(reservation).subscribe(
       (response) => {
-        // Obrada uspešnog odgovora
         console.log('Rezervacija uspešno kreirana');
       }
     );
