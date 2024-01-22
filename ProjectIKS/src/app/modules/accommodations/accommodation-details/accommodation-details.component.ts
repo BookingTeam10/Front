@@ -94,24 +94,8 @@ export class AccommodationDetailsComponent implements OnInit{
     };
     if(this.reservationSend.valid){
 
-      //this.reservation.numberOfNights=this.getDaysBetweenDates(this.startDate,this.endDate);
-
       this.reservationService.reservationCreateObs(this.reservation);
 
-      // if(accommodation.owner.createdNotification){
-      //   if(this.guest.id!=null){
-      //     let message:MessageNotification={
-      //       idOwner:this.accommodation.owner.id,
-      //       text:"Guest "+this.guest.name+" "+this.guest.surname+" is create reservation",
-      //       idGuest:this.guest.id,
-      //       userRate:"GO"
-      //     }
-      //     this.reviewService.addTurnOfNotification(message).subscribe((response: any) =>{});
-      //     // this.socketService.postRest(message).subscribe(res => {
-      //     //   console.log(res);
-      //     // })
-      //   }
-      // }
     }
     else{
       console.log("NIJE VALIDNO")
