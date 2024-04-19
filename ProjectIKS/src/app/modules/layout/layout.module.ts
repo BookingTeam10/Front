@@ -14,6 +14,7 @@ import {MatOptionModule} from "@angular/material/core";
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { FilterReviewComponent } from './filter-review/filter-review.component';
+import { SuperAdminNavbarComponent } from './super-admin-navbar/super-admin-navbar.component';
 
 
 
@@ -25,7 +26,8 @@ import { FilterReviewComponent } from './filter-review/filter-review.component';
     AdministratorNavbarComponent,
     OwnerNavbarComponent,
     SearchComponent,
-    FilterReviewComponent
+    FilterReviewComponent,
+    SuperAdminNavbarComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +47,8 @@ import { FilterReviewComponent } from './filter-review/filter-review.component';
         UnregisteredUserNavbarComponent,
         OwnerNavbarComponent,
         AdministratorNavbarComponent,
-        FilterReviewComponent
+        FilterReviewComponent,
+        SuperAdminNavbarComponent
     ],
 })
 export class LayoutModule { }
