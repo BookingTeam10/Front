@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 import {LoginService} from "../../auth/login/service/login.service";
+import {SuperAdminService} from "../../superadmin/service/superadmin.service";
 
 @Component({
   selector: 'app-owner-navbar',
@@ -8,7 +9,7 @@ import {LoginService} from "../../auth/login/service/login.service";
   styleUrls: ['./owner-navbar.component.css']
 })
 export class OwnerNavbarComponent {
-  constructor(private router: Router,public loginService:LoginService) {
+  constructor(private router: Router,public loginService:LoginService,public adminService:SuperAdminService) {
   }
   Logout() {
     this.loginService.logout().subscribe({
@@ -61,5 +62,14 @@ export class OwnerNavbarComponent {
 
   viewNotification() {
     this.router.navigate(['/owners/notifications']);
+  }
+
+  requestCertificate() {
+    var request={}
+    this.adminService.requestCertificate(request).subscribe({
+      next: () => {
+        console.log("AAAAA")
+      }
+    })
   }
 }
