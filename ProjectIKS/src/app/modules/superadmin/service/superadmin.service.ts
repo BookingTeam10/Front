@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environment/environment";
 import {AuthResponse} from "../../../models/auth-response";
+import {CertificateRequest} from "../../../models/certificateRequest";
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,8 @@ export class SuperAdminService {
   constructor(private http: HttpClient) {
   }
   //gadjamo bekend sa PKI
-  requestCertificate(request:any):any {
-    return this.http.post<AuthResponse>(environment.apiPKI+'/requestCertificate', request,{
-      headers: this.headers,
-    });
+  requestCertificate(request:CertificateRequest):any {
+    console.log(request)
+    return this.http.post<any>(environment.apiPKI+'/requestCertificate', request);
   }
 }
