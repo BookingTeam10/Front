@@ -30,6 +30,13 @@ export class LoginService {
       headers: this.headers,
     });
   }
+
+  loginSuperAdmin(loginData:Login): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(environment.apiPKI+'/users/login', loginData,{
+      headers: this.headers,
+    });
+  }
+
   getRole(): any {
     if (this.isLoggedIn()) {
       const accessToken: any = localStorage.getItem('User');

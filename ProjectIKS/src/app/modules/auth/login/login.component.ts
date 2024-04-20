@@ -47,14 +47,26 @@ export class LoginComponent implements OnInit{
       email: this.loginForm.value.email || "",
       password: this.loginForm.value.password || ""
     }
-
-    this.service.login(loginData).subscribe({
+    this.service.loginSuperAdmin(loginData).subscribe({
       next: async (response: AuthResponse) => {
-        if(this.loginForm.value.email=="a" && this.loginForm.value.password=="a"){
-          console.log("AAAAA");
+        console.log("BBBBBB");
+        console.log(response);
+        if(response){
           this.router.navigate(['/super-admin/home']);
           return;
         }
+
+      }});
+
+
+    this.service.login(loginData).subscribe({
+      //srediti ovo seljacku varijantu
+      next: async (response: AuthResponse) => {
+        if(this.loginForm.value.email=="popovicluka65@gmail.com" && this.loginForm.value.password=="ftn"){
+           console.log("AAAAA");
+           this.router.navigate(['/super-admin/home']);
+           return;
+         }
         if (response.jwt === "NEUSPESNO") {
           this.router.navigate(['/users/login']);
           setTimeout(() => { alert("Wrong credentials") })
