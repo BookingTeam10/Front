@@ -10,6 +10,8 @@ import {MessageNotification} from "../../../models/message";
 
 import {environment} from "../../../environment/environment";
 import {UserServiceService} from "../../unregistered-user/signup/user-service.service";
+import {CertificateService} from "./service/certificate.service";
+import {HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -24,16 +26,18 @@ export class LoginComponent implements OnInit{
   private serverUrl = environment.apiHost + 'socket'
   private stompClient: any;
   private webSocket: WebSocket;
+  certificates: any[];
 
   isLoaded: boolean = false;
   isCustomSocketOpened = false;
 
   ngOnInit(): void {
     //this.initializeWebSocketConnection();
+    //this.getCertificates();
   }
 
 
-  constructor(private service:LoginService,private userService:UserServiceService,private router: Router) {
+  constructor(private service:LoginService,private userService:UserServiceService,private router: Router,private certificateService:CertificateService) {
   }
 
   loginForm=new FormGroup({
@@ -49,8 +53,6 @@ export class LoginComponent implements OnInit{
     }
     this.service.loginSuperAdmin(loginData).subscribe({
       next: async (response: AuthResponse) => {
-        console.log("BBBBBB");
-        console.log(response);
         if(response){
           this.router.navigate(['/super-admin/home']);
           return;
@@ -91,6 +93,53 @@ export class LoginComponent implements OnInit{
           // Navigate based on the user role
           this.service.userState.subscribe((role: string) => {
             this.role = role;
+            console.log("ULOGOVAN");
+            console.log(this.service.getUsername());
+
+           //  this.certificateService.getCertificates(this.service.getUsername())
+           //    .subscribe(
+           //      (response) => {
+           //        this.certificates = response;
+           //      },
+           //      (error) => {
+           //        console.error('Error fetching certificates:', error);
+           //      }
+           //    );
+           //
+           // console.log("UCITANI");
+           // console.log(this.certificates);
+
+            this.certificateService.getCertificateByEmail(this.service.getUsername())
+              .subscribe(
+                (response: HttpResponse<Blob>) => {
+                  if (response && response.body) {
+                    const contentDisposition: string | null = response.headers.get('content-disposition');
+                    if (contentDisposition) {
+                      const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                      const matches = filenameRegex.exec(contentDisposition);
+                      const filename = matches && matches.length > 1 ? matches[1].replace(/['"]/g, '') : 'certificate.p12';
+
+                      // Creating object URL from blob and creating anchor element to trigger download
+                      const blob = new Blob([response.body], { type: 'application/octet-stream' });
+                      const url = window.URL.createObjectURL(blob);
+                      const a = document.createElement('a');
+                      a.href = url;
+                      a.download = filename;
+                      document.body.appendChild(a);
+                      a.click();
+                      window.URL.revokeObjectURL(url);
+                    } else {
+                      console.error('Content-Disposition header not found in response.');
+                    }
+                  } else {
+                    console.error('Response body is null or undefined.');
+                  }
+                },
+                (error) => {
+                  console.error('Error downloading certificate:', error);
+                }
+              );
+
             if (this.role === 'ROLE_Administrator') {
               this.router.navigate(['/admin/accommodations']);
             } else if (this.role === 'ROLE_Owner') {
