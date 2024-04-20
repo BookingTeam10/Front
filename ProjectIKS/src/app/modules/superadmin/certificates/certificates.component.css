@@ -1,0 +1,58 @@
+/* Stilizacija stabla */
+.mat-tree-node-content {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  transition: background-color 0.3s ease;
+  border-radius: 2px; /* Zaobljeni ivici */
+  position: relative; /* Relativni položaj za linije */
+}
+
+.mat-tree-node-content:hover {
+  background-color: #f0f0f0;
+}
+
+.mat-tree-node {
+  list-style: none; /* Uklanjanje tačkastih obeležja za li elemente */
+}
+
+.mat-tree-node-button {
+  background: none;
+  border: none;
+  margin-right: 4px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.mat-icon {
+  font-size: 16px;
+}
+
+.mat-tree-node-expanded .mat-icon {
+  transform: rotate(90deg);
+}
+
+/* Stilizacija ikonica */
+.mat-icon-folder {
+  color: #FFA500; /* Boja ikonice foldera */
+}
+
+.mat-icon-file {
+  color: #2196F3; /* Boja ikonice fajla */
+}
+
+/* Linije između čvorova */
+.mat-tree-node::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -20px; /* Pomakni liniju levo */
+  width: 1px;
+  height: 100%;
+  background-color: #ccc; /* Boja linije */
+}
+
+.mat-tree-node:first-child::before {
+  display: none; /* Ne prikazuj liniju za prvi čvor */
+}

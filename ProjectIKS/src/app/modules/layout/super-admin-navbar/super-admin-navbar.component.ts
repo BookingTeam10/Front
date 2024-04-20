@@ -19,4 +19,11 @@ export class SuperAdminNavbarComponent {
       }
     })
   }
+  Requests() {
+    this.router.navigate(['/super-admin/requests']);
+  }
+
+  home() {
+    this.router.navigate(['/super-admin/home']);
+  }
 }
