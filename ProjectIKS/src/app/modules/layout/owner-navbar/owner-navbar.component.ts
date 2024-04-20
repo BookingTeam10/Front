@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 import {LoginService} from "../../auth/login/service/login.service";
 import {SuperAdminService} from "../../superadmin/service/superadmin.service";
+import {CertificateRequest} from "../../../models/certificateRequest";
 
 @Component({
   selector: 'app-owner-navbar',
@@ -65,7 +66,18 @@ export class OwnerNavbarComponent {
   }
 
   requestCertificate() {
-    var request={}
+    console.log("UDJE OVDEEEE")
+    var request:CertificateRequest={
+      "id":5,
+      "firstName":"A",
+      "lastName":"A",
+      "email":"a@gmail.com",
+      "password":"A",
+      "organization":"A",
+      "country":"A",
+      "publicKey":"A",
+      "role":"Owner"
+    }
     this.adminService.requestCertificate(request).subscribe({
       next: () => {
         console.log("AAAAA")
