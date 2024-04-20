@@ -18,6 +18,6 @@ export class SuperAdminService {
   //gadjamo bekend sa PKI
   requestCertificate(request:CertificateRequest):any {
     console.log(request)
-    return this.http.post<any>(environment.apiPKI+'/requestCertificate', request);
+    return this.http.post<any>(environment.apiPKI+'/certificates', request);
   }
 }

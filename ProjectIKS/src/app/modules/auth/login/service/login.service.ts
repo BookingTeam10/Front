@@ -92,4 +92,9 @@ export class LoginService {
     }
     return of(false);
   }
+
+  certificate(email:String):any {
+    console.log(email);
+    return this.http.get(environment.apiPKI + '/certificates/'+email, { responseType: 'arraybuffer' });  //izmeniti ovo
+  }
 }
