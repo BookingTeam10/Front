@@ -66,22 +66,23 @@ export class OwnerNavbarComponent {
   }
 
   requestCertificate() {
-    console.log("UDJE OVDEEEE")
-    var request:CertificateRequest={
-      "id":5,
-      "firstName":"A",
-      "lastName":"A",
-      "email":"a@gmail.com",
-      "password":"A",
-      "organization":"A",
-      "country":"A",
-      "publicKey":"A",
-      "role":"Owner"
-    }
-    this.adminService.requestCertificate(request).subscribe({
-      next: () => {
-        console.log("AAAAA")
-      }
-    })
+    this.router.navigate(['/owner/certificate-requests']);
+  //   console.log("UDJE OVDEEEE")
+  //   var request:CertificateRequest={
+  //     "id":5,
+  //     "firstName":"A",
+  //     "lastName":"A",
+  //     "email":"a@gmail.com",
+  //     "password":"A",
+  //     "organization":"A",
+  //     "country":"A",
+  //     "publicKey":"A",
+  //     "role":"Owner"
+  //   }
+  //   this.adminService.addRequest(request).subscribe({
+  //     next: () => {
+  //       console.log("AAAAA")
+  //     }
+  //   })
   }
 }

@@ -57,6 +57,7 @@ import {
 import {ReviewOwnerReportsComponent} from "./modules/administrator/review-owner-reports/review-owner-reports.component";
 import {CertificatesComponent} from "./modules/superadmin/certificates/certificates.component";
 import {RequestsComponent} from "./modules/superadmin/requests/requests.component";
+import {CertificateRequestComponent} from "./modules/owner/certificate-request/certificate-request.component";
 
 
 const routes: Routes = [
@@ -100,6 +101,7 @@ const routes: Routes = [
   {path: 'admin/review-owner-reports', component: ReviewOwnerReportsComponent},
   {path: 'super-admin/home', component: CertificatesComponent},
   {path: 'super-admin/requests', component: RequestsComponent},
+  {path: 'owner/certificate-requests', component:CertificateRequestComponent},
 ];
 
 

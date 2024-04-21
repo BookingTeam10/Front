@@ -1,1 +1,5 @@
 <app-super-admin-navbar></app-super-admin-navbar>
+<div *ngFor="let request of requests" style="margin-left: 5%; margin-right: 5%;" >
+  <app-request-card [request]="request"></app-request-card>
+</div>
+

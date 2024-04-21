@@ -27,6 +27,8 @@ import { OwnerRequestsComponent } from './owner-requests/owner-requests.componen
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatTableModule} from "@angular/material/table";
 import {NgChartsModule} from "ng2-charts";
+import { CertificateRequestComponent } from './certificate-request/certificate-request.component';
+import {FlexModule} from "@angular/flex-layout";
 
 @NgModule({
 
@@ -37,6 +39,7 @@ import {NgChartsModule} from "ng2-charts";
     OwnerReservationComponent,
     OwnerReportsComponent,
     OwnerRequestsComponent,
+    CertificateRequestComponent,
   ],
     imports: [
         CommonModule,
@@ -57,7 +60,8 @@ import {NgChartsModule} from "ng2-charts";
         MatPaginatorModule,
         MatTableModule,
         NgChartsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        FlexModule
     ],
   exports: [
     EditProfileComponent,

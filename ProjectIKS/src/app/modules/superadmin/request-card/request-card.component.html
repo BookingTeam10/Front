@@ -1,0 +1,15 @@
+<mat-card style="border-radius: 20px">
+  <mat-card-content >
+    <div fxLayout="row" >
+      <p class="p-description">Details:      {{request.user}}</p>
+      <div fxFlex="0%">
+      </div>
+      <div fxFlex="20%" fxLayout="column" fxLayoutGap="10px">
+        <b class = "b-description" style="color:#4b4f4d">
+        </b>
+      </div>
+    </div>
+    <button (click)="createCertificate(request)" >Add certificate</button>
+  </mat-card-content>
+</mat-card>
+

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 import {LoginService} from "../../auth/login/service/login.service";
+import {Accommodation} from "../../../models/accommodation";
 
 @Component({
   selector: 'app-super-admin-navbar',
@@ -8,6 +9,7 @@ import {LoginService} from "../../auth/login/service/login.service";
   styleUrls: ['./super-admin-navbar.component.css']
 })
 export class SuperAdminNavbarComponent {
+
   constructor(private router: Router,public loginService:LoginService) {
   }
   Logout() {
