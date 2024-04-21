@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {NestedTreeControl} from "@angular/cdk/tree";
 import {MatTreeNestedDataSource} from "@angular/material/tree";
+import {SuperAdminService} from "../service/superadmin.service";
 
 //ovo cemo zameniti sa sertifikatom
 interface TreeNode {
@@ -16,9 +17,16 @@ interface TreeNode {
 export class CertificatesComponent {
   treeControl = new NestedTreeControl<TreeNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<TreeNode>();
-
-  constructor() {
+  loadTree:string;
+  constructor(private adminService:SuperAdminService) {
     this.dataSource.data = TREE_DATA;
+    this.adminService.getTree().subscribe({
+      next: (data:any) => {
+
+        this.loadTree = data;
+        console.log("UDJEEE")
+        console.log(this.loadTree);
+      }});
   }
 
   hasChild = (_: number, node: TreeNode) => !!node.children && node.children.length > 0;

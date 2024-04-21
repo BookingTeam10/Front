@@ -32,6 +32,15 @@ export class SuperAdminService {
   }
   addCertificate(request: any):any {
      console.log("UDJE FUNKCIJA")
-    return this.http.post(environment.apiPKI + '/certificates', request)
+    return this.http.post(environment.apiPKI + '/certificates/add-request', request)
+  }
+
+  addRequest(request: any):any {
+    console.log("UDJE FUNKCIJA")
+    return this.http.post(environment.apiPKI + '/certificates/add-request', request)
+  }
+  getTree():any{
+     console.log("SSSSS");
+    return this.http.get(environment.apiPKI + '/certificates/get-issuer')
   }
 }
