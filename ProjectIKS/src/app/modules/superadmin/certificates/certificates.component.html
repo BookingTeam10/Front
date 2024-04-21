@@ -8,6 +8,9 @@
         </mat-icon>
       </button>
       {{node.name}}
+      <button mat-icon-button (click)="printNodeName(node)">
+        <mat-icon>add</mat-icon> <!-- Dodajte ikonu koja odgovara funkciji dugmeta -->
+      </button>
     </li>
   </mat-tree-node>
 
@@ -21,6 +24,9 @@
           </mat-icon>
         </button>
         {{node.name}}
+        <button mat-icon-button (click)="printNodeName(node)">
+          <mat-icon>add</mat-icon> <!-- Dodajte ikonu koja odgovara funkciji dugmeta -->
+        </button>
       </div>
       <ul [class.mat-tree-node]="!treeControl.isExpanded(node)">
         <ng-container *ngIf="treeControl.isExpanded(node)">
@@ -30,4 +36,3 @@
     </li>
   </mat-nested-tree-node>
 </mat-tree>
-

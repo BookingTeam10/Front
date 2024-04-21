@@ -97,6 +97,10 @@ export class CertificatesComponent {
   // private popuniMesto(stablo: any[], name: string, parent: string) {
   //
   // }
+  printNodeName(node:any) {
+    console.log("NODE");
+    console.log(node.name);
+  }
 }
 
   // const TREE_DATA: TreeNode[] = [
