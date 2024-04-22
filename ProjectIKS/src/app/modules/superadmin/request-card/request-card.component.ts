@@ -36,21 +36,22 @@ export class RequestCardComponent implements OnInit{
   }
 
   createCertificate(request: RequestDTO) {
-    var certificateRequest:CertificateRequest={
-      id: 5,
-      firstName: "A",
-      lastName: "B",
-      email: request.user,
-      password: "D",
-      organization: "E",
-      country: "F",
-      publicKey: "A",
-      role: "Owner"
-    }
-    this.adminService.addCertificate(certificateRequest).subscribe({
-      next: (data:any) => {
-        console.log(data);
-      },
-    });
+    this.router.navigate(['/certificate-approve']);
+    // var certificateRequest:CertificateRequest={
+    //   id: 5,
+    //   firstName: "A",
+    //   lastName: "B",
+    //   email: request.user,
+    //   password: "D",
+    //   organization: "E",
+    //   country: "F",
+    //   publicKey: "A",
+    //   role: "Owner"
+    // }
+    // this.adminService.addCertificate(certificateRequest).subscribe({
+    //   next: (data:any) => {
+    //     console.log(data);
+    //   },
+    // });
   }
 }
