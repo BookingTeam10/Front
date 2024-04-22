@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form</title>
+</head>
+<body>
+<form>
+  <label for="country">Select your country name:</label><br>
+  <input type="text" id="country" name="country"><br><br>
+
+  <label for="state">State/Province:</label><br>
+  <input type="text" id="state" name="state"><br><br>
+
+  <label for="locality">Locality Name:</label><br>
+  <input type="text" id="locality" name="locality"><br><br>
+
+  <label for="organization">Organization Name:</label><br>
+  <input type="text" id="organization" name="organization"><br><br>
+
+  <label for="unit">Organization Unit Name:</label><br>
+  <input type="text" id="unit" name="unit"><br><br>
+
+  <label for="firstName">First name:</label><br>
+  <input type="text" id="firstName" name="firstName"><br><br>
+  <label for="lastName">Last name:</label><br>
+  <input type="text" id="lastName" name="lastName"><br><br>
+  <label for="email">Email Address:</label><br>
+  <input type="email" id="email" name="email"><br><br>
+  <div class="container">
+    <label class="checkbox-label">
+      <input type="checkbox" name="button11" id="button11"> Basic contraints
+      <input type="checkbox" name="button12" id="button12"> Subject key
+      <input type="checkbox" name="button13" id="button13"> Authority key</label>
+  </div>
+  <div class="container">
+    <label class="checkbox-label">
+      <input type="checkbox" checked = 'true' name="button21" id="button21"> Digital signature
+      <input type="checkbox" name="button22" id="button22"> Non repudiation
+      <input type="checkbox" checked = 'true' name="button23" id="button23"> Key enchipherment
+      <input type="checkbox" name="button24" id="button24"> Data enchipherment
+      <input type="checkbox" name="button25" id="button25"> Enchiper only
+      <input type="checkbox" name="button26" id="button26"> Key cert sign
+      <input type="checkbox" name="button27" id="button27"> crl sign
+      <input type="checkbox" name="button28" id="button28"> Key agreement
+      <input type="checkbox" name="button29" id="button29"> Depicher only
+    </label>
+  </div>
+  <!-- Dodavanje radio dugmadi -->
+
+  <button type="button" onclick="submit11()" id="submitButton11">Submit</button>
+</form>
+
+</body>
+</html>

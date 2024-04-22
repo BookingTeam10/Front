@@ -10,6 +10,7 @@ import { RequestCardComponent } from './request-card/request-card.component';
 import {AccommodationsModule} from "../accommodations/accommodations.module";
 import {FlexModule} from "@angular/flex-layout";
 import {MatCardModule} from "@angular/material/card";
+import { FormComponent } from './form/form.component';
 
 
 
@@ -18,6 +19,7 @@ import {MatCardModule} from "@angular/material/card";
     CertificatesComponent,
     RequestsComponent,
     RequestCardComponent,
+    FormComponent,
 
   ],
   imports: [
