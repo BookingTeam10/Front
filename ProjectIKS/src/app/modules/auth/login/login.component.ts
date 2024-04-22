@@ -72,8 +72,9 @@ export class LoginComponent implements OnInit{
 
   createDownloadLink(blob: Blob): string {
 
-    const url = window.URL.createObjectURL(blob);
-    return this.sanitizer.bypassSecurityTrustUrl(url) as string;
+    // const url = window.URL.createObjectURL(blob);
+    // return this.sanitizer.bypassSecurityTrustUrl(url) as string;
+    return "";
   }
 
   loginClicked(): void {
@@ -81,14 +82,14 @@ export class LoginComponent implements OnInit{
       email: this.loginForm.value.email || "",
       password: this.loginForm.value.password || ""
     }
-    this.service.loginSuperAdmin(loginData).subscribe({
-      next: async (response: AuthResponse) => {
-        if(response){
-          this.router.navigate(['/super-admin/home']);
-          return;
-        }
-
-      }});
+    // this.service.loginSuperAdmin(loginData).subscribe({
+    //   next: async (response: AuthResponse) => {
+    //     if(response){
+    //       this.router.navigate(['/super-admin/home']);
+    //       return;
+    //     }
+    //
+    //   }});
 
 
     this.service.login(loginData).subscribe({
@@ -140,13 +141,6 @@ export class LoginComponent implements OnInit{
       }
     });
 
-    var ran="alice@example.com"
-    this.service.certificate(ran).subscribe({   //ovde staviti loginData.email
-      next: async (response:any) => {
-        console.log(response);
-        localStorage.setItem('Certificate', response);
-      }
-    });
   }
 
 
