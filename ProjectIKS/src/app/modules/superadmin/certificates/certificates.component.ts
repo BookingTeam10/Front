@@ -27,15 +27,8 @@ export class CertificatesComponent {
       next: (data:any) => {
         if ('tree' in data) {
           const treeValue = data.tree;
-          console.log("UDJEEE");
-          console.log(treeValue); // Ovo je vrijednost 'tree' ključa
           const treeValues: string[] = data.tree.split(',');
           const valuesExceptLast: string[] = treeValues.slice(0, -1);
-          console.log(valuesExceptLast)
-          //this.createTree(valuesExceptLast)
-
-          //dodato
-
 
           const getNode = (name: string) => {
             return this.tree.find(node => node.name === name);

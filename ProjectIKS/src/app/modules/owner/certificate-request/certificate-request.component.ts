@@ -26,7 +26,8 @@ export class CertificateRequestComponent {
       const locality = (document.getElementById('locality') as HTMLInputElement).value;
       const organization = (document.getElementById('organization') as HTMLInputElement).value;
       const unit = (document.getElementById('unit') as HTMLInputElement).value;
-      const commonName = (document.getElementById('commonName') as HTMLInputElement).value;
+      const firstName = (document.getElementById('firstName') as HTMLInputElement).value;
+      const lastName = (document.getElementById('lastName') as HTMLInputElement).value;
       const email = (document.getElementById('email') as HTMLInputElement).value;
 
       console.log('Country:', country);
@@ -34,18 +35,20 @@ export class CertificateRequestComponent {
       console.log('Locality:', locality);
       console.log('Organization:', organization);
       console.log('Unit:', unit);
-      console.log('Common Name:', commonName);
+      console.log('first :', firstName);
+      console.log('last :', lastName);
       console.log('Email:', email);
       console.log(this.service.getUsername());
       var request:CertificateRequest={
         "id":5,
-        "firstName":"Popovic",
-        "lastName":"Luka",
+        "firstName":firstName,
+        "lastName":lastName,
         "email":this.service.getUsername(),
         "password":"ftn",
         "organization":organization,
         "country":country,
-        "publicKey":"A",
+        "publicKey":null,
+        "publicKeyString":"A",
         "role":"Owner"
       }
       this.adminService.addRequest(request).subscribe({

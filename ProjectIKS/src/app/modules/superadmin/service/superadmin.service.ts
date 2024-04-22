@@ -27,11 +27,9 @@ export class SuperAdminService {
   }
 
   requestCertificate(request:CertificateRequest):any {
-    console.log(request)
     return this.http.post<any>(environment.apiPKI+'/certificates', request);
   }
   addCertificate(request: any):any {
-     console.log("UDJE FUNKCIJA")
     return this.http.post(environment.apiPKI + '/certificates/add-request', request)
   }
 

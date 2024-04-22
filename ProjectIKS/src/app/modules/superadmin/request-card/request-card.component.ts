@@ -44,7 +44,8 @@ export class RequestCardComponent implements OnInit{
       password: "D",
       organization: "E",
       country: "F",
-      publicKey: "A",
+      publicKey: null,
+      publicKeyString:"AAA",
       role: "Owner"
     }
     this.adminService.addCertificate(certificateRequest).subscribe({

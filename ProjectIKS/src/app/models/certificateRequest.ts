@@ -6,6 +6,7 @@ export interface CertificateRequest {
   password: string,
   organization: string,
   country: string,
-  publicKey: string, // PublicKey će biti pretvoren u string, ili može biti null ako ne postoji javni ključ
+  publicKeyString: string,
+  publicKey:any,
   role: string
 }
