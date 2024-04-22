@@ -36,7 +36,7 @@ export class RequestCardComponent implements OnInit{
   }
 
   createCertificate(request: CertificateRequest) {
-
+    console.log(this.request)
     // var certificateRequest:CertificateRequest={
     //   id: 5,
     //   firstName: "A",
@@ -54,6 +54,7 @@ export class RequestCardComponent implements OnInit{
     //     console.log(data);
     //   },
     // });
-    this.router.navigate(['/certificate-approve']);
+    //this.router.navigate(['/certificate-approve']);
+    this.router.navigate(['/certificate-approve'], { state: { request } });
   }
 }
