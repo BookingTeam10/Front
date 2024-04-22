@@ -36,9 +36,9 @@
   </div>
   <div class="container">
     <label class="checkbox-label">
-      <input type="checkbox" checked = 'true' name="button21" id="button21"> Digital signature
+      <input type="checkbox"  name="button21" id="button21"> Digital signature
       <input type="checkbox" name="button22" id="button22"> Non repudiation
-      <input type="checkbox" checked = 'true' name="button23" id="button23"> Key enchipherment
+      <input type="checkbox" name="button23" id="button23"> Key enchipherment
       <input type="checkbox" name="button24" id="button24"> Data enchipherment
       <input type="checkbox" name="button25" id="button25"> Enchiper only
       <input type="checkbox" name="button26" id="button26"> Key cert sign
@@ -48,8 +48,8 @@
     </label>
   </div>
   <!-- Dodavanje radio dugmadi -->
-
-  <button type="button" onclick="submit11()" id="submitButton11">Submit</button>
+  <button type="button" (click)="generateKey()" id="generateKeyPair">Generate key pair</button>
+  <button type="button" (click)="submit11()" id="submitButton11">Submit</button>
 </form>
 
 </body>

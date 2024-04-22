@@ -9,4 +9,7 @@ export interface CertificateRequest {
   publicKeyString: string,
   publicKey:any,
   role: string
+  subjectEmail : string,
+  issuerEmail:string,
+  type :any
 }

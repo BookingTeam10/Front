@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {UserServiceService} from "../../unregistered-user/signup/user-service.service";
 import {SuperAdminService} from "../service/superadmin.service";
 import {RequestDTO} from "../../../models/request";
+import {CertificateRequest} from "../../../models/certificateRequest";
 
 @Component({
   selector: 'app-requests',
@@ -14,13 +15,13 @@ import {RequestDTO} from "../../../models/request";
 })
 export class RequestsComponent implements OnInit {
 
-  requests: RequestDTO[] = [];
+  requests: CertificateRequest[] = [];
 
   constructor(private service: SuperAdminService ,public loginService:LoginService, private router : Router, private userService: UserServiceService) {}
 
     ngOnInit(): void {
       this.service.getAll().subscribe({
-        next: (data: RequestDTO[]) => {
+        next: (data: CertificateRequest[]) => {
           this.requests = data
           console.log("REQUESTOVI")
           console.log(this.requests)

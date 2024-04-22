@@ -19,7 +19,7 @@ import {CertificateRequest} from "../../../models/certificateRequest";
 export class RequestCardComponent implements OnInit{
 
   @Input()
-  request: RequestDTO;
+  request: CertificateRequest;
 
   constructor(private router: Router, public loginService: LoginService,private httpClient: HttpClient,private adminService:SuperAdminService) {
   }
@@ -28,31 +28,32 @@ export class RequestCardComponent implements OnInit{
   clicked: EventEmitter<any> = new EventEmitter<any>();
   ngOnInit(): void {
       this.adminService.getAll().subscribe({
-        next: (data: RequestDTO[]) => {
+        next: (data: CertificateRequest[]) => {
           this.adminService.requestsSubject.next(data); // Emitujte inicijalne podatke
           console.log(data);
         },
       });
   }
 
-  createCertificate(request: RequestDTO) {
+  createCertificate(request: CertificateRequest) {
 
-    var certificateRequest:CertificateRequest={
-      id: 5,
-      firstName: "A",
-      lastName: "B",
-      email: request.user,
-      password: "D",
-      organization: "E",
-      country: "F",
-      publicKey: null,
-      publicKeyString:"AAA",
-      role: "Owner"
-    }
-    this.adminService.addCertificate(certificateRequest).subscribe({
-      next: (data:any) => {
-        console.log(data);
-      },
-    });
+    // var certificateRequest:CertificateRequest={
+    //   id: 5,
+    //   firstName: "A",
+    //   lastName: "B",
+    //   email: request.email,
+    //   password: "D",
+    //   organization: "E",
+    //   country: "F",
+    //   publicKey: null,
+    //   publicKeyString:"AAA",
+    //   role: "Owner"
+    // }
+    // this.adminService.addCertificate(certificateRequest).subscribe({
+    //   next: (data:any) => {
+    //     console.log(data);
+    //   },
+    // });
+    this.router.navigate(['/certificate-approve']);
   }
 }

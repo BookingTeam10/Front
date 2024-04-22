@@ -49,7 +49,10 @@ export class CertificateRequestComponent {
         "country":country,
         "publicKey":null,
         "publicKeyString":"A",
-        "role":"Owner"
+        "role":"Owner",
+        subjectEmail : 'popovic.sv4.2021@uns.ac.rs',
+        issuerEmail:'popovicluka65@gmail.com',
+        type :2
       }
       this.adminService.addRequest(request).subscribe({
         next: () => {
