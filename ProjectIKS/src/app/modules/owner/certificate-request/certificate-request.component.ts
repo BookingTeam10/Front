@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Output} from '@angular/core';
 import {LoginService} from "../../auth/login/service/login.service";
 import {UserServiceService} from "../../unregistered-user/signup/user-service.service";
 import {Router} from "@angular/router";
@@ -16,7 +16,6 @@ import {SuperAdminService} from "../../superadmin/service/superadmin.service";
   styleUrls: ['./certificate-request.component.css']
 })
 export class CertificateRequestComponent {
-
   constructor(private service:LoginService,private userService:UserServiceService,private router: Router,private certificateService:CertificateService,private sanitizer: DomSanitizer,private adminService:SuperAdminService) {
   }
   submit() {
@@ -59,6 +58,7 @@ export class CertificateRequestComponent {
           //console.log("AAAAA")
         }
       })
+
 
   }
 }
