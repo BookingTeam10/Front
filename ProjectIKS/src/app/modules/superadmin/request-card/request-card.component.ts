@@ -36,6 +36,7 @@ export class RequestCardComponent implements OnInit{
   }
 
   createCertificate(request: RequestDTO) {
+
     var certificateRequest:CertificateRequest={
       id: 5,
       firstName: "A",
