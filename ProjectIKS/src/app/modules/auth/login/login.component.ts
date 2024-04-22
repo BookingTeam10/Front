@@ -47,34 +47,6 @@ export class LoginComponent implements OnInit{
     password: new FormControl('', [Validators.required])
   })
 
-  preuzmiSertifikat(email: string): void {
-    this.certificateService.preuzmiSertifikat(email)
-      .subscribe(
-        (blob: Blob) => {
-          this.preuzmiDatoteku(blob);
-          this.createDownloadLink(blob);
-        },
-        (error) => {
-          console.error('Greška pri preuzimanju sertifikata:', error);
-        }
-      );
-  }
-
-  preuzmiDatoteku(blob: Blob): void {
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'certificate.p12'; // Ime fajla
-    document.body.appendChild(link);
-    link.click();
-    window.URL.revokeObjectURL(url);
-  }
-
-  createDownloadLink(blob: Blob): string {
-
-    const url = window.URL.createObjectURL(blob);
-    return this.sanitizer.bypassSecurityTrustUrl(url) as string;
-  }
 
   loginClicked(): void {
     const loginData = {
@@ -126,7 +98,6 @@ export class LoginComponent implements OnInit{
             // console.log("ULOGOVAN");
             // console.log(this.service.getUsername());
 
-            this.preuzmiSertifikat(this.service.getUsername());
 
             if (this.role === 'ROLE_Administrator') {
               this.router.navigate(['/admin/accommodations']);
@@ -140,13 +111,6 @@ export class LoginComponent implements OnInit{
       }
     });
 
-    var ran="alice@example.com"
-    this.service.certificate(ran).subscribe({   //ovde staviti loginData.email
-      next: async (response:any) => {
-        console.log(response);
-        localStorage.setItem('Certificate', response);
-      }
-    });
   }
 
 

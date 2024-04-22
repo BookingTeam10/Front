@@ -68,7 +68,7 @@ export class ReservationService {
   }
 
   getOwnerReservations(id: number):Observable<Reservation[]>{
-      return this.httpClient.get<Reservation[]>(environment.apiHost + '/reservations/owner/' + id)
+      return this.httpClient.get<Reservation[]>(environment.apiHost + '/reservations/owner/' + id, {headers: this.headers});
   }
   acceptReservation(reservationId: number): Observable<Object> {
         return this.httpClient.put(environment.apiHost + "/reservations/accept/" + reservationId, {});

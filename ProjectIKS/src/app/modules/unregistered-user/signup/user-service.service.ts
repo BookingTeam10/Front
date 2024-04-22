@@ -56,7 +56,7 @@ export class UserServiceService {
   }
 
   getOwner(username: string): Observable<Owner> {
-    return this.httpClient.get<Owner>(environment.apiHost + '/owners/username/' + username);
+    return this.httpClient.get<Owner>(environment.apiHost + '/owners/username/' + username, {headers: this.headers});
   }
 
    update(admin: Admin | null, guest: Guest | null, owner: Owner | null, oldUsername: string): Observable<boolean> {

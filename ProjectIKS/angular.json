@@ -16,6 +16,7 @@
             "outputPath": "dist/ProjectIKS",
             "index": "src/index.html",
             "main": "src/main.ts",
+
             "polyfills": [
               "zone.js"
             ],
@@ -62,6 +63,11 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "ssl": true,
+            "sslKey": "src/assets/ssl/server.key",
+            "sslCert": "src/assets/ssl/server.crt"
+          },
           "configurations": {
             "production": {
               "browserTarget": "ProjectIKS:build:production"

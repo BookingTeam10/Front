@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {Reservation, Review, Review1} from "../../models/reservation";
 import {environment} from "../../environment/environment";
@@ -20,6 +20,11 @@ import {MessageNotification} from "../../models/message";
   providedIn: 'root'
 })
 export class ReviewsService {
+
+  private headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    skip: 'true',
+  });
   private reviewsSubject = new BehaviorSubject<Review[]>([]);
 
   private ownersSubject = new BehaviorSubject<Owner[]>([]);
@@ -68,7 +73,7 @@ export class ReviewsService {
 
   }
   getAll(): Observable<Review[]> {
-    return this.httpClient.get<Review[]>(environment.apiHost + '/reviews')
+    return this.httpClient.get<Review[]>(environment.apiHost + '/reviews', {headers: this.headers})
   }
 
   getByReservations(id: number | undefined): Observable<Review> {
