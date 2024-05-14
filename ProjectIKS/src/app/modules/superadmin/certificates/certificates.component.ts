@@ -3,7 +3,7 @@ import {NestedTreeControl} from "@angular/cdk/tree";
 import {MatTreeNestedDataSource} from "@angular/material/tree";
 import {SuperAdminService} from "../service/superadmin.service";
 
-//ovo cemo zameniti sa sertifikatom
+
 interface TreeNode {
   name: string;
   children?: TreeNode[];
@@ -25,71 +25,22 @@ export class CertificatesComponent {
     console.log("UDJEEE")
     this.adminService.getTree().subscribe({
       next: (data:any) => {
-        if ('tree' in data) {
-          const treeValue = data.tree;
-          const treeValues: string[] = data.tree.split(',');
-          const valuesExceptLast: string[] = treeValues.slice(0, -1);
+        console.log("DATA1234")
+        console.log(data.tree)
 
-          const getNode = (name: string) => {
-            return this.tree.find(node => node.name === name);
-          };
+        let splitData = data.tree.split(" ");
 
-          valuesExceptLast.forEach(value => {
-            const [nodeName, parentName] = value.split(' ');
-
-            const newNode = {
-              name: nodeName,
-              children: []
-            };
-
-            if (parentName === 'null') {
-              this.tree.push(newNode); // Dodajemo novi čvor na vrh stabla
-            } else {
-              const parentNode = getNode(parentName);
-              if (parentNode) {
-                parentNode.children.push(newNode); // Dodajemo novi čvor kao dijete postojećem čvoru
-              }
-            }
-          });
+        for (let i = 0; i < splitData.length-1; i++) {
+          this.tree.push(splitData[i]);
         }
+        console.log(this.tree)
 
-        this.dataSource.data = this.tree;
-        console.log("DATA DATA DATA");
-        console.log(this.dataSource.data);
-        console.log(this.dataSource.data[0].name);
       }});
 
   }
 
   hasChild = (_: number, node: TreeNode) => !!node.children && node.children.length > 0;
 
-
-
-  // private createTree(valuesExceptLast: string[]) {
-  //   const stablo:any[]=[]
-  //   valuesExceptLast.forEach(value => {
-  //     const parts: string[] = value.split(' ');
-  //     console.log(parts[0])
-  //     console.log(parts[1])
-  //     var cvor={
-  //       name:parts[0],
-  //       children:[]
-  //     }
-  //     console.log(cvor)
-  //     let queue;
-  //     if (parts[1] == "null") {
-  //       console.log("UDJE")
-  //       stablo.push(cvor)
-  //     } else {
-  //       this.popuniMesto(stablo,parts[0],parts[1])
-  //     }
-  //     console.log(stablo)
-  //   });
-  // }
-  //
-  // private popuniMesto(stablo: any[], name: string, parent: string) {
-  //
-  // }
   printNodeName(node:any) {
     console.log("NODE");
     console.log(node.name);

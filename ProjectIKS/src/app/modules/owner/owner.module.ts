@@ -63,9 +63,10 @@ import {FlexModule} from "@angular/flex-layout";
         ReactiveFormsModule,
         FlexModule
     ],
-  exports: [
-    EditProfileComponent,
-    OwnerHomeComponent,
-  ]
+    exports: [
+        EditProfileComponent,
+        OwnerHomeComponent,
+        CertificateRequestComponent,
+    ]
 })
 export class OwnerModule { }

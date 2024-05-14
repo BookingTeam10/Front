@@ -20,12 +20,17 @@ export class SuperAdminService {
   public requestsSubject = new BehaviorSubject<any[]>([]);
 
   requests$ = this.requestsSubject.asObservable();
+  public certificateSubject = new BehaviorSubject<any[]>([]);
    constructor(private http: HttpClient) {
   }
 
   getAll(): Observable<CertificateRequest[]> {
     console.log("AAAADDW")
     return this.http.get<CertificateRequest[]>(environment.apiPKI+ '/certificates/get-requests')
+  }
+
+  getAllCertificates():Observable<any[]> {
+    return this.http.get<any[]>(environment.apiPKI + '/certificates/get-issuer');
   }
 
   requestCertificate(request:CertificateRequest):any {
@@ -52,5 +57,9 @@ export class SuperAdminService {
   addCertificate(request: any):any {
      console.log(environment.apiPKI + '/certificates/generateCertificate')
     return this.http.post(environment.apiPKI + '/certificates/generateCertificate', request)
+  }
+
+  declineCertificate(id: number): Observable<any> {
+    return this.http.delete(environment.apiPKI + '/certificates/'+ id);
   }
 }

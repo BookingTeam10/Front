@@ -30,7 +30,7 @@ export class AccommodationCardsComponent implements OnInit {
     if(!this.isOwnerRoute()) {
       this.service.accommodations$.subscribe({
         next: (data: Accommodation[]) => {
-          this.accommodations = data
+
         },
         error: (_) => {
           console.log("Greska!")

@@ -1,7 +1,7 @@
 <mat-card style="border-radius: 20px">
   <mat-card-content >
     <div fxLayout="row" >
-      <p class="p-description">Details:      {{request.email}}</p>
+      <p class="p-description">{{treeNode}}</p>
       <div fxFlex="0%">
       </div>
       <div fxFlex="20%" fxLayout="column" fxLayoutGap="10px">
@@ -9,8 +9,9 @@
         </b>
       </div>
     </div>
-    <button class="accept-button" (click)="createCertificate(request)" >Accept certificate</button>
-    <button (click)="declineCertificate(request)" >Decline certificate</button>
+    <button class="accept-button">Create</button>
+    <button>Delete</button>
   </mat-card-content>
 </mat-card>
+
 

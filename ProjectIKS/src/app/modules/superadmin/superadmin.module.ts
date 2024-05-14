@@ -11,6 +11,7 @@ import {AccommodationsModule} from "../accommodations/accommodations.module";
 import {FlexModule} from "@angular/flex-layout";
 import {MatCardModule} from "@angular/material/card";
 import { FormComponent } from './form/form.component';
+import { CertificatesCardComponent } from './certificates-card/certificates-card.component';
 
 
 
@@ -20,6 +21,7 @@ import { FormComponent } from './form/form.component';
     RequestsComponent,
     RequestCardComponent,
     FormComponent,
+    CertificatesCardComponent,
 
   ],
   imports: [

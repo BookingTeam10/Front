@@ -36,3 +36,7 @@
     </li>
   </mat-nested-tree-node>
 </mat-tree>
+
+<div *ngFor="let treeNode1 of tree" style="margin-left: 5%; margin-right: 5%;" >
+  <app-certificates-card [treeNode]="treeNode1"></app-certificates-card>
+</div>

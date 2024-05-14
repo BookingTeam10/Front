@@ -18,6 +18,13 @@ import {SuperAdminService} from "../../superadmin/service/superadmin.service";
 export class CertificateRequestComponent {
   constructor(private service:LoginService,private userService:UserServiceService,private router: Router,private certificateService:CertificateService,private sanitizer: DomSanitizer,private adminService:SuperAdminService) {
   }
+
+  ngOnInit(){
+    (document.getElementById('firstName') as HTMLInputElement).value = "Luka";
+    (document.getElementById('lastName') as HTMLInputElement).value = "Popovic";
+    (document.getElementById('email') as HTMLInputElement).value = "popovic.sv4.2021@uns.ac.rs";
+  }
+
   submit() {
 
       const country = (document.getElementById('country') as HTMLInputElement).value;

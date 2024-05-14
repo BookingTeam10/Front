@@ -57,4 +57,19 @@ export class RequestCardComponent implements OnInit{
     //this.router.navigate(['/certificate-approve']);
     this.router.navigate(['/certificate-approve'], { state: { request } });
   }
+
+  declineCertificate(request: CertificateRequest) {
+    console.log(this.request)
+    this.adminService.declineCertificate(this.request.id)
+      .subscribe(
+        () => {
+          console.log('Accommodation deleted successfully.');
+          // You can perform additional actions after successful deletion if needed
+        },
+        error => {
+          console.error('Error deleting accommodation:', error);
+          // Handle error appropriately, such as displaying an error message to the user
+        }
+      );
+  }
 }
