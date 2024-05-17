@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {LoginService} from "../../auth/login/service/login.service";
 import {SuperAdminService} from "../../superadmin/service/superadmin.service";
 import {CertificateRequest} from "../../../models/certificateRequest";
+import {KeycloakService} from "../../keycloak/keycloak.service";
 
 @Component({
   selector: 'app-owner-navbar',
@@ -10,16 +11,21 @@ import {CertificateRequest} from "../../../models/certificateRequest";
   styleUrls: ['./owner-navbar.component.css']
 })
 export class OwnerNavbarComponent {
-  constructor(private router: Router,public loginService:LoginService,public adminService:SuperAdminService) {
+  constructor(private router: Router,public loginService:LoginService,public adminService:SuperAdminService,private keycloakService:KeycloakService) {
   }
-  Logout() {
-    this.loginService.logout().subscribe({
-      next: (_) => {
-        localStorage.removeItem('User');
-        this.loginService.setUser();
-        this.router.navigate(['/accommodations']);
-      }
-    })
+  // Logout() {
+  //   // this.loginService.logout().subscribe({
+  //   //   next: (_) => {
+  //   //     localStorage.removeItem('User');
+  //   //     this.loginService.setUser();
+  //   //     this.router.navigate(['/accommodations']);
+  //   //   }
+  //   // })
+  //
+  // }
+
+  async Logout() {
+    await this.keycloakService.logout();
   }
 
   addAccommodation() {

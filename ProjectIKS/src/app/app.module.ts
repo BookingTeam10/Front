@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,7 +23,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import {SignupComponent} from "./modules/unregistered-user/signup/signup.component";
 import {SuperadminModule} from "./modules/superadmin/superadmin.module";
+import {KeycloakService} from "./modules/keycloak/keycloak.service";
 
+export function kcFactory(kcService:KeycloakService){
+  return ()=>kcService.init();
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +59,12 @@ import {SuperadminModule} from "./modules/superadmin/superadmin.module";
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,
+      multi: true,
+    },
+    {
+      provide: APP_INITIALIZER,
+      deps:[KeycloakService],
+      useFactory: kcFactory,
       multi: true,
     }
   ],

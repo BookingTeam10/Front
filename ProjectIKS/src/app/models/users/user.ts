@@ -13,3 +13,11 @@ export interface Admin{
     name: string;
     surname:string;
 }
+
+export interface User {
+  name: string;
+  surname: string;
+  phone: string;
+  address: string;
+  token? : string;
+}

@@ -6,21 +6,26 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {KeycloakService} from "../../keycloak/keycloak.service";
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
+
+  constructor(private keycloakService:KeycloakService) {
+  }
+
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const accessToken: any = localStorage.getItem('User');
+    const accessToken: any = this.keycloakService.keycloak.token;
 
     if (req.headers.get('skip')) return next.handle(req);
 
     if (accessToken) {
       console.log("interceptor za ", accessToken);
       const cloned = req.clone({
-        headers: req.headers.set('Authorization', "Bearer " + accessToken)
+        headers: req.headers.set('Authorization', `Bearer ${accessToken}`)
       });
 
       return next.handle(cloned);

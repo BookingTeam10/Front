@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 import {LoginService} from "../../auth/login/service/login.service";
+import {KeycloakService} from "../../keycloak/keycloak.service";
 
 @Component({
   selector: 'app-guest-navbar',
@@ -8,7 +9,7 @@ import {LoginService} from "../../auth/login/service/login.service";
   styleUrls: ['./guest-navbar.component.css']
 })
 export class GuestNavbarComponent {
-  constructor(private router: Router,public loginService:LoginService) {
+  constructor(private router: Router,public loginService:LoginService,private keycloakService:KeycloakService) {
   }
   toHome() {
     this.router.navigate(['/guests/accommodations']);
@@ -18,15 +19,15 @@ export class GuestNavbarComponent {
     this.router.navigate(['/guests/requests']);
   }
 
-  Logout() {
-    this.loginService.logout().subscribe({
-      next: (_) => {
-        localStorage.removeItem('User');
-        this.loginService.setUser();
-        this.router.navigate(['/accommodations']);
-      }
-    })
-
+  async Logout() {
+    // this.loginService.logout().subscribe({
+    //   next: (_) => {
+    //     localStorage.removeItem('User');
+    //     this.loginService.setUser();
+    //     this.router.navigate(['/accommodations']);
+    //   }
+    // })
+    await this.keycloakService.logout();
   }
 
   GuestReservations() {
