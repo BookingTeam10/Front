@@ -5,6 +5,7 @@ import {RegistrationService} from "../services/registration.service";
 import {Registration, TypeUser} from "../../../models/registration";
 import {Router} from "@angular/router";
 import {environment} from "../../../environment/environment";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-signup',
@@ -19,13 +20,30 @@ export class SignupComponent implements OnInit{
   submitted = false;
   private captcha: string;
 
-  constructor(private service:RegistrationService,private router: Router) {
+  constructor(private service:RegistrationService,private router: Router, private http: HttpClient) {
     this.captcha = "";
   }
 
+  passwordValidator(control: FormControl): { [key: string]: boolean } | null {
+    const password = control.value;
+
+    if (!password || password.length < 8) {
+      return { 'minLength': true };
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      return { 'uppercase': true };
+    }
+
+    // if (!/[$@$!%*?&]/.test(password)) {
+    //   return { 'specialCharacter': true };
+    // }
+
+    return null;
+  }
   signUp = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
-    password: new FormControl('', [Validators.minLength(3), Validators.required]),
+    password: new FormControl('', [this.passwordValidator, Validators.required]),
     confirmPassword: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.pattern(this.allTextPattern), Validators.required]),
     surname: new FormControl('', [Validators.pattern(this.allTextPattern), Validators.required]),
@@ -53,13 +71,25 @@ export class SignupComponent implements OnInit{
       userType:TypeUser[this.selectedUserType as keyof typeof TypeUser],
       activationCode:""
     }
-    if(this.signUp.valid) {
-      this.verifyCaptcha(signUpData);
+    if (this.signUp.valid) {
+      this.checkBreachedPassword(signUpData.password)
+        .then((isBreached: boolean) => {
+          if (isBreached) {
+            alert("Password is breached. Change your password!");
+          } else {
+            this.verifyCaptcha(signUpData);
+          }
+        })
+        .catch((error: any) => {
+          console.error("Error checking breached password:", error);
+          // Handle error
+        });
     }
+
   }
 
   verifyCaptcha(signUpData: Registration) {
-    // Call your CAPTCHA verification API
+
     this.service.verifyCaptcha(this.captcha).subscribe({
       next: (verificationResponse) => {
         if (verificationResponse) {
@@ -81,6 +111,20 @@ export class SignupComponent implements OnInit{
   ngOnInit(): void {
   }
 
+  async checkBreachedPassword(password: string): Promise<boolean> {
+    try {
+      const content = await this.http.get('assets/black_list.txt', {responseType: 'text'}).toPromise();
+
+      const breachedPasswords = content?.split('\n');
+
+      const isBreached = breachedPasswords?.includes(password.toLowerCase());
+      return !!isBreached;
+    } catch (err) {
+      console.error('Error reading breached passwords file:', err);
+      return false;
+    }
+  }
+
   protected readonly environment = environment;
 }
 
@@ -100,5 +144,8 @@ export function match(controlName: string, checkControlName: string): ValidatorF
       return null;
     }
   };
+
+
+
 }
 
