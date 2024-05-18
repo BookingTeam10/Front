@@ -32,7 +32,7 @@
           </mat-radio-group>
         </div>
 
-        <re-captcha (resolved)="resolved($event)" [siteKey]= environment.recaptchaKey></re-captcha>
+        <re-captcha id="recaptcha" (resolved)="resolved($event)" [siteKey]= environment.recaptchaKey></re-captcha>
         <button mat-button type="submit" id="registerbtn" class="signup-button" [disabled]="!signUp.valid" (click)="registerClicked()">Register</button>
       </form>
     </mat-card>
