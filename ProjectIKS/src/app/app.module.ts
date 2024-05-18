@@ -23,6 +23,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import {SignupComponent} from "./modules/unregistered-user/signup/signup.component";
 import {SuperadminModule} from "./modules/superadmin/superadmin.module";
+import {RecaptchaModule} from "ng-recaptcha";
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {SuperadminModule} from "./modules/superadmin/superadmin.module";
     NgChartsModule,
     MatCardModule,
     MatRadioModule,
-    SuperadminModule
+    SuperadminModule,
+    RecaptchaModule
   ],
   providers: [
     {

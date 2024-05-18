@@ -30,4 +30,11 @@ export class RegistrationService {
       }
     });
   }
+
+  verifyCaptcha(captchaToken: string): Observable<boolean> {
+    const requestBody = {recaptchaToken: captchaToken};
+
+    return this.http.post<boolean>(environment.apiHost + "/verifyCaptcha", requestBody);
+
+  }
 }

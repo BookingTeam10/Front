@@ -13,6 +13,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {AccommodationsModule} from "../accommodations/accommodations.module";
 import {LayoutModule} from "../layout/layout.module";
 import { ActivationComponent } from './signup/activation/activation.component';
+import {RecaptchaModule} from "ng-recaptcha";
 
 
 @NgModule({
@@ -21,19 +22,20 @@ import { ActivationComponent } from './signup/activation/activation.component';
     UnregisteredUserHomeComponent,
     ActivationComponent,
   ],
-  imports: [
-    CommonModule,
-    FlexModule,
-    MatButtonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatToolbarModule,
-    MatRadioModule,
-    ReactiveFormsModule,
-    LayoutModule,
-    AccommodationsModule
-  ],
+    imports: [
+        CommonModule,
+        FlexModule,
+        MatButtonModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatToolbarModule,
+        MatRadioModule,
+        ReactiveFormsModule,
+        LayoutModule,
+        AccommodationsModule,
+        RecaptchaModule
+    ],
   exports: [
     UnregisteredUserHomeComponent,
     SignupComponent

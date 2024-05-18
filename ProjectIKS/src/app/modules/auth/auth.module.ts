@@ -8,6 +8,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {RouterLink} from "@angular/router";
 import {ReactiveFormsModule} from "@angular/forms";
+import {RecaptchaModule} from "ng-recaptcha";
 
 
 
@@ -23,7 +24,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatToolbarModule,
     FlexLayoutModule,
     RouterLink,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RecaptchaModule
   ],
   exports:[
     LoginComponent,
