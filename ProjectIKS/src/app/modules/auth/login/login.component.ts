@@ -30,6 +30,8 @@ export class LoginComponent implements OnInit{
   certificates: any[];
   downloadLink: string;
 
+  captcha: string;
+
   isLoaded: boolean = false;
   isCustomSocketOpened = false;
 
@@ -40,6 +42,7 @@ export class LoginComponent implements OnInit{
 
 
   constructor(private service:LoginService,private userService:UserServiceService,private router: Router,private certificateService:CertificateService,private sanitizer: DomSanitizer) {
+    this.captcha = "";
   }
 
   loginForm=new FormGroup({
@@ -47,11 +50,16 @@ export class LoginComponent implements OnInit{
     password: new FormControl('', [Validators.required])
   })
 
+  resolved(captchaResponse: string | null){
+    if(captchaResponse == null) captchaResponse = "";
+    this.captcha = captchaResponse;
+  }
 
   loginClicked(): void {
     const loginData = {
       email: this.loginForm.value.email || "",
-      password: this.loginForm.value.password || ""
+      password: this.loginForm.value.password || "",
+      recaptchaToken: this.captcha
     }
     this.service.loginSuperAdmin(loginData).subscribe({
       next: async (response: AuthResponse) => {
@@ -74,7 +82,11 @@ export class LoginComponent implements OnInit{
         if (response.jwt === "NEUSPESNO") {
           this.router.navigate(['/users/login']);
           setTimeout(() => { alert("Wrong credentials") })
-        } else {
+        }else if (response.jwt === "Invalid reCAPTCHA"){
+          alert("Invalid reCAPTCHA");
+          return;
+        }
+        else {
           localStorage.setItem('User', response.jwt);
           this.service.setUser();
 
@@ -148,4 +160,5 @@ export class LoginComponent implements OnInit{
     this.router.navigate(['/register'])
   }
 
+  protected readonly environment = environment;
 }

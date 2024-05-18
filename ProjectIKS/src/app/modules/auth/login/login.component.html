@@ -10,6 +10,9 @@
         <input matInput type="password" formControlName="password" placeholder="password">
       </mat-form-field>
       <p (click)="registerClicked()" class="centered-text">You don’t have account? Register!</p>
+
+      <re-captcha id="recaptcha" (resolved)="resolved($event)" [siteKey]= environment.recaptchaKey  ></re-captcha>
+
       <button mat-button type="submit" class="login-button" (click)="loginClicked()">Login</button>
     </form>
   </mat-card>

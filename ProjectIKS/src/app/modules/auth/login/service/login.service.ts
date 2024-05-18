@@ -40,6 +40,7 @@ export class LoginService {
   getRole(): any {
     if (this.isLoggedIn()) {
       const accessToken: any = localStorage.getItem('User');
+      if(accessToken === "Invalid reCAPTCHA"){return "";}
       const helper = new JwtHelperService();
       return helper.decodeToken(accessToken).role[0].authority;
     }

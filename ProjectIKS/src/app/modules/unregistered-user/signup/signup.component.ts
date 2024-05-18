@@ -4,6 +4,7 @@ import {MatRadioChange} from "@angular/material/radio";
 import {RegistrationService} from "../services/registration.service";
 import {Registration, TypeUser} from "../../../models/registration";
 import {Router} from "@angular/router";
+import {environment} from "../../../environment/environment";
 
 @Component({
   selector: 'app-signup',
@@ -16,8 +17,10 @@ export class SignupComponent implements OnInit{
   phoneNumberPattern = "[0-9 +]?[0-9]+[0-9 \\-]+";
   selectedUserType: string;
   submitted = false;
+  private captcha: string;
 
   constructor(private service:RegistrationService,private router: Router) {
+    this.captcha = "";
   }
 
   signUp = new FormGroup({
@@ -30,6 +33,12 @@ export class SignupComponent implements OnInit{
     phone: new FormControl('', [Validators.pattern(this.phoneNumberPattern), Validators.minLength(6), Validators.maxLength(20), Validators.required]),
     userType: new FormControl('', [Validators.required])
   }, {validators: [match('password', 'confirmPassword')]});
+
+
+  resolved(captchaResponse: string | null){
+    if(captchaResponse == null) captchaResponse = "";
+    this.captcha = captchaResponse;
+  }
 
   registerClicked() {
     this.submitted=true;
@@ -45,14 +54,24 @@ export class SignupComponent implements OnInit{
       activationCode:""
     }
     if(this.signUp.valid) {
-      // this.service.registration(signUpData).subscribe({
-      //   next: (response) => {
-      //     console.log(response.activationCode);
-      //     this.router.navigate(['/users/login']);
-      //   }
-      // });
-      this.service.registerUserObs(signUpData);
+      this.verifyCaptcha(signUpData);
     }
+  }
+
+  verifyCaptcha(signUpData: Registration) {
+    // Call your CAPTCHA verification API
+    this.service.verifyCaptcha(this.captcha).subscribe({
+      next: (verificationResponse) => {
+        if (verificationResponse) {
+          this.service.registerUserObs(signUpData);
+        } else {
+          alert('Invalid CAPTCHA. Please try again.');
+        }
+      },
+      error: (errorResponse) => {
+        console.error('CAPTCHA verification failed:', errorResponse);
+      }
+    });
   }
 
   onUserTypeChange(event: MatRadioChange) {
@@ -61,6 +80,8 @@ export class SignupComponent implements OnInit{
   }
   ngOnInit(): void {
   }
+
+  protected readonly environment = environment;
 }
 
 export function match(controlName: string, checkControlName: string): ValidatorFn {
