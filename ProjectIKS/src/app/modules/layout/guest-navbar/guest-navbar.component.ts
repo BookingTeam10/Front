@@ -20,13 +20,6 @@ export class GuestNavbarComponent {
   }
 
   async Logout() {
-    // this.loginService.logout().subscribe({
-    //   next: (_) => {
-    //     localStorage.removeItem('User');
-    //     this.loginService.setUser();
-    //     this.router.navigate(['/accommodations']);
-    //   }
-    // })
     await this.keycloakService.logout();
   }
 

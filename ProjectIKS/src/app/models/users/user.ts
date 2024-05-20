@@ -20,4 +20,6 @@ export interface User {
   phone: string;
   address: string;
   token? : string;
+  email? : string;
+  role?:string[];
 }
