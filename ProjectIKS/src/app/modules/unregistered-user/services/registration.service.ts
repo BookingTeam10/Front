@@ -19,6 +19,7 @@ export class RegistrationService {
 
 
   registration(signUpData: Registration):Observable<Registration> {
+    console.log("POGODI REG")
     return this.http.post<Registration>(environment.apiHost+'/register', signUpData,
       {"headers": this.headers})
   }

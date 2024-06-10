@@ -33,7 +33,7 @@ export class OwnerNavbarComponent {
   }
 
   viewProfile(){
-    this.router.navigate(["/edit-profile"]);
+    this.keycloakService.accountManagement();
   }
 
   myAccommodations(){

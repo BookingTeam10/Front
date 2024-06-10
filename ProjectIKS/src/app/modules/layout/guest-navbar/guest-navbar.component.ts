@@ -27,7 +27,8 @@ export class GuestNavbarComponent {
     this.router.navigate(['/guests/reservations']);
   }
   EditProfile() {
-    this.router.navigate(['/edit-profile']);
+    this.keycloakService.accountManagement();
+    //this.router.navigate(['/edit-profile']);
   }
   favouriteAccommodations() {
     this.router.navigate(['/guests/favourite-accommodations']);

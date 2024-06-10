@@ -6,6 +6,8 @@ import {ReviewsService} from "../reviews.service";
 import {LoginService} from "../../auth/login/service/login.service";
 import {Router} from "@angular/router";
 import {UserServiceService} from "../../unregistered-user/signup/user-service.service";
+import {KeycloakService} from "../../keycloak/keycloak.service";
+import {User} from "../../../models/users/user";
 
 
 @Component({
@@ -17,8 +19,9 @@ export class ViewNotificationCardsComponent {
 
   notificationVisibles: NotificationVisible[] = [];
   private owner:Owner;
+  public _profile: User | undefined;
 
-  constructor(private service: ReviewsService,public loginService:LoginService, private router : Router, private userService: UserServiceService) {
+  constructor(private keyCloakService:KeycloakService,private service: ReviewsService,public loginService:LoginService, private router : Router, private userService: UserServiceService) {
   }
 
   ngOnInit(): void {
@@ -34,24 +37,24 @@ export class ViewNotificationCardsComponent {
     }
   }
 
-  loadOwner() {
-    this.userService.getOwner(this.loginService.getUsername()).subscribe(
-      (owner: Owner) => {
-        this.owner = owner;
-        this.loadNotification(owner);
-      }
-    );
+  async loadOwner() {
+    console.log("UDJE NOTIFICATION")
+    this._profile = (await this.keyCloakService.keycloak?.loadUserProfile()) as User;
+    // @ts-ignore
+    this._profile.email = this._profile.username;
+    console.log(typeof this._profile.email)
+    this.loadNotification(this._profile.email)
   }
 
-  loadNotification(owner: Owner){
-    console.log("UDJE OVDE")
-    console.log(owner.id)
-    this.service.getNotification(owner.id).subscribe(
-      (data: NotificationVisible[]) =>{
-        console.log("data")
-        console.log(data)
-        this.notificationVisibles = data;
-      });
+  loadNotification(username:String | undefined){
+    if (username != null) {
+      this.service.getNotification(username).subscribe(
+        (data: NotificationVisible[]) => {
+          console.log("data")
+          console.log(data)
+          this.notificationVisibles = data;
+        });
+    }
   }
 
   isGuestOwnerRoute(): boolean{

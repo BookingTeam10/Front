@@ -3,6 +3,8 @@ import Keycloak from "keycloak-js";
 import {User} from "../../models/users/user";
 import {LoginService} from "../auth/login/service/login.service";
 import {Router} from "@angular/router";
+import {RegistrationService} from "../unregistered-user/services/registration.service";
+import {Registration, TypeUser} from "../../models/registration";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,7 @@ export class KeycloakService {
   private _keycloak: Keycloak | undefined;
   private _profile: User | undefined;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,private registrationService:RegistrationService) {
   }
 
   get keycloak() {
@@ -34,6 +36,7 @@ export class KeycloakService {
     console.log("Initializing keycloak");
     const auth = await this.keycloak?.init({
       onLoad: 'login-required'
+      //onLoad: 'check-sso'
     });
 
     if (auth) {
@@ -58,15 +61,17 @@ export class KeycloakService {
 
     }
   }
-
   login() {
-
     return this.keycloak?.login();
   }
-
   logout() {
     return this.keycloak?.logout({
-      redirectUri: 'http://localhost:9091/realms/booking/protocol/openid-connect/auth?client_id=bsn&redirect_uri=https%3A%2F%2Flocalhost%3A4200%2F&state=bcb481d7-72ac-41f6-8f71-c5bc67e3f939&response_mode=fragment&response_type=code&scope=openid&nonce=dd853d7e-34bd-4847-a2a2-35c4f74c6c28&code_challenge=z3QGLsNkm6PkqCPfnpj-_z_jT-mmxlqs4rT_8jhMLxU&code_challenge_method=S256'
+      redirectUri: 'https://localhost:4200/accommodations'
     });
+  }
+
+
+  accountManagement(){
+    return this.keycloak?.accountManagement();
   }
 }

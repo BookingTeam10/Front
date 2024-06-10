@@ -5,6 +5,8 @@ import {LoginService} from "../../auth/login/service/login.service";
 import {AccommodationService} from "../service/accommodation.service";
 import {Guest} from "../../../models/users/guest";
 import {UserServiceService} from "../../unregistered-user/signup/user-service.service";
+import {User} from "../../../models/users/user";
+import {KeycloakService} from "../../keycloak/keycloak.service";
 
 @Component({
   selector: 'app-accommodation-card',
@@ -20,8 +22,9 @@ export class AccommodationCardComponent implements OnInit{
   favouriteAccommodations: Accommodation[];
   prices: Price[];
   todayPrice: number;
+  private _profile: User | undefined;
 
-  constructor(private router: Router, public loginService: LoginService, private service:AccommodationService, private userService: UserServiceService) {
+  constructor(private keycloakService:KeycloakService,private router: Router, public loginService: LoginService, private service:AccommodationService, private userService: UserServiceService) {
   }
   ngOnInit(): void {
       this.loadGuest();
@@ -34,7 +37,6 @@ export class AccommodationCardComponent implements OnInit{
         this.todayPrice = price.price;
       }
     }
-
     }
 
   @Output()
@@ -63,33 +65,12 @@ export class AccommodationCardComponent implements OnInit{
   openReviewDialogue(id: number) {
     this.router.navigate(['/edit-accommodation', id]);}
   isFavouriteAccommodation():boolean {
-    console.log("FAVORITI")
-    console.log(this.favouriteAccommodations)
-    console.log(this.guest.favouriteAccommodations)
     return this.guest.favouriteAccommodations.some(acc => acc.id === this.accommodation.id);
   }
 
   getButtonLabel(): string {
     return this.isButtonClicked || this.isFavouriteAccommodation() ? 'Remove Favourite' : 'Add Favourite';
   }
-  // editFavouriteAccommodations(event: Event,id: number) {
-  //   event.stopPropagation();
-  //   this.isButtonClicked = !this.isButtonClicked;
-  //   if(this.isButtonClicked){
-  //     this.service.addFavouriteAccommodation(this.guest.id,this.accommodation).subscribe(
-  //       (response: Guest) =>{
-  //         this.guest=response;
-  //       });
-  //   }else{
-  //     console.log("Treba remove iz favourite");
-  //     console.log(this.accommodation.id);
-  //     this.service.deleteFavouriteAccommodation(this.guest.id,this.accommodation.id).subscribe(
-  //       (response: Guest) =>{
-  //         this.guest=response;
-  //       });
-  //   }
-  //   console.log(this.guest);
-  // }
 
   editFavouriteAccommodations(event: Event,id: number) {
     event.stopPropagation();
@@ -112,8 +93,12 @@ export class AccommodationCardComponent implements OnInit{
   }
   loadGuest() {
     this.userService.getGuest(this.loginService.getUsername()).subscribe(
-      (guest: Guest) => {
-        this.guest = guest;
+      async (guest: Guest) => {
+
+        this._profile = (await this.keycloakService.keycloak?.loadUserProfile()) as User;
+        this.guest = this._profile as Guest;
+        // console.log("GUEST ")
+        // console.log(this.guest);
         this.favouriteAccommodations = guest.favouriteAccommodations;
         console.log(this.favouriteAccommodations);
       }

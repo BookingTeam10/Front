@@ -74,17 +74,15 @@ export class SearchComponent implements OnInit{
      this.selectedOptionsDisplay = this.getSelectedOptions();
      console.log(this.selectedOptionsDisplay);
     console.log(typeof this.maximumPr);
-    //dodati ovde type i selectedOptions i min i max price
-    // // @ts-ignore
-    // this.service.getSearchedAccommodations(city,this.startDate,this.endDate,numberOfGuests,this.minimumPr,this.maximumPr,this.selectedOptionsDisplay).subscribe({
-    //   next: (data: Accommodation[]) => {
-    //     console.log(data);
-    //     this.service.updateAccommodations(data);
-    //   },
-    //   error: (_) => {console.log("Greska!")}
-    // })
     // @ts-ignore
-
+    //console.log(this.startDate.toString())
+    // @ts-ignore
+    //console.log(this.endDate.toISOString())
+    if(this.minimumPr.includes("<script>") || this.maximumPr.includes("<script>") || this.startDate?.toDateString().includes(("<script>")) || this.endDate?.toDateString().includes(("<script>")) || this.startDate===undefined || this.endDate?.toDateString()===undefined ){
+      console.log("POKUSAJ NAPADA SA SCRIPTOM")
+      return;
+    }
+    // @ts-ignore
     this.service.getSearchedFilteredAccommodations(city,this.startDate,this.endDate,numberOfGuests,this.minimumPr,this.maximumPr,this.selectedOptionsDisplay,this.typeAccommodationCheckbox.value).subscribe({
       next: (data: Accommodation[]) => {
         console.log(data);

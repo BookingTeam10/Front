@@ -26,7 +26,7 @@ export class AdministratorNavbarComponent {
   }
 
   EditProfile() {
-    this.router.navigate(['/edit-profile']);
+    this.keycloakService.accountManagement();
   }
 
   Aprove() {

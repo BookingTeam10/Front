@@ -186,8 +186,8 @@ export class ReviewsService {
     return this.httpClient.delete<Review>(environment.apiHost + '/reviews/rateAccDelete/' + id+"/"+idGuest);
   }
 
-  getNotification(idOwner: number):Observable<NotificationVisible[]> {
-    return this.httpClient.get<NotificationVisible[]>(environment.apiHost + '/notifications/notifications/' +idOwner)
+  getNotification(username:String):Observable<NotificationVisible[]> {
+    return this.httpClient.get<NotificationVisible[]>(environment.apiHost + '/notifications/notifications/' +username)
 
   }
 
